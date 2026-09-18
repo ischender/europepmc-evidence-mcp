@@ -10,4 +10,4 @@ aspirational — if it says the code does something, the code does it.
 | [02 — Europe PMC as a dataset](./02-europe-pmc-as-a-dataset.md) | What the corpus is, what the sources mean, what the annotations are |
 | [03 — Why licence and provenance](./03-why-licence-and-provenance.md) | The three tiers, refusal-as-success, and what a hash does and doesn't buy |
 | 04 — Evals for agents | *(lands with M5)* |
-| 05 — Grounding is not support | *(lands with M4)* |
+| [05 — Grounding is not support](./05-grounding-is-not-support.md) | Why co-mention isn't support, and what the server does about it |

@@ -6,9 +6,10 @@ bare search hits. Licence-awareness is a hard gate, not a warning: full text is 
 when the licence permits it, and everything else comes back as an explicit, machine-readable
 refusal.
 
-> **Status: in progress.** `search_literature` and `fetch_article` are wired to the live API,
-> with the licence gate, provenance envelope and cursor pagination complete. The remaining
-> four tools and the scored benchmark are in progress — see [the plan](./docs/plans/v1-end-to-end.md).
+> **Status: all six tools are live.** The licence gate, provenance envelope, cursor pagination,
+> retraction surfacing and the evidence table are complete and tested against recorded
+> fixtures of real responses. The scored benchmark (`evals/`) is the remaining piece — see
+> [the plan](./docs/plans/v1-end-to-end.md).
 
 **Author:** [Alessandro Pedori](https://github.com/ischender)
 
@@ -45,10 +46,10 @@ uv run europepmc-mcp --transport stdio
 |------|------|--------|
 | `search_literature` | Entry point. Compact records; never full text | ✅ |
 | `fetch_article` | One article; full text only if OA; section outline if oversized | ✅ |
-| `get_annotations` | Text-mined entities with prefix/exact/postfix snippets | in progress |
-| `get_citation_network` | Citations or references, one tool via `direction` | in progress |
-| `get_database_links` | Cross-refs to UniProt / ENA / RefSeq — a hand-off, not a model | in progress |
-| `build_evidence_table` | Claim + IDs → candidate rows + an explicit `no_candidates` list | in progress |
+| `get_annotations` | Text-mined entities with prefix/exact/postfix snippets | ✅ |
+| `get_citation_network` | Citations or references, one tool via `direction` | ✅ |
+| `get_database_links` | Cross-refs to UniProt / ENA / RefSeq — a hand-off, not a model | ✅ |
+| `build_evidence_table` | Claim + IDs → candidate rows + an explicit `no_candidates` list | ✅ |
 
 ### Response shape
 
@@ -62,6 +63,16 @@ Every successful response is `{status, data, provenance}`. `status` is one of:
 
 `provenance.sources` is **always a list**, with one entry per upstream HTTP call, each
 carrying `resolved_url`, `content_sha256`, `retrieved_at` and a `hash_scope`.
+
+## Grounding is not support
+
+`build_evidence_table` matches deterministically — there is no LLM in the server. That means a
+match proves the terms **co-occur**, not that the paper supports your claim: a snippet can name
+a drug and a disease while denying any link between them. So rows are called
+`candidate_evidence`, absence is `no_candidates` with a reason code, and every row declares how
+it matched — `relation` > `entity` > `substring`. A caveat travels in the payload itself.
+[The long version](./docs/learn/05-grounding-is-not-support.md), with a live example of a row
+that matched purely by coincidence.
 
 ## The access tiers
 
@@ -122,6 +133,7 @@ the server — it returns evidence, the client reasons.
 | Doc | What |
 |-----|------|
 | [docs/learn/](./docs/learn/) | How MCP works, what Europe PMC is, why licence and provenance matter |
+| [examples/](./examples/) | Worked transcripts against the live API: evidence, refusal, retraction |
 | [docs/design/](./docs/design/README.md) | Product & architecture overview |
 | [docs/plans/v1-end-to-end.md](./docs/plans/v1-end-to-end.md) | The build plan, requirements and decision log |
 | [AGENTS.md](./AGENTS.md) | Agent operating manual |

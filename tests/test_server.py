@@ -7,18 +7,11 @@ from europepmc_mcp.server import SERVER_INSTRUCTIONS, build_server
 from europepmc_mcp.tools import TOOL_NAMES, as_tool_result
 
 
-async def test_R24_registered_tools_are_all_declared() -> None:
-    """Whatever is registered must be a declared tool — no accidental seventh tool."""
-    tools = await build_server().list_tools()
-    assert {t.name for t in tools} <= set(TOOL_NAMES)
-    assert "search_literature" in {t.name for t in tools}
-    assert len(TOOL_NAMES) == 6
-
-
-@pytest.mark.xfail(strict=True, reason="tools land M2-M4; flips green when the sixth registers")
 async def test_R24_server_registers_exactly_the_six_tools() -> None:
+    """Six, deliberately. A seventh should be a parameter on an existing tool."""
     tools = await build_server().list_tools()
     assert {t.name for t in tools} == set(TOOL_NAMES)
+    assert len(TOOL_NAMES) == 6
 
 
 async def test_R26_every_tool_is_annotated_read_only_and_open_world() -> None:

@@ -62,7 +62,11 @@ def register_all(server: MCPServer) -> None:
     """Register every tool on the given server. Called once, by server.py."""
     from mcp.types import ToolAnnotations
 
+    from europepmc_mcp.tools import build_evidence_table as build_evidence_table_tool
     from europepmc_mcp.tools import fetch_article as fetch_article_tool
+    from europepmc_mcp.tools import get_annotations as get_annotations_tool
+    from europepmc_mcp.tools import get_citation_network as get_citation_network_tool
+    from europepmc_mcp.tools import get_database_links as get_database_links_tool
     from europepmc_mcp.tools import search_literature as search_literature_tool
 
     # This server only ever reads, and it reads a live corpus that changes under it.
@@ -71,6 +75,10 @@ def register_all(server: MCPServer) -> None:
     modules = {
         "search_literature": search_literature_tool,
         "fetch_article": fetch_article_tool,
+        "get_annotations": get_annotations_tool,
+        "get_citation_network": get_citation_network_tool,
+        "get_database_links": get_database_links_tool,
+        "build_evidence_table": build_evidence_table_tool,
     }
     for name, module in modules.items():
         server.tool(
