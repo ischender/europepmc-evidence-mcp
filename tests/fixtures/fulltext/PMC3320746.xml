@@ -1,0 +1,785 @@
+
+<!DOCTYPE article
+  PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving and Interchange DTD with MathML3 v1.4 20241031//EN" "JATS-archivearticle1-4-mathml3.dtd">
+<article article-type="research-article" xml:lang="EN" dtd-version="1.4"><front><journal-meta><journal-id journal-id-type="nlm-ta">J Proteome Res</journal-id><journal-id journal-id-type="iso-abbrev">J. Proteome Res</journal-id><journal-id journal-id-type="pmc-domain-id">822</journal-id><journal-id journal-id-type="pmc-domain">acssd</journal-id><journal-id journal-id-type="nlm-id">101128775</journal-id><journal-id journal-id-type="publisher-id">pr</journal-id><journal-title-group><journal-title xml:lang="en">Journal of Proteome Research</journal-title></journal-title-group><issn pub-type="ppub">1535-3893</issn><issn pub-type="epub">1535-3907</issn><?publisher_abbrev acs?><custom-meta-group><custom-meta><meta-name>pmc-is-collection-domain</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-collection-title</meta-name><meta-value>ACS AuthorChoice</meta-value></custom-meta></custom-meta-group></journal-meta><article-meta><article-id pub-id-type="pmcid">PMC3320746</article-id><article-id pub-id-type="pmcid-ver">PMC3320746.1</article-id><article-id pub-id-type="pmcaid">3320746</article-id><article-id pub-id-type="pmcaiid">3320746</article-id><article-id pub-id-type="pmid">22338609</article-id><article-id pub-id-type="doi">10.1021/pr200636x</article-id><article-version article-version-type="pmc-version">1</article-version><article-categories><subj-group><subject>Article</subject></subj-group></article-categories><title-group><article-title>Statistical Considerations
+of Optimal Study Design
+for Human Plasma Proteomics and Biomarker Discovery</article-title></title-group><contrib-group><contrib contrib-type="author" id="ath1"><name name-style="western"><surname>Zhou</surname><given-names initials="C">Cong</given-names></name><xref rid="aff1" ref-type="aff">†</xref><xref rid="aff2" ref-type="aff">‡</xref><xref rid="notes-1" ref-type="notes">§</xref></contrib><contrib contrib-type="author" id="ath2"><name name-style="western"><surname>Simpson</surname><given-names initials="KL">Kathryn L.</given-names></name><xref rid="aff1" ref-type="aff">†</xref><xref rid="notes-1" ref-type="notes">§</xref></contrib><contrib contrib-type="author" id="ath3"><name name-style="western"><surname>Lancashire</surname><given-names initials="LJ">Lee J.</given-names></name><xref rid="aff1" ref-type="aff">†</xref></contrib><contrib contrib-type="author" id="ath4"><name name-style="western"><surname>Walker</surname><given-names initials="MJ">Michael J.</given-names></name><xref rid="aff1" ref-type="aff">†</xref><xref rid="aff2" ref-type="aff">‡</xref></contrib><contrib contrib-type="author" id="ath5"><name name-style="western"><surname>Dawson</surname><given-names initials="MJ">Martin
+J.</given-names></name><xref rid="aff1" ref-type="aff">†</xref></contrib><contrib contrib-type="author" id="ath6"><name name-style="western"><surname>Unwin</surname><given-names initials="RD">Richard D.</given-names></name><xref rid="aff2" ref-type="aff">‡</xref></contrib><contrib contrib-type="author" id="ath7"><name name-style="western"><surname>Rembielak</surname><given-names initials="A">Agata</given-names></name><xref rid="aff3" ref-type="aff">∥</xref></contrib><contrib contrib-type="author" id="ath8"><name name-style="western"><surname>Price</surname><given-names initials="P">Patricia</given-names></name><xref rid="aff3" ref-type="aff">∥</xref></contrib><contrib contrib-type="author" id="ath9"><name name-style="western"><surname>West</surname><given-names initials="C">Catharine</given-names></name><xref rid="aff4" ref-type="aff">⊥</xref></contrib><contrib contrib-type="author" corresp="yes" id="ath10"><name name-style="western"><surname>Dive</surname><given-names initials="C">Caroline</given-names></name><xref rid="cor1" ref-type="author-notes">*</xref><xref rid="aff1" ref-type="aff">†</xref></contrib><contrib contrib-type="author" corresp="yes" id="ath11"><name name-style="western"><surname>Whetton</surname><given-names initials="AD">Anthony D.</given-names></name><xref rid="cor1" ref-type="author-notes">*</xref><xref rid="aff2" ref-type="aff">‡</xref></contrib><aff id="aff1"><label>†</label>Clinical and Experimental Pharmacology
+Group, Paterson Institute for Cancer Research, Manchester Academic
+Health Science Centre, Christie Hospital, <institution>University
+of Manchester</institution>, Wilmslow Road, Manchester M20 4BX, United
+Kingdom</aff><aff id="aff2"><label>‡</label>Stem Cell and Leukaemia
+Proteomics
+Laboratory, School of Cancer and Enabling Sciences, Manchester Academic
+Health Science Centre, Wolfson Molecular Imaging Centre, <institution>University of Manchester</institution>, M20 3LJ, United Kingdom</aff><aff id="aff3"><label>∥</label>Academic Radiation Oncology,
+School of Cancer &amp; Enabling Sciences, <institution>University
+of Manchester</institution>, Manchester Academic Health Science Centre,
+Christie Hospital, Wilmslow Road, Manchester, M20 4BX, United Kingdom</aff><aff id="aff4"><label>⊥</label>Translational Radiobiology Group,
+School of Cancer &amp; Enabling Sciences, <institution>University
+of Manchester</institution>, Manchester Academic Health Science Centre,
+Christie Hospital, Wilmslow Road, Manchester, M20 4BX, United Kingdom</aff></contrib-group><author-notes><corresp id="cor1"><label>*</label>Prof.
+Caroline Dive, Tel: <phone>+44 (0)161 446 3036</phone>. Fax: <fax>+44 (0)161 446 4109</fax>.
+E-mail: <email>CDive@picr.man.ac.uk</email> Prof. Anthony D. Whetton,
+Tel: <phone>+44 (0)161 275 0039</phone>. E-mail: <email>tony.whetton@manchester.ac.uk</email>.</corresp></author-notes><pub-date pub-type="epub"><day>17</day><month>02</month><year>2012</year></pub-date><pub-date pub-type="ppub"><day>06</day><month>04</month><year>2012</year></pub-date><volume>11</volume><issue>4</issue><issue-id pub-id-type="pmc-issue-id">208576</issue-id><fpage>2103</fpage><lpage>2113</lpage><history><date date-type="received"><day>06</day><month>07</month><year>2011</year></date><date date-type="asap"><day>12</day><month>03</month><year>2012</year></date><date date-type="issue-pub"><day>06</day><month>04</month><year>2012</year></date><date date-type="just-accepted"><day>17</day><month>02</month><year>2012</year></date></history><pub-history><event event-type="pmc-live"><date><day>06</day><month>04</month><year>2012</year></date></event><event event-type="pmc-last-change"><date iso-8601-date="2013-03-28 14:07:28.763"><day>28</day><month>03</month><year>2013</year></date></event></pub-history><permissions><copyright-statement>Copyright © 2012 American Chemical
+Society</copyright-statement><copyright-year>2012</copyright-year><copyright-holder>American Chemical
+Society</copyright-holder><license xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://pubs.acs.org" license-type="open-access"><license-p>This is an open-access article distributed under the ACS AuthorChoice Terms &amp; Conditions. Any use of this article, must conform to the terms of that license which are available at <uri xlink:href="http://pubs.acs.org">http://pubs.acs.org</uri>.</license-p></license></permissions><self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="pr200636x.pdf"><?pdf-name pr200636x.pdf?><?pdf-size 2222849?><?pdf-md5 39f0434419437d6cb928ae46794788a3?><?pdf-image-server-status NEVER_LOAD?><?pdf-cloudpmc-urn urn:app:cd41/3320746/39f043441943/pr200636x.pdf?></self-uri><abstract><p content-type="toc-graphic"><graphic xmlns:xlink="http://www.w3.org/1999/xlink" id="ab-tgr1" position="float" orientation="portrait" xlink:href="pr-2011-00636x_0001.jpg"><?image-name pr-2011-00636x_0001.jpg?><?image-size 74967?><?image-md5 93ddb173b550f393f395fb55a61cc732?><?image-image-server-status NEVER_LOAD?><?image-scaled-height 349?><?image-scaled-width 500?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/93ddb173b550/pr-2011-00636x_0001.jpg?><?thumb-name pr-2011-00636x_0001.gif?><?thumb-size 3146?><?thumb-md5 28d5d9d1bd77f3923ba586925f8cf9ae?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 70?><?thumb-scaled-width 100?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/28d5d9d1bd77/pr-2011-00636x_0001.gif?></graphic></p><p>A mass spectrometry-based plasma biomarker discovery
+workflow was
+developed to facilitate biomarker discovery. Plasma from either healthy
+volunteers or patients with pancreatic cancer was 8-plex iTRAQ labeled,
+fractionated by 2-dimensional reversed phase chromatography and subjected
+to MALDI ToF/ToF mass spectrometry. Data were processed using a <italic>q</italic>-value based statistical approach to maximize protein quantification
+and identification. Technical (between duplicate samples) and biological
+variance (between and within individuals) were calculated and power
+analysis was thereby enabled. An <italic>a priori</italic> power analysis
+was carried out using samples from healthy volunteers to define sample
+sizes required for robust biomarker identification. The result was
+subsequently validated with a <italic>post hoc</italic> power analysis
+using a real clinical setting involving pancreatic cancer patients.
+This demonstrated that six samples per group (e.g., pre- vs post-treatment)
+may provide sufficient statistical power for most proteins with changes
+&gt;2 fold. A reference standard allowed direct comparison of protein
+expression changes between multiple experiments. Analysis of patient
+plasma prior to treatment identified 29 proteins with significant
+changes within individual patient. Changes in Peroxiredoxin II levels
+were confirmed by Western blot. This <italic>q</italic>-value based
+statistical approach in combination with reference standard samples
+can be applied with confidence in the design and execution of clinical
+studies for predictive, prognostic, and/or pharmacodynamic biomarker
+discovery. The power analysis provides information required prior
+to study initiation.</p></abstract><kwd-group><kwd>mass spectrometry</kwd><kwd>plasma proteomics</kwd><kwd>biomarkers</kwd><kwd>power analysis</kwd></kwd-group><custom-meta-group><custom-meta><meta-name>pmc-status-qastatus</meta-name><meta-value>0</meta-value></custom-meta><custom-meta><meta-name>pmc-status-live</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-status-embargo</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-status-released</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-open-access</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-olf</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-manuscript</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-legally-suppressed</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-has-pdf</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-has-supplement</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-pdf-only</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-suppress-copyright</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-is-real-version</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-is-scanned-article</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-preprint</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-in-epmc</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>document-id-old-9</meta-name><meta-value>pr200636x</meta-value></custom-meta><custom-meta><meta-name>document-id-new-14</meta-name><meta-value>pr-2011-00636x</meta-value></custom-meta><custom-meta><meta-name>ccc-price</meta-name><meta-value/></custom-meta></custom-meta-group></article-meta><notes id="notes-1"><title>Author Contributions</title><p><sup>§</sup> These authors contributed equally to this
+work</p></notes></front><body><sec id="sec1"><title>Introduction</title><p>Discovery of novel biomarkers using minimally
+invasive approaches
+is increasingly required to expedite drug development in the era of
+mechanism-based therapeutics and patient stratification.<sup><xref ref-type="bibr" rid="ref1">1</xref></sup> Achieving high confidence in the discovered biomarkers
+is a major challenge for clinical researchers, highlighted by a dearth
+of successful biomarker validation recently. Difficulties in validating
+tissue and blood borne biomarkers include the lack of availability
+of patients’ samples, the lack of consistency in sample collection,
+heterogeneity in patient populations and current technological limitations.
+The development of plasma biomarkers is attractive as repeat sample
+collection is simple and minimally invasive.<sup><xref ref-type="bibr" rid="ref1">1</xref></sup></p><p>Human biological variation and the considerable range in specific
+protein concentrations within plasma present a challenge to quantitative
+biomarker discovery. Advances in mass spectrometry (MS)-based proteomic
+technologies have resulted in an increased ability to quantify and
+overcome such issues with careful experimental design. We have previously
+used an 8-channel isobaric tagging method (iTRAQ)<sup><xref ref-type="bibr" rid="ref2">2</xref></sup> coupled with 2-dimensional liquid chromatography (LC) and
+tandem mass spectrometry (MS/MS) to quantify proteins.<sup><xref ref-type="bibr" rid="ref3">3</xref></sup> This has been shown to be a sensitive proteomic quantification
+method.<sup><xref ref-type="bibr" rid="ref4">4</xref></sup></p><p>For successful biomarker
+discovery, a procedure to address correctly
+formulated clinical research questions where power analysis is absolutely
+essential to experimental design is required.<sup><xref ref-type="bibr" rid="ref5">5</xref></sup> Furthermore, the sample sizes for such studies (MS-based or otherwise)
+must be feasible to allow large-scale, longitudinal clinical studies
+to be conducted with a high probability of identifying biomarkers
+with confidence. Several studies have highlighted the promise of 4
+channel iTRAQ as a tool for identifying potential biomarker signatures
+of disease and potentially of drug response using serum, plasma, cerebrospinal
+fluid and tissue.<sup><xref ref-type="bibr" rid="ref6">6</xref>−<xref ref-type="bibr" rid="ref10">10</xref></sup></p><p>Isobaric tag comparisons are typically analyzed with respect
+to
+experimentally determined thresholds where a change in protein expression
+outside this range is deemed to be significant.<sup><xref ref-type="bibr" rid="ref11">11</xref>,<xref ref-type="bibr" rid="ref12">12</xref></sup> However, false positive error (protein incorrectly determined as
+differentially expressed) or false negative error (protein that is
+truly differentially expressed not detected) can result. The power
+of a test is its ability to correctly lead to the rejection of the
+null hypothesis: the ability to detect an effect, if the effect exists.
+This depends on specific factors including variance in protein expression,
+effect size (the change in protein expression), number of replicates,
+and the significance level required. Therefore, to increase the power
+in an experiment, the number of replicates must be sufficient to distinguish
+between true differences and random effects. Too many replicates can
+be an unnecessary waste of time and resource, whereas an underpowered
+study will not detect protein changes with statistical significance.
+The strength of including an evaluation of statistical power to enhance
+the experimental design of proteomic studies has been highlighted.<sup><xref ref-type="bibr" rid="ref5">5</xref></sup> We have extended this analysis to 8 channel relative
+quantification for detecting changes in plasma protein abundance.
+Using data sets derived from healthy controls, we have carried out
+a power analysis that provides us with guidance for future clinical
+studies. These results have been subsequently validated using data
+sets from pancreatic cancer patients. In addition, we have validated
+our method to allow interexperiment comparability via reference standards
+generating the first gel free proteomic approach with power analysis
+for direct application to clinical trials.</p></sec><sec sec-type="materials|methods" id="sec2"><title>Materials and Methods</title><sec id="sec2.1"><title>Technical Workflow</title><p>An overview of the complete workflow
+used in this study is shown in Figure <xref rid="fig1" ref-type="fig">1</xref>A.</p><fig id="fig1" position="float" orientation="portrait"><label>Figure 1</label><caption><p>Design
+of the 8 channel isobaric tagging experiments for relative
+quantification of proteins from plasma. (A) Methodological workflow
+of sample analysis. Plasma depletion was achieved using an antibody
+based removal of the 20 major proteins found in human plasma. This
+was followed by tryptic digestion of the analyte and peptide tagging
+in the 8 different samples with 8 distinct isobaric tags that enable
+relative quantification of peptides from the 8 samples by tandem mass
+spectrometry. Peptides from the 8 samples were pooled and then fractionated
+using high pH reverse phase liquid chromatography (LC). Fractions
+were then spotted onto MALDI target plates by low pH RP LC and plates
+were analyzed by MSMS in 5800 MALDI ToF/ToF instrument (Applied Biosystems).
+A number of data manipulations were then performed to assess the value
+of the workflow. (B) Experimental setup and labeling. In Experiment
+1, plasma from healthy individuals was taken 16 h apart and processed
+and analyzed in duplicate to assess technical and biological (within
+and between person) variation. In experiments 2 and 3, plasma was
+isolated from patients enrolled in the PACER pancreatic cancer trial
+at the Christie Hospital, Manchester, U.K. and 2 pretreatment samples
+were taken one week apart. To compare across experiments, a pooled
+reference control was used (pool) containing an aliquot of all plasma
+samples from experiments 2 and 3 points prior to sample depletion
+and in a 1:1 ratio for all samples.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" id="gr1" position="float" orientation="portrait" xlink:href="pr-2011-00636x_0003.jpg"><?image-name pr-2011-00636x_0003.jpg?><?image-size 97560?><?image-md5 7036046f1b1185cc08b842ee65aa9052?><?image-image-server-status LOAD_COMPLETED?><?image-original-height 6649?><?image-original-width 8400?><?image-scaled-height 532?><?image-scaled-width 672?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/7036046f1b11/pr-2011-00636x_0003.jpg?><?thumb-name pr-2011-00636x_0003.gif?><?thumb-size 2058?><?thumb-md5 363050119f20282dd3b8cb1ee09b6459?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 79?><?thumb-scaled-width 100?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/363050119f20/pr-2011-00636x_0003.gif?></graphic></fig></sec><sec id="sec2.2"><title>Experimental Design</title><p>Using the workflow summarized in
+Figure <xref rid="fig1" ref-type="fig">1</xref>A, three iTRAQ experiments were performed
+to meet the study objectives (Figure <xref rid="fig1" ref-type="fig">1</xref>B). We
+first examined the technical, temporal and biological variation between
+samples. A positively identified protein had to meet stringent criteria
+based on statistical considerations using approaches designed to minimize
+the number of false positive identifications. Technical variability
+was determined by analysis of four replicate plasma samples from two
+healthy human controls processed independently under identical conditions
+and run as a single multiplexed 8 channel iTRAQ experiment (Experiment
+1). These data were then used in a power calculation to evaluate the
+suitability of this workflow for future clinical studies.</p><p>Guided
+by the <italic>a priori</italic> power analysis from Experiment 1,
+the second two experiments were carried out interrogating samples
+derived within the PACER -TRANS substudy to the PACER clinical trial
+(Christie Hospital, Manchester, U.K.). PACER is a phase II study of
+high dose rate radiotherapy and EGFR inhibitor monoclonal antibody
+erbitux (Cetuximab) in patients with locally advanced pancreatic cancer.
+Prior to treatment, blood samples were collected from patients at
+two different time points with one week apart (day 0 and day 7, Experiments
+2 and 3; Figure <xref rid="fig1" ref-type="fig">1</xref>B). The objective is to identify
+proteins that are differentially expressed in the 7 day period and
+carry out a <italic>post hoc</italic> power analysis which allowed
+us to explore the validity of the <italic>a priori</italic> power
+calculation using Experiment 1. Furthermore the study design will
+address use of a pooled reference sample, created by mixing part of
+each sample used in Experiments 2 and 3. This would allow the direct
+comparison of protein changes determined from different 8-plex experimental
+runs, essential for the future of large scale trial analyses conducted
+by this method.</p></sec><sec id="sec2.3"><title>Human Plasma Samples</title><p>Blood was collected from donors
+in lithium heparin coated tubes (BD Vacutainer) and centrifuged within
+30 min of collection at 2500× <italic>g</italic> for 15 min at
+4 °C before aliquots of the plasma layer were stored at −80
+°C. Samples were collected at two different time points for each
+patient and healthy volunteer. For healthy volunteers samples were
+collected 16 h apart. Blood samples were taken from 3 patients with
+pancreatic cancer enrolled in the PACER study at the Christie Hospital,
+Manchester, UK (ref.06/Q1407/17) following written informed consent
+with ethical approval from the Central Manchester Local Research Ethics
+Committee. Two blood samples were taken one week apart, prior to patients
+receiving any therapy. Pooled samples were created prior to depletion
+by the accumulation of 50 μL of each plasma sample from all
+three pancreatic patients at both time points (Figure <xref rid="fig1" ref-type="fig">1</xref>B).</p></sec><sec id="sec2.4"><title>Protein Depletion, Digestion and Labeling</title><p>Abundant
+proteins were removed from plasma using a Sigma Top20 spin column
+following the manufacturers’ protocol (Sigma Aldrich). Depleted
+samples were concentrated and buffer-exchanged into 1 M TEAB using
+Vivaspin 500 centrifugal concentrators (Sigma Aldrich) as per manufacturer’s
+instructions. The protein concentration in buffer-exchanged samples
+was measured using the 2-D Quant kit (Amersham Bioscience, Buckinghamshire).
+Fifty μg of each sample was reduced with the addition of 1/10th
+of the sample volume of 50 mM <italic>tris</italic>(2-carboxyethyl)phosphine
+for 1 h at 60 °C. Cysteine residues were then alkylated by the
+addition of 1/20th of the total sample volume 200 mM Methyl thiomethanesulfonate
+(in isoproponol) before incubation for 10 min at room temperature.
+Protein was digested by the addition of 5 μg of porcine trypsin
+(Sigma Aldrich) with 15 min in a CEM discoverer microwave at 55 °C
+(CEM, North Carolina) to aid digestion, followed by overnight at 37
+°C. The digested protein samples were labeled with 8plex iTRAQ
+reagents according to the manufacturers’ instructions (Applied
+Biosystems, Foster City, CA). After labeling the samples were dried
+at 60 °C in a SpeedVac and then stored at −20 °C.
+Samples were labeled according to Figure <xref rid="fig1" ref-type="fig">1</xref>B.</p></sec><sec id="sec2.5"><title>High pH Reverse Phase (RP) Chromatography</title><p>iTRAQ labeled
+samples were reconstituted in 100 μL of 0.1% Ammonium hydroxide
+(Solvent A) and pooled prior to being loaded onto a 100 × 4.6
+mm 3 μm C18 HPLC column (Fortis, Cheshire, UK). Peptides were
+eluted by the application of a linear 30 min gradient up to 50% solvent
+B (Acetonitrile, 0.1% Ammonium hydroxide) with 70 × 15 s fractions
+collected from 4 min. Fractions were dried in a SpeedVac at 60 °C
+and stored at −20 °C.</p></sec><sec id="sec2.6"><title>Liquid Chromatography (LC)</title><p>Dried samples were reconstituted
+in 130 μL of 0.1% TFA, 2% ACN. Half of the sample was loaded
+onto a trap column using a U3000 liquid chromatography system (Dionex,
+Sunnyvale, CA) and the peptides fractionated by a capillary RP C18
+HPLC column (Acclaim PepMap C18, 3 μM 100 Å) at a flow
+rate of 0.8 μL/min with a gradient of between 2 and 40% acetonitrile,
+0.1% TFA. The flow-through was spotted onto a MALDI plate (AB SCIEX,
+Foster City, CA) in 15 s fractions using an online Probot (Dionex,
+Sunnyvale, CA) with α-cyano-4-hydroxycinnamic acid mixing with
+the eluent to a final concentration of 1.25 mg/mL.</p></sec><sec id="sec2.7"><title>Mass Spectrometry (MS/MS)</title><p>Mass spectrometry was carried
+out on an AB Sciex TOF/TOF 5800 (AB Sciex, Foster City, CA, USA) using
+1000 shots for MS. MS/MS was carried out on the top 27 precursors
+with a S/N of higher than 8 using 4000 laser shots, a 2Kv acceleration
+voltage and air as the collision gas. MS/MS spectra were smoothed
+using the Savitsky Golay Algorithm with 3 points and 4 orders of magnitude.</p></sec><sec id="sec2.8"><title>Protein Database Searching</title><p>All MS/MS data were submitted
+to ProteinPilot software version 3.0 (Applied Biosystems) for database
+searching and iTRAQ reporter ion quantification. Searches were performed
+against the IPI Human (v3.59) protein sequence database, containing
+160248 protein sequences. A reversed database was searched at the
+same time to control the false discovery rate (FDR) of protein identification
+(see below). Cys alkylation with methanethiosulfate (MMTS) and trypsin
+as the digestion enzyme were specified in the search. Biological modifications
+and amino acid substitutions were also permitted. ProteinPilot uses
+the Pro Group Algorithm to ensure that any peptide ID is only represented
+by one protein ID.</p></sec><sec id="sec2.9"><title>False Discovery Rate of Protein Identification</title><p>The
+FDR of protein identification was calculated using a target-decoy
+searching strategy<sup><xref ref-type="bibr" rid="ref13">13</xref></sup> where forward and
+reverse sequences from the database were in equal competition to be
+the highest ranking identification for each spectrum. The <italic>q-</italic>value<sup><xref ref-type="bibr" rid="ref14">14</xref></sup> approach was then used
+to define a peptide confidence threshold at which to call PSMs significant
+as to minimize false positives. The protein level FDR was estimated
+using the method reported by Kall et al.<sup><xref ref-type="bibr" rid="ref15">15</xref></sup> The maximum allowed peptide FDR and protein FDR are set to 1% and
+5% respectively.</p></sec><sec id="sec2.10"><title>Protein Quantification</title><p>Peptides with no quantification,
+absence of one or more reporter ions, low signal-to-noise ratio or
+with confidence &lt;1% were not used. If peptides were only partially
+enzymically hydrolyzed, missing an iTRAQ reagent label, or contained
+a low probability modification then they were also removed. Additionally,
+peptides shared among related, but distinct proteins or peptides where
+the spectrum is also matched to a different protein with unrelated
+peptide sequence were not used in quantification. Remaining peptides
+were included as contributing factors to protein quantification. Further,
+if a protein contained no peptides above the peptide confidence threshold
+determined by <italic>q</italic>-value analysis, it was judged to
+have failed identification and quantification and subsequently excluded
+from the final data set. Protein quantification was then calculated
+manually as per ProteinPilot software:<disp-formula id="ueq1"><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" orientation="portrait" xlink:href="pr-2011-00636x_m001.jpg"><?image-name pr-2011-00636x_m001.jpg?><?image-size 4338?><?image-md5 be75d57ab38180f25efcf81301e2ac9d?><?image-image-server-status NEVER_LOAD?><?image-scaled-height 39?><?image-scaled-width 213?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/be75d57ab381/pr-2011-00636x_m001.jpg?><?thumb-name pr-2011-00636x_m001.gif?><?thumb-size 1241?><?thumb-md5 17f24d0cb4aafcdb1d0a322eaa7c0c01?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 39?><?thumb-scaled-width 213?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/17f24d0cb4aa/pr-2011-00636x_m001.gif?></graphic></disp-formula>where <italic>x</italic><sub><italic>i</italic></sub> is the log(peptide ratio<sub>i</sub>) for the <italic>i</italic>th observation, <italic>w</italic><sub><italic>i</italic></sub> is
+the weight for the <italic>i</italic>th observation normalized against
+the percentage error under the peak to remove biases cause by label
+differences. Finally, <italic>n</italic> is the number of contributing
+peptides to a protein’s average ratio.</p></sec><sec id="sec2.11"><title>MS Variation</title><p>The unweighted standard deviation (Std)
+of each protein ratio was calculated using the following equation
+from ProteinPilot:<disp-formula id="ueq2"><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" orientation="portrait" xlink:href="pr-2011-00636x_m002.jpg"><?image-name pr-2011-00636x_m002.jpg?><?image-size 3697?><?image-md5 ec44a60e7aea0ac16c208f0b5379b1b2?><?image-image-server-status NEVER_LOAD?><?image-scaled-height 51?><?image-scaled-width 142?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/ec44a60e7aea/pr-2011-00636x_m002.jpg?><?thumb-name pr-2011-00636x_m002.gif?><?thumb-size 972?><?thumb-md5 3a52c33e3708fb557914a07b698e33fb?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 51?><?thumb-scaled-width 142?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/3a52c33e3708/pr-2011-00636x_m002.gif?></graphic></disp-formula>where <italic>x</italic><sub><italic>i</italic></sub> is the log(peptide ratio<sub><italic>i</italic></sub>) for
+the <italic>i</italic>th observation, <italic>x</italic><sub>avg</sub> is the unweighted average of <italic>x</italic><sub><italic>i</italic></sub> and <italic>n</italic> is the number of peptide ratios contributing
+to a protein’s average ratio. The average of all Stds calculated
+from each protein identified and quantified was then used as an estimate
+of the MS variation.</p></sec><sec id="sec2.12"><title>Sample Size Determination</title><p>Sample size calculations
+were based on the normal linear mixed effects model as described previously.<sup><xref ref-type="bibr" rid="ref16">16</xref>−<xref ref-type="bibr" rid="ref18">18</xref></sup> The log<sub>2</sub> ratio represented the ratio change between the
+iTRAQ labels. The effect size was calculated as follows, where rep1
+refers to replicate 1 and rep2 refers to replicate 2.<sup><xref ref-type="bibr" rid="ref19">19</xref></sup><disp-formula id="ueq3"><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" orientation="portrait" xlink:href="pr-2011-00636x_m003.jpg"><?image-name pr-2011-00636x_m003.jpg?><?image-size 2937?><?image-md5 5165fb4ba4c2f68d49808bd25b7936f4?><?image-image-server-status NEVER_LOAD?><?image-scaled-height 39?><?image-scaled-width 123?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/5165fb4ba4c2/pr-2011-00636x_m003.jpg?><?thumb-name pr-2011-00636x_m003.gif?><?thumb-size 922?><?thumb-md5 4240513e4cdfdb315662fdcb7274cf35?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 39?><?thumb-scaled-width 123?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/4240513e4cdf/pr-2011-00636x_m003.gif?></graphic></disp-formula>For example, for a 2 fold change, the effect
+size = log<sub>2</sub>(2) = 1. Therefore the null hypothesis is:<disp-formula id="ueq4"><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" orientation="portrait" xlink:href="pr-2011-00636x_m004.jpg"><?image-name pr-2011-00636x_m004.jpg?><?image-size 1315?><?image-md5 eeb28138dd752900eb0ff8ac8a5fa094?><?image-image-server-status NEVER_LOAD?><?image-scaled-height 12?><?image-scaled-width 71?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/eeb28138dd75/pr-2011-00636x_m004.jpg?><?thumb-name pr-2011-00636x_m004.gif?><?thumb-size 412?><?thumb-md5 307db007395c2e81d3391c4c62d9ba19?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 12?><?thumb-scaled-width 71?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/307db007395c/pr-2011-00636x_m004.gif?></graphic></disp-formula>We will accept or reject this hypothesis according
+to the observed experimental data.</p><p>The approach utilized by
+Dobbin and Simon<sup><xref ref-type="bibr" rid="ref20">20</xref></sup> for sample size calculations
+in microarrays was adopted such that the log<sub>2</sub> ratio of
+each protein <italic>p</italic> had variance across all samples within
+a group of interest composed of both technical (σ<sub><italic>p</italic></sub><sup arrange="stack">2</sup>) and biological (τ<sub><italic>p</italic></sub><sup arrange="stack">2</sup>) variance. In a two-group problem (e.g.,
+pre- vs post-treatment) the total number of biologically distinct
+samples <italic>n</italic> in each class is given by:<disp-formula id="ueq5"><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" orientation="portrait" xlink:href="pr-2011-00636x_m005.jpg"><?image-name pr-2011-00636x_m005.jpg?><?image-size 4222?><?image-md5 f1ac7ad4e09e2c6f743e5f8474a41477?><?image-image-server-status NEVER_LOAD?><?image-scaled-height 46?><?image-scaled-width 161?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/f1ac7ad4e09e/pr-2011-00636x_m005.jpg?><?thumb-name pr-2011-00636x_m005.gif?><?thumb-size 1088?><?thumb-md5 5df88588f015226ecdf516e4cbafffae?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 46?><?thumb-scaled-width 161?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/5df88588f015/pr-2011-00636x_m005.gif?></graphic></disp-formula>where <italic>m</italic> is the number of
+technical replicates per sample, δ is the difference in class
+means or observed effect size. <italic>z<sub>α</sub></italic><sub>/2</sub> and <italic>z<sub>β</sub></italic> are the 100α/2th
+and 100β<sup>th</sup> percentiles of the normal distribution.
+These are specified by the significance level α and the power <italic>1 – β</italic> that we wish to base our hypothesis around.</p><p>Technical variance (σ<sub><italic>p</italic></sub><sup arrange="stack">2</sup>) was estimated from four replicate
+plasma samples processed identically and run as a single iTRAQ MS/MS
+experiment. This allowed for an assessment of variation caused by
+the experimental workflow, where ideally ratios of all the proteins
+quantified should be 1. The technical replicates were 114:113, 116:115,
+118:117 and 121:119.</p><p>Biological variation (τ<sub><italic>p</italic></sub><sup arrange="stack">2</sup>) comprises within person variation
+and between person variation. Using technical variation and within
+person variation, proteins that are differentially expressed within
+a specific patient can be derived. With the additional between person
+variation, proteins that are differentially expressed in all patients
+can be derived. These proteins can be used as candidates for biomarkers.
+In Experiment 1, within person variance was estimated using the within
+person variation across a 16 h time period, and between person variance
+was estimated using the between person variation among the two healthy
+donor controls. Any deviations from a ratio of 1 would provide information
+regarding natural variation. Of course, the observed biological variation
+naturally contains the component from technical variation which should
+be excluded before power analysis.</p></sec><sec id="sec2.13"><title>iTRAQ Workflow Reproducibility</title><p>The same pooled reference
+was used for both PACER 0 day and PACER 7 day experiments to allow
+for direct comparison of protein ratios across two separate runs of
+the complete workflow. iTRAQ ratios for the reference labels in proteins
+quantified in both experiments were compared using the Bland-Altman
+comparison, and assessed statistically with Pitman’s test of
+difference in variance (Stata 10.1, StatCorp LP).</p></sec><sec id="sec2.14"><title>Western Blotting</title><p>One μg of undepleted plasma
+was diluted 10-fold in 10 mM phosphate buffered saline (PBS), followed
+by the addition of 2× Laemmli buffer (Bio-Rad Laboratories, Hemel
+Hempstead, U.K.) and heated at 95 °C for 20 min prior to SDS-PAGE
+in 10% polyacrylamide gels. Proteins were transferred onto PVDF membranes
+(Perkin-Elmer, Waltham, MA), incubated in 1% (w/v) Non-Fat Milk in
+10 mM PBS-Tween(T) (0.1% w/v) followed by incubation with either mouse
+Anti-Peroxiredoxin II 1:3000 in 1% (w/v) Non-Fat Milk in PBS-T (1E8
+Ab Frontier, Korea) or Rabbit Anti-Coagulation Factor XIII B Chain
+Precursor (F13B) 1:1000 (HPA003827 Sigma Prestige Antibodies, St Louis,
+MO) and a horseradish peroxidase-coupled antimouse or antirabbit secondary
+IgG (Dako, Glostrop, Denmark). This was followed by detection with
+the Western Lightning Chemiluminescence Reagent Plus (Perkin-Elmer).</p></sec></sec><sec id="sec3"><title>Results</title><sec id="sec3.1"><title>Parameters for Protein Identification in 8 Channel Plasma Proteomics</title><p>Experiment 1 involved samples from healthy donor controls (Figure <xref rid="fig1" ref-type="fig">1</xref>B) and in this experiment 85306 mass spectra were
+matched after simultaneous searching of proteins against the International
+Protein Index reversed target decoy database, resulting in a peptide
+FDR of 24%. Within these peptides, 8003 spectra were quantifiable
+which resulted in 493 nonredundant proteins. The inclusion of low
+confidence peptides in protein identification/quantification led to
+an FDR of 6.7%. In such experiments there is a need to control for
+the FDR, thus a <italic>q</italic>-value approach was implemented<sup><xref ref-type="bibr" rid="ref21">21</xref></sup> (see <xref rid="sec2">Methods</xref>) whereby
+peptides were filtered based upon different confidence thresholds
+prior to their use in identification and quantification, thereby low
+confidence peptides could be excluded from further analyses and the
+FDR could be set at an appropriate value (Table <xref rid="tbl1" ref-type="table">1</xref>).</p><table-wrap id="tbl1" position="float" orientation="portrait"><label>Table 1</label><caption><title>Use of a Target-Decoy Database Search
+of the Experiment 1 Data Set Using Different <italic>q</italic>-Value
+Thresholds<xref rid="tbl1-fn1" ref-type="table-fn">a</xref></title></caption><table frame="hsides" rules="groups" border="0"><colgroup span="1"><col span="1"/><col span="1"/><col span="1"/><col span="1"/><col span="1"/><col span="1"/><col span="1"/><col span="1"/><col span="1"/><col span="1"/></colgroup><thead><tr><th rowspan="2" style="border:none;" align="center" colspan="1"><italic>q-</italic>value threshold</th><th colspan="3" align="center" rowspan="1">PSMs</th><th colspan="3" align="center" rowspan="1">Quantified Peptides</th><th colspan="3" align="center" rowspan="1">Quantified Proteins</th></tr><tr><th align="center" colspan="1" rowspan="1">Target</th><th style="border:none;" align="center" colspan="1" rowspan="1">Decoy</th><th style="border:none;" align="center" colspan="1" rowspan="1">FDR</th><th style="border:none;" align="center" colspan="1" rowspan="1">Target</th><th style="border:none;" align="center" colspan="1" rowspan="1">Decoy</th><th style="border:none;" align="center" colspan="1" rowspan="1">FDR</th><th style="border:none;" align="center" colspan="1" rowspan="1">Target</th><th style="border:none;" align="center" colspan="1" rowspan="1">Decoy</th><th style="border:none;" align="center" colspan="1" rowspan="1">FDR</th></tr></thead><tbody><tr><td style="border:none;" colspan="1" rowspan="1">None</td><td style="border:none;" colspan="1" rowspan="1">69040</td><td style="border:none;" colspan="1" rowspan="1">16266</td><td style="border:none;" colspan="1" rowspan="1">0.24</td><td style="border:none;" colspan="1" rowspan="1">7947</td><td style="border:none;" colspan="1" rowspan="1">56</td><td style="border:none;" colspan="1" rowspan="1">0.007</td><td style="border:none;" colspan="1" rowspan="1">462</td><td style="border:none;" colspan="1" rowspan="1">31</td><td style="border:none;" colspan="1" rowspan="1">0.067</td></tr><tr><td style="border:none;" colspan="1" rowspan="1">0.05</td><td style="border:none;" colspan="1" rowspan="1">30672</td><td style="border:none;" colspan="1" rowspan="1">1614</td><td style="border:none;" colspan="1" rowspan="1">0.05</td><td style="border:none;" colspan="1" rowspan="1">7763</td><td style="border:none;" colspan="1" rowspan="1">53</td><td style="border:none;" colspan="1" rowspan="1">0.007</td><td style="border:none;" colspan="1" rowspan="1">459</td><td style="border:none;" colspan="1" rowspan="1">29</td><td style="border:none;" colspan="1" rowspan="1">0.063</td></tr><tr><td style="border:none;" colspan="1" rowspan="1"><bold>0.01</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>21900</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>230</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>0.01</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>6918</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>26</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>0.004</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>428</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>12</bold></td><td style="border:none;" colspan="1" rowspan="1"><bold>0.028</bold></td></tr><tr><td style="border:none;" colspan="1" rowspan="1">0.001</td><td style="border:none;" colspan="1" rowspan="1">18828</td><td style="border:none;" colspan="1" rowspan="1">77</td><td style="border:none;" colspan="1" rowspan="1">0.002</td><td style="border:none;" colspan="1" rowspan="1">6208</td><td style="border:none;" colspan="1" rowspan="1">2</td><td style="border:none;" colspan="1" rowspan="1">0.0003</td><td style="border:none;" colspan="1" rowspan="1">391</td><td style="border:none;" colspan="1" rowspan="1">2</td><td style="border:none;" colspan="1" rowspan="1">0.005</td></tr></tbody></table><table-wrap-foot><fn id="tbl1-fn1"><label>a</label><p>The number of target and decoy
+Peptide Spectral Matches (PSMs), quantified peptides and quantified
+proteins are shown for four choices of <italic>q-</italic>value threshold
+together with the calculated FDR (no threshold indicates the ProteinPilot
+default output).</p></fn></table-wrap-foot></table-wrap><p>It was evident that the use of different <italic>q</italic>-value
+thresholds varied the number of matches selected as significant (Supplementary
+Figure 1, <xref rid="notes-4">Supporting Information</xref>). We found
+that a minimum peptide confidence of 91% was required to ensure that
+the false positive proportion of significant peptide spectral matches
+(PSMs) was &lt;0.01 after correction for multiple testing (Table <xref rid="tbl1" ref-type="table">1</xref>). A single 8 channel isobaric-tagged peptide identified
+with above 91% confidence was thus shown to be evidence for protein
+identification and quantification. Those proteins identified with
+no quantified peptides with ≥91% confidence were excluded from
+the final data set. The peptides and proteins identified in this study
+are listed in Supplementary Table 1 (<xref rid="notes-4">Supporting
+Information</xref>). In Experiment 1 (healthy volunteers) using the
+above criteria, 428 proteins were identified and successfully quantified
+with a protein FDR of 2.8% using the method of Käll et al.,<sup><xref ref-type="bibr" rid="ref15">15</xref></sup> 284 of these proteins were identified with no
+less than 2 peptides (<xref rid="notes-4">Supplementary Table 1</xref>). Proteins quantified with one peptide generally have a larger variance
+than those with more than one peptide but we observed no statistically
+significant difference (Welch’s test <italic>p</italic> = 0.08).</p><p>The same <italic>q</italic>-value strategy was applied to Experiments
+2 and 3 (pancreatic cancer patient samples) in order to minimize the
+FDR for protein identification after searching against a target-decoy
+database. In Experiment 2 (day 0), 396 (2.6% FDR) and Experiment 3
+(day 7), 374 (2.8% FDR) proteins were identified and quantified (Supplementary
+Table 1, <xref rid="notes-4">Supporting Information</xref>). Some
+of these proteins have been observed in the literature to span over
+6 orders of magnitude in plasma protein concentration (Figure <xref rid="fig1" ref-type="fig">1</xref>A and Methods), including intracellular, low abundance
+proteins such as fructose-bisphosphate aldolase B, a cytosolic protein
+and Interleukin 6 receptor (IL6-R). As an example of our proteomic
+penetration, IL6-R has been recorded at a concentration of 453 pg/mL
+in serum (about 9 pM).<sup><xref ref-type="bibr" rid="ref22">22</xref></sup> Supplementary
+Table 2 (and references therein, <xref rid="notes-4">Supporting Information</xref>) highlights examples of some of the proteins identified together
+with their relative abundance in plasma.</p></sec><sec id="sec3.2"><title>Biological and Technical Variance in 8 Channel Isobaric Tagging
+Plasma Proteomics</title><p>We next sought to understand the bias caused
+by technical and biological variation.<sup><xref ref-type="bibr" rid="ref23">23</xref></sup> The need for a robust statistical design at each stage of analysis
+in quantitative proteomic profiling experiments is paramount. Technical
+variation was addressed by analysis of duplicate samples prepared
+from healthy controls (Experiment 1, Figure <xref rid="fig1" ref-type="fig">1</xref>B). We showed a high correspondence and statistically significant
+correlation between all technical replicate labels in this study (<italic>p</italic> &lt; 0.0001) as summarized in Supplementary Figure 2 and
+Supplementary Table 3 (<xref rid="notes-4">Supporting Information</xref>).</p><p>The distribution of technical variation is illustrated in
+Supplementary Figure 3A (<xref rid="notes-4">Supporting Information</xref>). It can be said to resemble a Gaussian distribution but has heavier
+tailing. As proposed by Breitwieser et al.,<sup><xref ref-type="bibr" rid="ref24">24</xref></sup> technical variation of iTRAQ data can be modeled as a Cauchy distribution.
+In this study, however, it was found that Cauchy distribution did
+not provide satisfactory fitting therefore a Gaussian approximation
+was carried out on truncated data (see below for detail). The accuracy
+and amount of data that fell within an acceptable error range contained
+in the technical replicates are summarized in Table <xref rid="tbl2" ref-type="table">2</xref>. Here all the protein ratios were log<sub>2</sub> transformed
+and the data were categorized into groups similar to those proposed
+by Gan et al.,<sup><xref ref-type="bibr" rid="ref25">25</xref></sup> with variation cut-offs
+between 0 and 100% of the expression data. In order to estimate the
+technical variance of the data, a Gaussian approximation was made
+to the distribution of technical variation. The approximation removed
+the largest and smallest 1% protein ratios and fitted the remaining
+data using a Gaussian distribution model. A Std of 0.3 was observed
+representing a 95% confidence interval of ±0.59 for technical
+variation in log space. This variance level will be used for sample
+size calculations.</p><table-wrap id="tbl2" position="float" orientation="portrait"><label>Table 2</label><caption><title>Number of Proteins Identified (% of
+Total) with Different Variation Cut-offs for Technical and Biological
+Replicates<xref rid="tbl2-fn1" ref-type="table-fn">a</xref></title></caption><table frame="hsides" rules="groups" border="0"><colgroup span="1"><col align="left" span="1"/><col align="left" span="1"/><col align="left" span="1"/><col align="left" span="1"/></colgroup><thead><tr><th style="border:none;" align="center" colspan="1" rowspan="1">variation
+of log<sub>2</sub> protein ratio</th><th style="border:none;" align="center" colspan="1" rowspan="1">technical
+replicate (% of total)</th><th style="border:none;" align="center" colspan="1" rowspan="1">within person
+(% of total)</th><th style="border:none;" align="center" colspan="1" rowspan="1">between person
+(% of total)</th></tr></thead><tbody><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±10%</td><td style="border:none;" align="left" colspan="1" rowspan="1">37</td><td style="border:none;" align="left" colspan="1" rowspan="1">63</td><td style="border:none;" align="left" colspan="1" rowspan="1">53</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±20%</td><td style="border:none;" align="left" colspan="1" rowspan="1">61</td><td style="border:none;" align="left" colspan="1" rowspan="1">69</td><td style="border:none;" align="left" colspan="1" rowspan="1">61</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±30%</td><td style="border:none;" align="left" colspan="1" rowspan="1">74</td><td style="border:none;" align="left" colspan="1" rowspan="1">75</td><td style="border:none;" align="left" colspan="1" rowspan="1">69</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±40%</td><td style="border:none;" align="left" colspan="1" rowspan="1">83</td><td style="border:none;" align="left" colspan="1" rowspan="1">81</td><td style="border:none;" align="left" colspan="1" rowspan="1">74</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±50%</td><td style="border:none;" align="left" colspan="1" rowspan="1">88</td><td style="border:none;" align="left" colspan="1" rowspan="1">84</td><td style="border:none;" align="left" colspan="1" rowspan="1">79</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±60%</td><td style="border:none;" align="left" colspan="1" rowspan="1">92</td><td style="border:none;" align="left" colspan="1" rowspan="1">87</td><td style="border:none;" align="left" colspan="1" rowspan="1">82</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±70%</td><td style="border:none;" align="left" colspan="1" rowspan="1">94</td><td style="border:none;" align="left" colspan="1" rowspan="1">88</td><td style="border:none;" align="left" colspan="1" rowspan="1">85</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±80%</td><td style="border:none;" align="left" colspan="1" rowspan="1">96</td><td style="border:none;" align="left" colspan="1" rowspan="1">90</td><td style="border:none;" align="left" colspan="1" rowspan="1">87</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±90%</td><td style="border:none;" align="left" colspan="1" rowspan="1">97</td><td style="border:none;" align="left" colspan="1" rowspan="1">92</td><td style="border:none;" align="left" colspan="1" rowspan="1">89</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1"> ±100%</td><td style="border:none;" align="left" colspan="1" rowspan="1">98</td><td style="border:none;" align="left" colspan="1" rowspan="1">94</td><td style="border:none;" align="left" colspan="1" rowspan="1">90</td></tr></tbody></table><table-wrap-foot><fn id="tbl2-fn1"><label>a</label><p>Using data obtained in Experiment
+1 the accuracy and amount of data that fell within various error ranges
+was calculated. Between person and within person variation listed
+here were derived from the observed data by removing the variance
+component from technical variation.</p></fn></table-wrap-foot></table-wrap><p>In contrast to technical variation, biological variation
+is protein,
+patient and disease dependent. The distributions of within- and between-person
+variations in Experiment 1 are illustrated in Supplementary Figure
+3B and C (<xref rid="notes-4">Supporting Information</xref>). These
+distributions were clearly asymmetric and can be challenging to model
+with existing theoretical distributions. In this study, the biological
+variance was calculated as a spread of typical variation values such
+as the 70th percentile, 85th percentile and maximum variation seen
+in the biological replicates, similar to what has been proposed by
+Yang and Speed.<sup><xref ref-type="bibr" rid="ref26">26</xref></sup> In doing this, the observed
+within- and between-person variation were categorized using the same
+method as described for the technical replicates (Table <xref rid="tbl2" ref-type="table">2</xref>). Greater variation was observed between person A and person
+B in the study than within each individual at two different time-points.
+It was clear that the expression level of the majority of the proteins
+(∼80%) varied only to a limited extent.</p><p>Sample sizes
+for clinical proteomic trial design were then calculated
+using α = 0.05 and 1-β = 0.8/0.7, which represent the
+common choices for significance and power analyses. The effect sizes
+(changes in protein abundance) were taken as log<sub>2</sub>(1.7)
+and log<sub>2</sub>(2). These values are chosen to represent possible
+fold change cut-offs in proteomic studies from previous cell line-based
+studies. The technical variance and the biological variance were calculated
+using the method described above. The number of technical replicates
+of interest in each class was 1, 2, and 4. Required sample sizes were
+calculated according to the equation described in the Methods and
+the results are summarized in Table <xref rid="tbl3" ref-type="table">3</xref>. It is
+clear that the variation of protein quantities has a dramatic effect
+on the number of patients that would be required in each group to
+adequately power a study. For example, for an experiment with 2 technical
+replicates per patient and a minimum required power of 0.8, 5 patients
+were required to consider a 1.7 fold change to be significant for
+proteins with variances not exceeding 70th percentile (70% least variant
+proteins). The required patient number increases to 14 for 80% proteins
+(least variant) and rises dramatically to 575 to cover all proteins.
+Observing a larger change in protein abundance, having more technical
+replicates per patient or reducing the power required for the study
+would allow a smaller number of patients to be required. In many clinical
+trials, as little as 3 patients per cohort have been recruited. According
+to our calculation, this would be sufficient to detect a 2 fold change
+with a power of 0.8 for 70% of proteins (70% least variant). However,
+if a study is required to detect more variant proteins, clearly at
+least 6 patients per cohort would be beneficial.</p><table-wrap id="tbl3" position="float" orientation="portrait"><label>Table 3</label><caption><title>Estimated Sample Sizes Required Per
+Group<xref rid="tbl3-fn1" ref-type="table-fn">a</xref></title></caption><table frame="hsides" rules="groups" border="0"><colgroup span="1"><col align="left" span="1"/><col align="left" span="1"/><col align="char" char="." span="1"/><col align="char" char="." span="1"/><col align="char" char="." span="1"/><col align="char" char="." span="1"/><col align="char" char="." span="1"/><col align="char" char="." span="1"/></colgroup><thead><tr><th style="border:none;" align="center" colspan="1" rowspan="1"> </th><th style="border:none;" align="center" colspan="1" rowspan="1"> </th><th style="border:none;" align="center" char="." colspan="1" rowspan="1"> </th><th colspan="5" align="center" char="." rowspan="1">variance<hr/></th></tr><tr><th style="border:none;" align="center" colspan="1" rowspan="1">effect size</th><th style="border:none;" align="center" colspan="1" rowspan="1">1-β</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">number
+of
+replicates</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">70th percentile</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">75th percentile</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">80th percentile</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">85th percentile</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">maximum</th></tr></thead><tbody><tr><td rowspan="3" style="border:none;" align="left" colspan="1">log<sub>2</sub>(1.7)</td><td style="border:none;" align="left" colspan="1" rowspan="1">0.7</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">5</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">8</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">12</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">17</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">453</td></tr><tr><td align="left" colspan="1" rowspan="1"> </td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">2</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">7</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">11</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">16</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">452</td></tr><tr><td align="left" colspan="1" rowspan="1"> </td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">6</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">10</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">15</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">452</td></tr><tr><td rowspan="3" style="border:none;" align="left" colspan="1">log<sub>2</sub>(1.7)</td><td style="border:none;" align="left" colspan="1" rowspan="1">0.8</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">7</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">10</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">15</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">21</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">576</td></tr><tr><td align="left" colspan="1" rowspan="1"> </td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">2</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">5</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">9</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">14</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">20</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">575</td></tr><tr><td align="left" colspan="1" rowspan="1"> </td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">5</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">8</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">13</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">19</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">574</td></tr><tr><td rowspan="3" style="border:none;" align="left" colspan="1">log<sub>2</sub>(2.0)</td><td style="border:none;" align="left" colspan="1" rowspan="1">0.7</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">3</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">5</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">7</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">10</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">266</td></tr><tr><td align="left" colspan="1" rowspan="1"> </td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">2</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">3</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">6</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">10</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">265</td></tr><tr><td align="left" colspan="1" rowspan="1"> </td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">2</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">6</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">9</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">264</td></tr><tr><td rowspan="3" style="border:none;" align="left" colspan="1">log<sub>2</sub>(2.0)</td><td style="border:none;" align="left" colspan="1" rowspan="1">0.8</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">6</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">9</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">13</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">338</td></tr><tr><td align="left" colspan="1" rowspan="1"> </td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">2</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">3</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">5</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">8</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">12</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">337</td></tr><tr><td align="left" colspan="1" rowspan="1"> </td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">4</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">3</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">5</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">8</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">12</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">337</td></tr></tbody></table><table-wrap-foot><fn id="tbl3-fn1"><label>a</label><p>Using variance data obtained
+from Experiment 1 (healthy volunteers) sample sizes are reported for
+several choices of effect size and variance level. Sample sizes required
+are per group. To see an effect size greater than a 2 fold change,
+3 samples per group (for e.g. 3 pre-treatment vs. 3 post-treatment)
+with 2 technical replicates would be sufficient for proteins with
+70% variance with a power of 0.8.</p></fn></table-wrap-foot></table-wrap></sec><sec id="sec3.3"><title>Application of Acquired Power Analysis Data to Material Gathered
+in a Clinical Trial</title><p>To test the validity of our method we
+applied our workflow to samples from a clinical trial in which two
+‘baseline’ pretreatment samples from 3 patients with
+pancreatic cancer were taken one week apart and analyzed over two
+iTRAQ experiments (Figure <xref rid="fig1" ref-type="fig">1</xref>B, Experiment 2,
+day 0 samples; Experiment 3, day 7 samples). According to our <italic>a priori</italic> power calculation using healthy volunteers, the
+patient group size would allow us to detect 2-fold changes with a
+power of 0.8 for 70% of proteins (least variant). Thus in Experiment
+2 and 3, we aimed to verify this with a <italic>post hoc</italic> power
+analysis using samples from these patients. All samples in these experiments
+are pretreatment.</p><p>In Experiment 2 (day 0), 396 proteins were
+identified and quantified and in Experiment 3 (day 7), 374 proteins.
+There were 493 unique proteins altogether and 277 of them were present
+across both data sets. In total across all three iTRAQ experiments,
+576 unique proteins were identified and quantified, of which 244 were
+present in all experiments. The iTRAQ protein ratios for the replicate
+pooled reference samples in both Experiments 2 and 3 were compared
+to assess experimental reproducibility across two separate runs of
+our workflow. Bland-Altman test for the agreement between these experimental
+replicate pools showed good agreement and therefore no significant
+differences were found using Pitman’s test for differences
+in variance (<italic>n</italic> = 268, <italic>p</italic> = 0.085, <italic>r</italic> = −0.106) (Figure <xref rid="fig2" ref-type="fig">2</xref>). Therefore
+the method allowed for the direct comparison of protein ratios across
+multiple iTRAQ experiments via pooled reference samples, such as would
+be required in any longitudinal clinical study. It also indicates
+that technical variance present in the experiments, which is essential
+for carrying out the <italic>post hoc</italic> power analysis, can
+be approximated as the average of technical variance present in each
+individual iTRAQ experiment.</p><fig id="fig2" position="float" orientation="portrait"><label>Figure 2</label><caption><p>Bland-Altman plot for pooled reference reproducibility
+across iTRAQ
+experiments 2 and 3 (PACER day 0 and PACER day 7 clinical samples).
+Total of 3 patients, each with duplicate sample at day 0 and day 7
+contributing equally to a pooled reference of 12 samples. Proteins
+that were identified and quantified in experiments 2 and 3 and originating
+from the pooled reference sample as defined by the incorporation of
+iTRAQ labels 113 and 114 were analyzed for the agreement in log<sub>2</sub> iTRAQ ratios (ideally equivalent between both experiments).
+The agreement was calculated by the mean of the two measurements versus
+the difference in values, thus the smaller the difference the greater
+the reproducibility. The limits of agreement are shown by the average
+difference ±1.96 Std.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" id="gr2" position="float" orientation="portrait" xlink:href="pr-2011-00636x_0004.jpg"><?image-name pr-2011-00636x_0004.jpg?><?image-size 51731?><?image-md5 5dd1539200c3f57f47770996f453f2cd?><?image-image-server-status LOAD_COMPLETED?><?image-original-height 1980?><?image-original-width 3396?><?image-scaled-height 317?><?image-scaled-width 543?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/5dd1539200c3/pr-2011-00636x_0004.jpg?><?thumb-name pr-2011-00636x_0004.gif?><?thumb-size 1858?><?thumb-md5 ef4cf5f1f603d36121cc53fbf1fc893e?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 58?><?thumb-scaled-width 100?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/ef4cf5f1f603/pr-2011-00636x_0004.gif?></graphic></fig><p>We investigated the fold changes of proteins quantified
+in both
+PACER experiments to identify proteins that may be differentially
+expressed over a 7 day period pretreatment. As the within-person variances
+of Experiment 2 and 3 were not available, the variance we derived
+in Experiment 1 was applied in the analysis of Experiment 2 and 3.
+A protein is considered differentially expressed if its variation
+within the technical replicates is smaller than the 95% CI defined
+by the technical variance, whereas its changes of expression level
+over 7 days period is larger than the 95% CI defined by the technical
+and within person variance. In total, 29 proteins showed significant
+changes in at least one patient (Table <xref rid="tbl4" ref-type="table">4</xref>).
+It was apparent that Patient D had considerably more differentially
+expressed proteins than the other two patients, although clinical
+data for the three patients over the 7 day period does not indicate
+any obvious confounding factors that may have led to the large changes.</p><table-wrap id="tbl4" position="float" orientation="portrait"><label>Table 4</label><caption><title>Proteins with Differential Expression
+in the PACER Study between Pretreatment Day 0 (Experiment 2) and Day
+7 (Experiment 3)<xref rid="tbl4-fn1" ref-type="table-fn">a</xref></title></caption><table frame="hsides" rules="groups" border="0"><colgroup span="1"><col align="left" span="1"/><col align="char" char="." span="1"/><col align="char" char="." span="1"/><col align="char" char="." span="1"/></colgroup><thead><tr><th style="border:none;" align="center" colspan="1" rowspan="1">protein names</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">patient C,
+day 7:0</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">patient D,
+day 7:0</th><th style="border:none;" align="center" char="." colspan="1" rowspan="1">patient E,
+day 7:0</th></tr></thead><tbody><tr><td style="border:none;" align="left" colspan="1" rowspan="1">Anti-(ED-B) scFV (Fragment)</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.395</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.081</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.663</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">ALDH1A1 Retinal dehydrogenase
+1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.099</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>3.420</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.469</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">APOL1 Isoform 2 of
+Apolipoprotein
+L1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.059</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.347</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.901</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">CA1 Carbonic anhydrase
+1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.542</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>9.579</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.758</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">CETP Isoform 1 of Cholesteryl
+ester transfer protein</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.561</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.031</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.081</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">CFP Properdin</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.206</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.412</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.257</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">CRP Isoform
+1 of C-reactive
+protein</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.658</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.383</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.312</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">FETUB Fetuin-B</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.953</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.361</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.034</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">GAPDH Glyceraldehyde 3-phosphate
+dehydrogenase</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.750</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.107</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.207</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">GOT1 Aspartate
+aminotransferase,
+cytoplasmic</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.227</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.637</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.017</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">HGFAC Hepatocyte
+growth
+factor activator</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.802</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.117</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.595</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">HSP90B1 Endoplasmin</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.592</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.377</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.634</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">KRT5 Keratin, type II cytoskeletal
+5</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.515</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.477</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.696</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">PARK7 Protein DJ-1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.572</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>3.599</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.444</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">PDLIM1 PDZ and LIM domain protein 1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.044</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.333</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.520</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">PFN1 Profilin-1</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.947</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.771</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.785</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">PRDX6 Peroxiredoxin-6</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.412</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>5.408</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.492</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">PTPRG Isoform 1 of Receptor-type
+tyrosine-protein phosphatase gamma</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.829</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.557</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.351</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">SAA2 Serum amyloid A protein</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.151</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.312</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.764</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">TALDO1 Transaldolase</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.082</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>3.046</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.154</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">TPI1 Isoform 1 of Triosephosphate
+isomerase</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.906</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.137</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.738</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">TMSB4X TMSB4X
+protein (Fragment)</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.378</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>0.382</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.797</td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">PRDX2 Peroxiredoxin-2</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.643</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>14.362</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>5.921</bold></italic></td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">CAT
+Catalase</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.947</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>8.028</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.132</bold></italic></td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">HBA1 Hemoglobin subunit
+alpha</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.740</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>10.522</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.904</bold></italic></td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">HBB Hemoglobin subunit beta</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.580</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>8.881</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>3.275</bold></italic></td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">HBD Hemoglobin subunit
+delta</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.579</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>8.691</bold></italic></td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.429</bold></italic></td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">IGHA1 cDNA FLJ90170 fis</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.678</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.937</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.062</bold></italic></td></tr><tr><td style="border:none;" align="left" colspan="1" rowspan="1">PDLIM7 Isoform 1 of PDZ
+and LIM domain protein 7</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">1.516</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1">0.954</td><td style="border:none;" align="char" char="." colspan="1" rowspan="1"><italic><bold>2.204</bold></italic></td></tr></tbody></table><table-wrap-foot><fn id="tbl4-fn1"><label>a</label><p>Proteins identified to be differentially
+expressed in at least one patient are listed in the table and the
+significant changes are indicated in bold italic.</p></fn></table-wrap-foot></table-wrap><p>The largest change observed was in Peroxiredoxin II,
+where a 14-fold
+increase was observed after 7 days in Patient D, and a smaller yet
+also significant increase was observed in Patient E. According to
+the record from Universal Protein Resource (UniProt, <uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.uniprot.org/">http://www.uniprot.org/</uri>), this protein may be involved in signaling cascades of growth factors
+and tumor necrosis factor-alpha and is relevant to antiapoptotic processes.
+Western blotting for Peroxiredoxin II confirmed this protein to be
+changing, using Coagulation Factor XIII B Chain Precursor as a loading
+control as this was found to be unchanged across all 3 patients at
+both time-points in the proteomic analysis (Figure <xref rid="fig3" ref-type="fig">3</xref>).</p><fig id="fig3" position="float" orientation="portrait"><label>Figure 3</label><caption><p>Uncropped Western blots for levels of Peroxiredoxin II and Coagulation
+Factor XIII B Chain Precursor in undepleted patient plasma. Protein
+levels are shown in relation to the pooled reference and SH-SY5Y lysates
+were used as a positive control.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" id="gr3" position="float" orientation="portrait" xlink:href="pr-2011-00636x_0005.jpg"><?image-name pr-2011-00636x_0005.jpg?><?image-size 71589?><?image-md5 9798911776df5368fd9c198c9cae0fb3?><?image-image-server-status LOAD_COMPLETED?><?image-original-height 2091?><?image-original-width 2848?><?image-scaled-height 335?><?image-scaled-width 456?><?image-cloudpmc-urn urn:cdn:blobs/cd41/3320746/9798911776df/pr-2011-00636x_0005.jpg?><?thumb-name pr-2011-00636x_0005.gif?><?thumb-size 3072?><?thumb-md5 0cb958eaa48c00640fcd27a0b3431aba?><?thumb-image-server-status NEVER_LOAD?><?thumb-scaled-height 73?><?thumb-scaled-width 100?><?thumb-cloudpmc-urn urn:cdn:blobs/cd41/3320746/0cb958eaa48c/pr-2011-00636x_0005.gif?></graphic></fig><p>According to the observed variance, none of the
+proteins listed
+in Table <xref rid="tbl4" ref-type="table">4</xref> changed significantly for all patients
+(2 sided <italic>t</italic> test, data not shown). Those showing highest
+significance and power however included: Ig alpha-1 chain C region
+(IGHA1), Receptor-type tyrosine-protein phosphatase gamma (PTPRG)
+and Endoplasmin (HSP90B1). This gives an example of the approach that
+can be used with 8 channel isobaric tagging for clinical proteomics
+associated with underpinning clinically relevant power analysis. We
+stress no novel biomarker is immediately apparent from this study,
+as expected, but Hsp90B1 is a member of the hsp90 family of molecular
+chaperones, whose inhibition by geldanamycin-derived compounds can
+activate the unfolded protein response and led to cell death in melanoma
+cells, exposing a potential route to novel anticancer treatments.</p><p>The number of patients that are required to reach 70% power were
+listed in Supplementary Table 4 (<xref rid="notes-4">Supporting Information</xref>). Clearly, most proteins have very high variance (&gt;85 percentile),
+a feature which is primarily due to between person variation and as
+such these can hardly be valid candidates for biomarkers (see <xref rid="sec4">Discussion</xref> section for more detail). For the proteins
+with less variance, the number of patients required to reach a 70%
+power estimated using <italic>post hoc</italic> and <italic>a priori</italic> power analysis were compared as illustrated in <xref rid="notes-4">Supplementary Figure 4</xref>. Considerable agreement can be seen
+between the two methods, confirming the validity of the <italic>a
+priori</italic> power analysis.</p></sec></sec><sec id="sec4"><title>Discussion</title><p>There is a clear clinical need for novel
+predictive, prognostic
+and/or pharmacodynamic biomarkers in easily sourced material such
+as plasma. The MS-based method that we have described provides a robust
+platform to compare multiple proteins simultaneously, to allow identification
+of novel biomarkers with clinical utility. By use of iTRAQ tagging
+in conjunction with extensive statistical testing during data analysis,
+we have validated a workflow that is applicable to large scale longitudinal
+clinical trials. Furthermore, the experimental design which includes
+the use of a pooled reference sample run in duplicate for each iTRAQ
+experiment clearly demonstrates the utility of this methodology to
+compare fold changes in protein expression across multiple experiments.</p><p>Ernoult et al.<sup><xref ref-type="bibr" rid="ref27">27</xref></sup> employed an iTRAQ methodology
+in parallel workflows utilizing immunodepletion or hexapeptide ligand
+library enrichment to identify 243 and 228 proteins with at least
+2 peptides giving a combined total of 313 proteins. The inclusion
+of single peptide protein identifications would have increased these
+numbers to 332 and 320 for the immunodepleted and hexapeptide enrichment
+methods employed, respectively. Kolla et al.<sup><xref ref-type="bibr" rid="ref28">28</xref></sup> have used 4-plex isobaric tagging to analyze maternal plasma in
+Down’s Syndrome pregnancies, identifying 187 proteins. Pernemalm
+et al.<sup><xref ref-type="bibr" rid="ref29">29</xref></sup> identified and quantified 300
+proteins in an adenocarcinoma plasma study and 193 proteins in a pancreatic
+cancer study. Thus our approach, which identified 576 unique proteins
+in 3 iTRAQ runs, is statistically rigorous, yields more protein identifications
+and has the benefit of 8 samples being analyzed per run. Our data
+showed MS variance to be low and comparable to that reported elsewhere.<sup><xref ref-type="bibr" rid="ref30">30</xref>,<xref ref-type="bibr" rid="ref31">31</xref></sup> The variation levels we reported showed the number of intricate
+steps involved in our experimental workflow to be robust and reproducible.
+A study on all potential cancer biomarkers found in the literature
+showed 49% were present at &lt;10 ng/mL in plasma.<sup><xref ref-type="bibr" rid="ref32">32</xref></sup> Therefore our identification of IL6-R, which is present
+at subng/mL amounts (picomolar levels) in plasma, indicates that our
+discovery approach has the capacity to uncover potential biomarkers,
+especially in the context of studies on patients undergoing clinical
+intervention with pre- and post-treatment samples collected longitudinally.
+We were also able to confirm changes in Peroxiredoxin II by Western
+blotting, showing that this protein was up-regulated in Patient D
+and E (Figure <xref rid="fig3" ref-type="fig">3</xref>). This further validates our
+workflow design and gives confidence that we can identify novel biomarkers
+of predictive, prognostic or other clinical use. In addition to this,
+members of the Peroxiredoxin family (including II) have been linked
+to pancreatic<sup><xref ref-type="bibr" rid="ref33">33</xref>,<xref ref-type="bibr" rid="ref34">34</xref></sup> and other cancers.<sup><xref ref-type="bibr" rid="ref35">35</xref>,<xref ref-type="bibr" rid="ref36">36</xref></sup></p><p>It has been suggested that for the determination of reliable
+identification
+and quantification of a protein by MS it is necessary for at least
+two peptides to be identified. However, it is recognized that this
+may result in the loss of potentially interesting small or low abundance
+proteins. The inclusion of single peptide data has been debated<sup><xref ref-type="bibr" rid="ref37">37</xref></sup> and it has been suggested that a two-peptide
+or more rule should be replaced by peptide identifications based on
+thresholds derived from a more statistically robust estimation of
+error rates.<sup><xref ref-type="bibr" rid="ref38">38</xref></sup> This supports the use of
+our stringent <italic>q</italic>-value<sup><xref ref-type="bibr" rid="ref14">14</xref></sup> based statistical approach to determine peptide confidence levels
+in order to minimize the number of false positive identifications.
+By extending our FDR calculations to provide each PSM with its own
+measure of significance, while accounting for multiple testing this
+approach provides a robust assessment of the proportion of significant
+PSMs that turn out to be false positives. This enables the inclusion
+of single peptide protein identifications and thus maximizes the potential
+to identify novel low abundance biomarkers for clinical utility.</p><p>In this study, the blood proteomes from the pancreatic cancer patients
+analyzed showed obvious differences. Among the 29 proteins that are
+differentially expressed in at least one patient, 27 were found changing
+significantly in Patient D, whereas only 7 were found in Patient E
+and none in Patient C. No protein changes significantly in all three
+patients. This is, however, not a surprise because all samples used
+in Experiment 2 and 3 are pretreatment and there is no indication
+of clinical difference, such as disease progression, during this period.
+Thus the proteins that were found differentially expressed are more
+likely to reflect the clinical condition of each individual rather
+than act as biomarkers for pancreatic cancer. Although we did observe
+proteins that may be directly relevant to cancer (prognosis, treatment
+or response), such as HSP90B1, which is worth further investigation
+in future studies including post treatment patient samples, this study
+has highlighted the absolute requirement for measurement of baseline
+changes in the plasma proteome of patients prior to treatment to distinguish
+true treatment-related effects.</p><p>Typically, iTRAQ proteomics
+data sets as well as other -omics data
+sets require high costs (money, time, etc) to produce, especially
+in experiments involving clinical samples from patients. It is essential
+to find out the minimum number of patients required to provide enough
+findings. In this study, we aimed just to clarify the use of power
+analysis in the context of complex isobaric tagging or relative quantification
+mass spectrometry, and the purpose of power analysis was expressed
+as one would find in a well designed clinical study: with the expected
+fold changes, to determine the number of patients required for a proportion
+of least variant proteins to have sufficient statistical power to
+make the study give insight. In a typical biomarker discovery experiment,
+variant proteins are inherently less likely to be valid candidates
+for a universally applied biomarker. We can propose that 6 patients
+per cohort, allowing for 2 fold changes plus 70% power for 80% of
+the least variant proteins, will be a sufficient starting point for
+a robust biomarker discovery experiment. It asks for experimental
+capacity that is entirely tractable with the current technology, and
+maintains a reasonable level of expected statistical power. Following
+candidate biomarkers identified by this method, targeted investigations
+may be carried out on additional patient samples that may also be
+required in order to verify proteins with higher variance or to obtain
+greater statistical power.</p><p>We stress that the number of patients
+required to get sufficient
+statistical power has been calculated by both <italic>a priori</italic> and <italic>post hoc</italic> power analysis. Comparison showed
+considerable agreement between the two results (Supplementary Figure
+4, <xref rid="notes-4">Supporting Information</xref>) for proteins
+with lesser variance (&lt;85th percentile), which are of primary interest
+in biomarker studies. Essentially, such agreement indicates that despite
+differences in experimental condition, disease type, etc., the variance
+range for the majority of proteins does not vary significantly. Therefore
+the results from the <italic>a priori</italic> power analysis (Table <xref rid="tbl3" ref-type="table">3</xref>) can be applied universally for future iTRAQ experiments.</p><p>In this paper, we have described a framework by which clinical
+proteomic study designs can minimize the FDR in protein identification
+and quantification, leading to thorough statistical assessment of
+technical and biological variation on a study by study basis. This
+replaces the use of arbitrary thresholds based upon variance levels
+reported in other studies which may be completely unrelated. It is
+critical to provide a robust assessment of both technical and biological
+variance, and in doing so here we have highlighted the importance
+of accounting for these errors during data analysis. Thus, we have
+validated the methodology for clinical trial proteomics and provide
+a power analysis solution which falls realistically into study design
+parameters for clinical trials.</p></sec></body><back><notes id="notes-4" notes-type="si"><title>Supporting Information Available</title><p>Supplemental tables and figures.
+This material is available free of charge via the Internet at <uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://pubs.acs.org">http://pubs.acs.org</uri>.</p></notes><sec sec-type="supplementary-material"><title>Supplementary Material</title><supplementary-material content-type="local-data" id="sifile1" position="float" orientation="portrait"><media xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="pr200636x_si_001.pdf" position="float" orientation="portrait"><?suppdata-name pr200636x_si_001.pdf?><?suppdata-size 193736?><?suppdata-md5 709b19867b8e44b2b08630bb4f47cee8?><?suppdata-image-server-status NEVER_LOAD?><?suppdata-mime-type application?><?suppdata-mime-sub-type pdf?><?suppdata-cloudpmc-urn urn:app:cd41/3320746/709b19867b8e/pr200636x_si_001.pdf?><caption><p>pr200636x_si_001.pdf</p></caption></media></supplementary-material><supplementary-material content-type="local-data" id="sifile2" position="float" orientation="portrait"><media xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="pr200636x_si_002.xls" position="float" orientation="portrait"><?suppdata-name pr200636x_si_002.xls?><?suppdata-size 245248?><?suppdata-md5 62e7f7f10b601e71b2c9c488575e43c4?><?suppdata-image-server-status NEVER_LOAD?><?suppdata-mime-type application?><?suppdata-mime-sub-type msword?><?suppdata-cloudpmc-urn urn:app:cd41/3320746/62e7f7f10b60/pr200636x_si_002.xls?><caption><p>pr200636x_si_002.xls</p></caption></media></supplementary-material><supplementary-material content-type="local-data" id="sifile3" position="float" orientation="portrait"><media xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="pr200636x_si_003.pdf" position="float" orientation="portrait"><?suppdata-name pr200636x_si_003.pdf?><?suppdata-size 29138?><?suppdata-md5 bf64d40c01c491941997e04201103c2e?><?suppdata-image-server-status NEVER_LOAD?><?suppdata-mime-type application?><?suppdata-mime-sub-type pdf?><?suppdata-cloudpmc-urn urn:app:cd41/3320746/bf64d40c01c4/pr200636x_si_003.pdf?><caption><p>pr200636x_si_003.pdf</p></caption></media></supplementary-material><supplementary-material content-type="local-data" id="sifile4" position="float" orientation="portrait"><media xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="pr200636x_si_004.pdf" position="float" orientation="portrait"><?suppdata-name pr200636x_si_004.pdf?><?suppdata-size 520766?><?suppdata-md5 58be605530d04b2668861e224a14c170?><?suppdata-image-server-status NEVER_LOAD?><?suppdata-mime-type application?><?suppdata-mime-sub-type pdf?><?suppdata-cloudpmc-urn urn:app:cd41/3320746/58be605530d0/pr200636x_si_004.pdf?><caption><p>pr200636x_si_004.pdf</p></caption></media></supplementary-material></sec><notes id="NOTES-d43e1957-autogenerated" notes-type="conflict-of-interest"><p>The authors declare no
+competing financial interest.</p></notes><ack><title>Acknowledgments</title><p>We thank Dr. Kathryn Lilley and Dr. Andrew Williamson for
+their valuable comments on the manuscript. C.D., C.Z., L.J.L., K.L.S.
+and M.J.D. were funded by Cancer Research UK (Paterson Institute for
+Cancer Research Core Funding from Grant Code: C147/A12328, Clinical
+Research Initiative Grant Code: C357/A12197); PACER funding was from
+Feasibility Study Committee (C153/A7727). PACER-TRANS funding was
+from the Experimental Cancer Medicine Centre Network (ECMC) to A.R.
+R.D.U. is funded by NIHR Manchester Biomedical Research Centre, A.D.W.
+and R.D.U. are funded by Leukaemia Lymphoma Research UK (LRF code
+08004) and Cancer Research UK and M.W. is funded by the ECMC.</p></ack><ref-list><title>References</title><ref id="ref1"><mixed-citation publication-type="journal" id="cit1"><name name-style="western"><surname>Beretta</surname><given-names>L.</given-names></name>
+<article-title>Proteomics
+from the clinical perspective: many hopes and much debate</article-title>. <source>Nat. Methods</source>
+<year>2007</year>, <volume>4</volume>, <fpage>785</fpage>–<lpage>6</lpage>.<pub-id pub-id-type="pmid">17901867</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1038/nmeth1007-785</pub-id></mixed-citation></ref><ref id="ref2"><mixed-citation publication-type="journal" id="cit2"><name name-style="western"><surname>Ross</surname><given-names>P. L.</given-names></name>; <name name-style="western"><surname>Huang</surname><given-names>Y. N.</given-names></name>; <name name-style="western"><surname>Marchese</surname><given-names>J. N.</given-names></name>; et al. <article-title>Multiplexed protein
+quantitation in Saccharomyces cerevisiae using amine-reactive isobaric
+tagging reagents</article-title>. <source>Mol. Cell. Proteomics</source>
+<year>2004</year>, <volume>3</volume>, <fpage>1154</fpage>–<lpage>69</lpage>.<pub-id pub-id-type="pmid">15385600</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1074/mcp.M400129-MCP200</pub-id></mixed-citation></ref><ref id="ref3"><mixed-citation publication-type="journal" id="cit3"><name name-style="western"><surname>Pierce</surname><given-names>A.</given-names></name>; <name name-style="western"><surname>Unwin</surname><given-names>R. D.</given-names></name>; <name name-style="western"><surname>Evans</surname><given-names>C. A.</given-names></name>; et al. <article-title>Eight-channel iTRAQ
+enables comparison of the activity of six leukemogenic tyrosine kinases</article-title>. <source>Mol. Cell. Proteomics</source>
+<year>2008</year>, <volume>7</volume>, <fpage>853</fpage>–<lpage>63</lpage>.<pub-id pub-id-type="pmid">17951628</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1074/mcp.M700251-MCP200</pub-id></mixed-citation></ref><ref id="ref4"><mixed-citation publication-type="journal" id="cit4"><name name-style="western"><surname>Wu</surname><given-names>W. W.</given-names></name>; <name name-style="western"><surname>Wang</surname><given-names>G.</given-names></name>; <name name-style="western"><surname>Baek</surname><given-names>S. J.</given-names></name>; <name name-style="western"><surname>Shen</surname><given-names>R. F.</given-names></name>
+<article-title>Comparative study
+of three proteomic quantitative methods, DIGE, cICAT, and iTRAQ, using
+2D gel- or LC–MALDI TOF/TOF</article-title>. <source>J. Proteome
+Res.</source>
+<year>2006</year>, <volume>5</volume>, <fpage>651</fpage>–<lpage>8</lpage>.<pub-id pub-id-type="pmid">16512681</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1021/pr050405o</pub-id></mixed-citation></ref><ref id="ref5"><mixed-citation publication-type="journal" id="cit5"><name name-style="western"><surname>Karp</surname><given-names>N. A.</given-names></name>; <name name-style="western"><surname>McCormick</surname><given-names>P. S.</given-names></name>; <name name-style="western"><surname>Russell</surname><given-names>M. R.</given-names></name>; <name name-style="western"><surname>Lilley</surname><given-names>K. S.</given-names></name>
+<article-title>Experimental and
+statistical considerations to avoid false conclusions in proteomics
+studies using differential in-gel electrophoresis</article-title>. <source>Mol. Cell. Proteomics</source>
+<year>2007</year>, <volume>6</volume>, <fpage>1354</fpage>–<lpage>64</lpage>.<pub-id pub-id-type="pmid">17513293</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1074/mcp.M600274-MCP200</pub-id></mixed-citation></ref><ref id="ref6"><mixed-citation publication-type="journal" id="cit6"><name name-style="western"><surname>Abdi</surname><given-names>F.</given-names></name>; <name name-style="western"><surname>Quinn</surname><given-names>J. F.</given-names></name>; <name name-style="western"><surname>Jankovic</surname><given-names>J.</given-names></name>; et al. <article-title>Detection of biomarkers
+with a multiplex quantitative proteomic platform in cerebrospinal
+fluid of patients with neurodegenerative disorders</article-title>. <source>J. Alzheimers Dis.</source>
+<year>2006</year>, <volume>9</volume>, <fpage>293</fpage>–<lpage>348</lpage>.<pub-id pub-id-type="pmid">16914840</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.3233/jad-2006-9309</pub-id></mixed-citation></ref><ref id="ref7"><mixed-citation publication-type="journal" id="cit7"><name name-style="western"><surname>DeSouza</surname><given-names>L. V.</given-names></name>; <name name-style="western"><surname>Grigull</surname><given-names>J.</given-names></name>; <name name-style="western"><surname>Ghanny</surname><given-names>S.</given-names></name>; et al. <article-title>Endometrial carcinoma
+biomarker discovery and verification using differentially tagged clinical
+samples with multidimensional liquid chromatography and tandem mass
+spectrometry</article-title>. <source>Mol. Cell. Proteomics</source>
+<year>2007</year>, <volume>6</volume>, <fpage>1170</fpage>–<lpage>82</lpage>.<pub-id pub-id-type="pmid">17374602</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1074/mcp.M600378-MCP200</pub-id></mixed-citation></ref><ref id="ref8"><mixed-citation publication-type="journal" id="cit8"><name name-style="western"><surname>Hergenroeder</surname><given-names>G.</given-names></name>; <name name-style="western"><surname>Redell</surname><given-names>J. B.</given-names></name>; <name name-style="western"><surname>Moore</surname><given-names>A. N.</given-names></name>; et al. <article-title>Identification of serum
+biomarkers in brain-injured adults: potential for predicting elevated
+intracranial pressure</article-title>. <source>J. Neurotrauma</source>
+<year>2008</year>, <volume>25</volume>, <fpage>79</fpage>–<lpage>93</lpage>.<pub-id pub-id-type="pmid">18260791</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1089/neu.2007.0386</pub-id></mixed-citation></ref><ref id="ref9"><mixed-citation publication-type="journal" id="cit9"><name name-style="western"><surname>Kolla</surname><given-names>V.</given-names></name>; <name name-style="western"><surname>Jeno</surname><given-names>P.</given-names></name>; <name name-style="western"><surname>Moes</surname><given-names>S.</given-names></name>; et al. <article-title>Quantitative proteomics
+analysis of maternal plasma in Down syndrome pregnancies using isobaric
+tagging reagent (iTRAQ)</article-title>. <source>J. Biomed. Biotechnol.</source>
+<year>2010</year>, <fpage>952047</fpage>.<pub-id pub-id-type="pmid">19902006</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1155/2010/952047</pub-id><pub-id pub-id-type="pmcid">PMC2774473</pub-id></mixed-citation></ref><ref id="ref10"><mixed-citation publication-type="journal" id="cit10"><name name-style="western"><surname>Ogata</surname><given-names>Y.</given-names></name>; <name name-style="western"><surname>Charlesworth</surname><given-names>M. C.</given-names></name>; <name name-style="western"><surname>Higgins</surname><given-names>L.</given-names></name>; <name name-style="western"><surname>Keegan</surname><given-names>B. M.</given-names></name>; <name name-style="western"><surname>Vernino</surname><given-names>S.</given-names></name>; <name name-style="western"><surname>Muddiman</surname><given-names>D. C.</given-names></name>
+<article-title>Differential protein expression in male and female
+human lumbar cerebrospinal fluid using iTRAQ reagents after abundant
+protein depletion</article-title>. <source>Proteomics</source>
+<year>2007</year>, <volume>7</volume>, <fpage>3726</fpage>–<lpage>34</lpage>.<pub-id pub-id-type="pmid">17853512</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1002/pmic.200700455</pub-id></mixed-citation></ref><ref id="ref11"><mixed-citation publication-type="journal" id="cit11"><name name-style="western"><surname>Unwin</surname><given-names>R. D.</given-names></name>; <name name-style="western"><surname>Smith</surname><given-names>D. L.</given-names></name>; <name name-style="western"><surname>Blinco</surname><given-names>D.</given-names></name>; et al. <article-title>Quantitative proteomics
+reveals posttranslational control as a regulatory factor in primary
+hematopoietic stem cells</article-title>. <source>Blood</source>
+<year>2006</year>, <volume>107</volume>, <fpage>4687</fpage>–<lpage>94</lpage>.<pub-id pub-id-type="pmid">16507774</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1182/blood-2005-12-4995</pub-id></mixed-citation></ref><ref id="ref12"><mixed-citation publication-type="journal" id="cit12"><name name-style="western"><surname>Williamson</surname><given-names>A. J.</given-names></name>; <name name-style="western"><surname>Smith</surname><given-names>D. L.</given-names></name>; <name name-style="western"><surname>Blinco</surname><given-names>D.</given-names></name>; et al. <article-title>Quantitative proteomics
+analysis demonstrates post-transcriptional regulation of embryonic
+stem cell differentiation to hematopoiesis</article-title>. <source>Mol. Cell. Proteomics</source>
+<year>2008</year>, <volume>7</volume>, <fpage>459</fpage>–<lpage>72</lpage>.<pub-id pub-id-type="pmid">18045800</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1074/mcp.M700370-MCP200</pub-id></mixed-citation></ref><ref id="ref13"><mixed-citation publication-type="journal" id="cit13"><name name-style="western"><surname>Elias</surname><given-names>J. E.</given-names></name>; <name name-style="western"><surname>Gygi</surname><given-names>S. P.</given-names></name>
+<article-title>Target-decoy search strategy for increased confidence
+in large-scale protein identifications by mass spectrometry</article-title>. <source>Nat Methods</source>
+<year>2007</year>, <volume>4</volume>, <fpage>207</fpage>–<lpage>14</lpage>.<pub-id pub-id-type="pmid">17327847</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1038/nmeth1019</pub-id></mixed-citation></ref><ref id="ref14"><mixed-citation publication-type="journal" id="cit14"><name name-style="western"><surname>Storey</surname><given-names>J. D.</given-names></name>; <name name-style="western"><surname>Tibshirani</surname><given-names>R.</given-names></name>
+<article-title>Statistical significance for genomewide studies</article-title>. <source>Proc. Natl. Acad. Sci. U.S.A.</source>
+<year>2003</year>, <volume>100</volume>, <fpage>9440</fpage>–<lpage>5</lpage>.<pub-id pub-id-type="pmid">12883005</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1073/pnas.1530509100</pub-id><pub-id pub-id-type="pmcid">PMC170937</pub-id></mixed-citation></ref><ref id="ref15"><mixed-citation publication-type="journal" id="cit15"><name name-style="western"><surname>Käll</surname><given-names>L.</given-names></name>; <name name-style="western"><surname>Storey</surname><given-names>J. D.</given-names></name>; <name name-style="western"><surname>MacCoss</surname><given-names>M. J.</given-names></name>; <name name-style="western"><surname>Noble</surname><given-names>W. S.</given-names></name>
+<article-title>Assigning significance
+to peptides identified by tandem mass spectrometry using decoy databases</article-title>. <source>J. Proteome Res.</source>
+<year>2008</year>, <volume>7</volume>, <fpage>29</fpage>–<lpage>34</lpage>.<pub-id pub-id-type="pmid">18067246</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1021/pr700600n</pub-id></mixed-citation></ref><ref id="ref16"><mixed-citation publication-type="journal" id="cit16"><name name-style="western"><surname>Daly</surname><given-names>D. S.</given-names></name>; <name name-style="western"><surname>Anderson</surname><given-names>K. K.</given-names></name>; <name name-style="western"><surname>Panisko</surname><given-names>E. A.</given-names></name>; et al. <article-title>Mixed-effects statistical
+model for comparative LC–MS proteomics studies</article-title>. <source>J. Proteome Res.</source>
+<year>2008</year>, <volume>7</volume>, <fpage>1209</fpage>–<lpage>17</lpage>.<pub-id pub-id-type="pmid">18251496</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1021/pr070441i</pub-id></mixed-citation></ref><ref id="ref17"><mixed-citation publication-type="undeclared" id="cit17"><person-group person-group-type="allauthors"><name name-style="western"><surname>Demirkale</surname><given-names>C. Y.</given-names></name>; <name name-style="western"><surname>Nettleton</surname><given-names>D.</given-names></name>; <name name-style="western"><surname>Maiti</surname><given-names>T.</given-names></name></person-group><article-title>Linear Mixed Model Selection for
+False Discovery Rate Control in Microarray Data Analysis</article-title>. <source>Biometrics</source><year>2009</year>, not supplied. <pub-id pub-id-type="doi" assigning-authority="pmc">10.1111/j.1541-0420.2009.01286.x</pub-id><pub-id pub-id-type="pmid">19522873</pub-id></mixed-citation></ref><ref id="ref18"><mixed-citation publication-type="journal" id="cit18"><name name-style="western"><surname>Munro</surname><given-names>N. P.</given-names></name>; <name name-style="western"><surname>Cairns</surname><given-names>D. A.</given-names></name>; <name name-style="western"><surname>Clarke</surname><given-names>P.</given-names></name>; et al. <article-title>Urinary biomarker profiling
+in transitional cell carcinoma</article-title>. <source>Int. J. Cancer</source>
+<year>2006</year>, <volume>119</volume>, <fpage>2642</fpage>–<lpage>50</lpage>.<pub-id pub-id-type="pmid">16991122</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1002/ijc.22238</pub-id></mixed-citation></ref><ref id="ref19"><mixed-citation publication-type="journal" id="cit19"><name name-style="western"><surname>Karp</surname><given-names>N. A.</given-names></name>; <name name-style="western"><surname>Lilley</surname><given-names>K. S.</given-names></name>
+<article-title>Maximising sensitivity
+for detecting changes in protein
+expression: experimental design using minimal CyDyes</article-title>. <source>Proteomics</source>
+<year>2005</year>, <volume>5</volume>, <fpage>3105</fpage>–<lpage>15</lpage>.<pub-id pub-id-type="pmid">16035117</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1002/pmic.200500083</pub-id></mixed-citation></ref><ref id="ref20"><mixed-citation publication-type="journal" id="cit20"><name name-style="western"><surname>Dobbin</surname><given-names>K.</given-names></name>; <name name-style="western"><surname>Simon</surname><given-names>R.</given-names></name>
+<article-title>Sample size determination in microarray experiments for class comparison
+and prognostic classification</article-title>. <source>Biostatistics</source>
+<year>2005</year>, <volume>6</volume>, <fpage>27</fpage>–<lpage>38</lpage>.<pub-id pub-id-type="pmid">15618525</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1093/biostatistics/kxh015</pub-id></mixed-citation></ref><ref id="ref21"><mixed-citation publication-type="journal" id="cit21"><name name-style="western"><surname>Storey</surname><given-names>J. D.</given-names></name>; <name name-style="western"><surname>Tibshirani</surname><given-names>R.</given-names></name>
+<article-title>Statistical
+significance for genomewide studies</article-title>. <source>Proc. Natl.
+Acad. Sci. U.S.A.</source>
+<year>2003</year>, <volume>100</volume>, <fpage>9440</fpage>–<lpage>5</lpage>.<pub-id pub-id-type="pmid">12883005</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1073/pnas.1530509100</pub-id><pub-id pub-id-type="pmcid">PMC170937</pub-id></mixed-citation></ref><ref id="ref22"><mixed-citation publication-type="journal" id="cit22"><name name-style="western"><surname>Alexandrakis</surname><given-names>M. G.</given-names></name>; <name name-style="western"><surname>Passam</surname><given-names>F. H.</given-names></name>; <name name-style="western"><surname>Boula</surname><given-names>A.</given-names></name>; et al. <article-title>Relationship between
+circulating serum soluble interleukin-6 receptor and the angiogenic
+cytokines basic fibroblast growth factor and vascular endothelial
+growth factor in multiple myeloma</article-title>. <source>Ann. Hematol.</source>
+<year>2003</year>, <volume>82</volume>, <fpage>19</fpage>–<lpage>23</lpage>.<pub-id pub-id-type="pmid">12574959</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1007/s00277-002-0558-0</pub-id></mixed-citation></ref><ref id="ref23"><mixed-citation publication-type="journal" id="cit23"><name name-style="western"><surname>Rifai</surname><given-names>N.</given-names></name>; <name name-style="western"><surname>Gillette</surname><given-names>M. A.</given-names></name>; <name name-style="western"><surname>Carr</surname><given-names>S. A.</given-names></name>
+<article-title>Protein
+biomarker discovery and validation:
+the long and uncertain path to clinical utility</article-title>. <source>Nat. Biotechnol.</source>
+<year>2006</year>, <volume>24</volume>, <fpage>971</fpage>–<lpage>83</lpage>.<pub-id pub-id-type="pmid">16900146</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1038/nbt1235</pub-id></mixed-citation></ref><ref id="ref24"><mixed-citation publication-type="journal" id="cit24"><name name-style="western"><surname>Breitwieser</surname><given-names>F. P.</given-names></name>; <name name-style="western"><surname>Muller</surname><given-names>A.</given-names></name>; <name name-style="western"><surname>Dayon</surname><given-names>L.</given-names></name>; et al. <article-title>General statistical
+modeling of data from protein relative expression isobaric tags</article-title>. <source>J. Proteome Res.</source>
+<year>2011</year>, <volume>10</volume>, <fpage>2758</fpage>–<lpage>66</lpage>.<pub-id pub-id-type="pmid">21526793</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1021/pr1012784</pub-id></mixed-citation></ref><ref id="ref25"><mixed-citation publication-type="journal" id="cit25"><name name-style="western"><surname>Gan</surname><given-names>C. S.</given-names></name>; <name name-style="western"><surname>Chong</surname><given-names>P. K.</given-names></name>; <name name-style="western"><surname>Pham</surname><given-names>T. K.</given-names></name>
+<article-title>Wright PC. Technical, experimental,
+and biological variations in isobaric tags for relative and absolute
+quantitation (iTRAQ)</article-title>. <source>J. Proteome Res.</source>
+<year>2007</year>, <volume>6</volume>, <fpage>821</fpage>–<lpage>7</lpage>.<pub-id pub-id-type="pmid">17269738</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1021/pr060474i</pub-id></mixed-citation></ref><ref id="ref26"><mixed-citation publication-type="journal" id="cit26"><name name-style="western"><surname>Yang</surname><given-names>Y. H.</given-names></name>; <name name-style="western"><surname>Speed</surname><given-names>T.</given-names></name>
+<article-title>Design issues for cDNA
+microarray experiments</article-title>. <source>Nat. Rev. Genet.</source>
+<year>2002</year>, <volume>3</volume>, <fpage>579</fpage>–<lpage>88</lpage>.<pub-id pub-id-type="pmid">12154381</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1038/nrg863</pub-id></mixed-citation></ref><ref id="ref27"><mixed-citation publication-type="journal" id="cit27"><name name-style="western"><surname>Ernoult</surname><given-names>E.</given-names></name>; <name name-style="western"><surname>Bourreau</surname><given-names>A.</given-names></name>; <name name-style="western"><surname>Gamelin</surname><given-names>E.</given-names></name>; <name name-style="western"><surname>Guette</surname><given-names>C.</given-names></name>
+<article-title>A proteomic approach
+for plasma biomarker discovery with iTRAQ labelling and OFFGEL fractionation</article-title>. <source>J. Biomed. Biotechnol.</source>
+<year>2010</year>, <fpage>927917</fpage>.<pub-id pub-id-type="pmid">19888438</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1155/2010/927917</pub-id><pub-id pub-id-type="pmcid">PMC2771280</pub-id></mixed-citation></ref><ref id="ref28"><mixed-citation publication-type="journal" id="cit28"><name name-style="western"><surname>Kolla</surname><given-names>V.</given-names></name>; <name name-style="western"><surname>Jenö</surname><given-names>P.</given-names></name>; <name name-style="western"><surname>Moes</surname><given-names>S.</given-names></name>; et al. <article-title>Quantitative proteomics
+analysis of maternal plasma in Down syndrome pregnancies using isobaric
+tagging reagent (iTRAQ)</article-title>. <source>J. Biomed. Biotechnol.</source>
+<year>2010</year>, <volume>2010</volume>, <fpage>952047</fpage>.<pub-id pub-id-type="pmid">19902006</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1155/2010/952047</pub-id><pub-id pub-id-type="pmcid">PMC2774473</pub-id></mixed-citation></ref><ref id="ref29"><mixed-citation publication-type="undeclared" id="cit29"><person-group person-group-type="allauthors"><name name-style="western"><surname>Tonack</surname><given-names>S.</given-names></name>; <name name-style="western"><surname>MA-O</surname><given-names>D.</given-names></name>; <name name-style="western"><surname>Jenkins</surname><given-names>R. E.</given-names></name></person-group><article-title>A technically
+detailed
+and pragmatic protocol for quantitative serum proteomics using iTRAQ</article-title>. <source>J. Proteomics</source><year>2009</year>, not supplied. <pub-id pub-id-type="doi" assigning-authority="pmc">10.1016/j.jprot.2009.07.009</pub-id><pub-id pub-id-type="pmid">19651253</pub-id></mixed-citation></ref><ref id="ref30"><mixed-citation publication-type="journal" id="cit30"><name name-style="western"><surname>Song</surname><given-names>X.</given-names></name>; <name name-style="western"><surname>Bandow</surname><given-names>J.</given-names></name>; <name name-style="western"><surname>Sherman</surname><given-names>J.</given-names></name>; et al. <article-title>iTRAQ experimental design
+for plasma biomarker discovery</article-title>. <source>J. Proteome
+Res.</source>
+<year>2008</year>, <volume>7</volume>, <fpage>2952</fpage>–<lpage>8</lpage>.<pub-id pub-id-type="pmid">18549257</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1021/pr800072x</pub-id></mixed-citation></ref><ref id="ref31"><mixed-citation publication-type="journal" id="cit31"><name name-style="western"><surname>Gan</surname><given-names>C. S.</given-names></name>; <name name-style="western"><surname>Chong</surname><given-names>P. K.</given-names></name>; <name name-style="western"><surname>Pham</surname><given-names>T. K.</given-names></name>
+<article-title>Wright
+PC. Technical, experimental,
+and biological variations in isobaric tags for relative and absolute
+quantitation (iTRAQ)</article-title>. <source>J. Proteome Res.</source>
+<year>2007</year>, <volume>6</volume>, <fpage>821</fpage>–<lpage>7</lpage>.<pub-id pub-id-type="pmid">17269738</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1021/pr060474i</pub-id></mixed-citation></ref><ref id="ref32"><mixed-citation publication-type="journal" id="cit32"><name name-style="western"><surname>Polanski</surname><given-names>M.</given-names></name>; <name name-style="western"><surname>Anderson</surname><given-names>N. L.</given-names></name>
+<article-title>A list of candidate
+cancer biomarkers for targeted
+proteomics</article-title>. <source>Biomark. Insights</source>
+<year>2007</year>, <volume>1</volume>, <fpage>1</fpage>–<lpage>48</lpage>.<pub-id pub-id-type="pmid">19690635</pub-id><pub-id pub-id-type="pmcid">PMC2716785</pub-id></mixed-citation></ref><ref id="ref33"><mixed-citation publication-type="journal" id="cit33"><name name-style="western"><surname>Cecconi</surname><given-names>D.</given-names></name>; <name name-style="western"><surname>Donadelli</surname><given-names>M.</given-names></name>; <name name-style="western"><surname>Rinalducci</surname><given-names>S.</given-names></name>; et al. <article-title>Proteomic analysis of
+pancreatic endocrine tumor cell lines treated with the histone deacetylase
+inhibitor trichostatin A</article-title>. <source>Proteomics</source>
+<year>2007</year>, <volume>7</volume>, <fpage>1644</fpage>–<lpage>53</lpage>.<pub-id pub-id-type="pmid">17443844</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1002/pmic.200600811</pub-id></mixed-citation></ref><ref id="ref34"><mixed-citation publication-type="journal" id="cit34"><name name-style="western"><surname>Park</surname><given-names>J. Y.</given-names></name>; <name name-style="western"><surname>Kim</surname><given-names>S. A.</given-names></name>; <name name-style="western"><surname>Chung</surname><given-names>J. W.</given-names></name>; et al. <article-title>Proteomic analysis of
+pancreatic juice for the identification of biomarkers of pancreatic
+cancer</article-title>. <source>J. Cancer Res. Clin. Oncol.</source>
+<year>2011</year>, <volume>137</volume>, <fpage>1229</fpage>–<lpage>38</lpage>.<pub-id pub-id-type="pmid">21691750</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1007/s00432-011-0992-2</pub-id><pub-id pub-id-type="pmcid">PMC11828110</pub-id></mixed-citation></ref><ref id="ref35"><mixed-citation publication-type="journal" id="cit35"><name name-style="western"><surname>Basu</surname><given-names>A.</given-names></name>; <name name-style="western"><surname>Banerjee</surname><given-names>H.</given-names></name>; <name name-style="western"><surname>Rojas</surname><given-names>H.</given-names></name>; et al. <article-title>Differential expression
+of peroxiredoxins in prostate cancer: consistent upregulation of PRDX3
+and PRDX4</article-title>. <source>Prostate</source>
+<year>2011</year>, <volume>71</volume>, <fpage>755</fpage>–<lpage>65</lpage>.<pub-id pub-id-type="pmid">21031435</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1002/pros.21292</pub-id><pub-id pub-id-type="pmcid">PMC3107902</pub-id></mixed-citation></ref><ref id="ref36"><mixed-citation publication-type="journal" id="cit36"><name name-style="western"><surname>Woolston</surname><given-names>C. M.</given-names></name>; <name name-style="western"><surname>Storr</surname><given-names>S. J.</given-names></name>; <name name-style="western"><surname>Ellis</surname><given-names>I. O.</given-names></name>; <name name-style="western"><surname>Morgan</surname><given-names>D. A.</given-names></name>; <name name-style="western"><surname>Martin</surname><given-names>S. G.</given-names></name>
+<article-title>Expression
+of thioredoxin system and related peroxiredoxin proteins is associated
+with clinical outcome in radiotherapy treated early stage breast cancer</article-title>. <source>Radiother. Oncol.</source>
+<year>2011</year>, <volume>100</volume>, <fpage>308</fpage>–<lpage>13</lpage>.<pub-id pub-id-type="pmid">21641069</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1016/j.radonc.2011.05.029</pub-id></mixed-citation></ref><ref id="ref37"><mixed-citation publication-type="journal" id="cit37"><name name-style="western"><surname>Bradshaw</surname><given-names>R. A.</given-names></name>; <name name-style="western"><surname>Burlingame</surname><given-names>A. L.</given-names></name>; <name name-style="western"><surname>Carr</surname><given-names>S.</given-names></name>; <name name-style="western"><surname>Aebersold</surname><given-names>R.</given-names></name>
+<article-title>Reporting
+protein identification data: the next generation of guidelines</article-title>. <source>Mol. Cell. Proteomics</source>
+<year>2006</year>, <volume>5</volume>, <fpage>787</fpage>–<lpage>8</lpage>.<pub-id pub-id-type="pmid">16670253</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1074/mcp.E600005-MCP200</pub-id></mixed-citation></ref><ref id="ref38"><mixed-citation publication-type="journal" id="cit38"><name name-style="western"><surname>Gupta</surname><given-names>N.</given-names></name>; <name name-style="western"><surname>Pevzner</surname><given-names>P. A.</given-names></name>
+<article-title>False discovery rates of protein identifications: a
+strike against the two-peptide rule</article-title>. <source>J. Proteome
+Res.</source>
+<year>2009</year>, <volume>8</volume>, <fpage>4173</fpage>–<lpage>81</lpage>.<pub-id pub-id-type="pmid">19627159</pub-id><pub-id pub-id-type="doi" assigning-authority="pmc">10.1021/pr9004794</pub-id><pub-id pub-id-type="pmcid">PMC3398614</pub-id></mixed-citation></ref></ref-list></back></article>

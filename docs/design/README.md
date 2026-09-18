@@ -87,7 +87,9 @@ In scope: `search`, `fullTextXML`, `citations`, `references`, `databaseLinks`,
 
 ## Known traps
 
-1. MeSH synonym expansion defaults **ON** upstream — expose as a parameter,
+1. MeSH synonym expansion defaults **OFF** upstream (verified 2026-09-18 against the live
+   `search` endpoint: `request.synonym` echoes `false` when the param is omitted). Earlier
+   notes here said ON; that was wrong. Still expose as a parameter,
    default **OFF**, record in provenance.
 2. Three access tiers — full text only for `OPEN_ACCESS`.
 3. Surface withdrawn preprint flags; never treat withdrawn preprints as normal
