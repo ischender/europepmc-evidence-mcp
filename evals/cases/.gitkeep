@@ -1,0 +1,9 @@
+# Example case shape for M5. Pin synonym_expansion: false and record retrieval_date.
+#
+# id: retrieval-001
+# category: retrieval  # retrieval | grounding | refusal
+# question: "..."
+# synonym_expansion: false
+# retrieval_date: "2026-09-18"
+# gold:
+#   article_ids: ["MED:12345678"]
