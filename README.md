@@ -6,10 +6,11 @@ bare search hits. Licence-awareness is a hard gate, not a warning: full text is 
 when the licence permits it, and everything else comes back as an explicit, machine-readable
 refusal.
 
-> **Status: all six tools are live.** The licence gate, provenance envelope, cursor pagination,
-> retraction surfacing and the evidence table are complete and tested against recorded
-> fixtures of real responses. The scored benchmark (`evals/`) is the remaining piece — see
-> [the plan](./docs/plans/v1-end-to-end.md).
+> **Status: all six tools are live, and the contract suite runs.** Licence gate, provenance
+> envelope, cursor pagination, retraction surfacing and the evidence table are complete. The
+> benchmark's contract layer ships with 35 cases whose gold answers come from PubMedQA and the
+> Retraction Watch database — sources independent of this server. The agent layer is the
+> remaining piece — see [the plan](./docs/plans/v1-end-to-end.md).
 
 **Author:** [Alessandro Pedori](https://github.com/ischender)
 
@@ -152,10 +153,22 @@ No live HTTP in the default suite — tests run against recorded fixtures in `te
 
 ## Benchmark
 
-See `evals/` (in progress). Two layers, because they measure different things: a deterministic
-**contract suite** that replays fixtures in CI, and an **agent layer** where a pinned model
-chooses its own queries — the only place run-to-run variance is real. Scores are reported per
-category, with negative controls, not as a single composite.
+```bash
+uv run python -m evals.run       # 35 cases, replayed from cassettes: deterministic, offline
+uv run python -m evals.report    # per-category breakdown
+```
+
+Two layers, because they measure different things. The **contract suite** (built) replays
+recorded cassettes in CI. The **agent layer** (next) lets a pinned model choose its own
+queries — the only place run-to-run variance is real, since deterministic tools replaying
+fixed cassettes have zero variance by construction.
+
+Gold answers come from sources independent of this server, because a gold set built with our
+own `search_literature` would grade the tool against its own output: **PubMedQA** (MIT, keyed
+by real PMIDs) for retrieval and grounding, and the **Retraction Watch database** via Crossref
+(CC0) for negative controls — which matters, since this server derives retraction status from
+Europe PMC's own `pubTypeList`. Every case declares its `gold_provenance`, and self-derived
+cases would be excluded from the headline. See [evals/README.md](./evals/README.md).
 
 ## Attribution
 

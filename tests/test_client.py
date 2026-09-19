@@ -107,3 +107,19 @@ async def test_R02_accept_header_can_be_overridden_per_request(client: EuropePMC
     await client.get("/PMC1/fullTextXML", accept="application/xml")
     assert route.calls[0].request.headers["accept"] == "application/xml"
     await client.aclose()
+
+
+async def test_R03_injected_transport_keeps_base_url_and_user_agent() -> None:
+    """Injecting a whole httpx client silently dropped base_url and the UA; transport does not."""
+    seen: dict[str, httpx.Request] = {}
+
+    def capture(request: httpx.Request) -> httpx.Response:
+        seen["request"] = request
+        return httpx.Response(200, json={})
+
+    client = EuropePMCClient(transport=httpx.MockTransport(capture))
+    await client.get("/search", params={"query": "x"})
+    request = seen["request"]
+    assert str(request.url).startswith(BASE_URL), "relative paths must resolve against base_url"
+    assert "europepmc-evidence-mcp" in request.headers["user-agent"]
+    await client.aclose()

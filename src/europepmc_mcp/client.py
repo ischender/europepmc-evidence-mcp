@@ -76,7 +76,7 @@ class EuropePMCClient:
         base_url: str = BASE_URL,
         user_agent: str | None = None,
         timeout: httpx.Timeout | None = None,
-        client: httpx.AsyncClient | None = None,
+        transport: httpx.AsyncBaseTransport | None = None,
         max_concurrency: int = DEFAULT_MAX_CONCURRENCY,
         max_attempts: int = DEFAULT_MAX_ATTEMPTS,
         retry_wait: float = DEFAULT_RETRY_WAIT,
@@ -86,16 +86,18 @@ class EuropePMCClient:
         self.max_attempts = max_attempts
         self.retry_wait = retry_wait
         self._semaphore = asyncio.Semaphore(max_concurrency)
-        self._owns_client = client is None
-        self._client = client or httpx.AsyncClient(
+        self._owns_client = True
+        # Callers swap the transport (cassette replay, mocks), never the whole client, so
+        # base_url, User-Agent and timeouts are configured in exactly one place.
+        self._client = httpx.AsyncClient(
             base_url=self.base_url,
-            headers={"User-Agent": self.user_agent, "Accept": "application/json"},
+            headers={"User-Agent": self.user_agent, "Accept": JSON_ACCEPT},
             timeout=timeout or DEFAULT_TIMEOUT,
+            transport=transport,
         )
 
     async def aclose(self) -> None:
-        if self._owns_client:
-            await self._client.aclose()
+        await self._client.aclose()
 
     async def __aenter__(self) -> EuropePMCClient:
         return self

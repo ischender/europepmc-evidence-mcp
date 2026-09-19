@@ -1,0 +1,205 @@
+meta:
+  source: PubMedQA (PQA-L)
+  source_url: https://github.com/pubmedqa/pubmedqa
+  source_licence: MIT
+  note: Expert-annotated biomedical questions keyed by real PMIDs. Independent of
+    this server.
+  retrieval_date: '2026-09-18'
+cases:
+- id: retrieval-001
+  category: retrieval
+  gold_provenance: independent
+  question: Do mitochondria play a role in remodelling lace plant leaves during programmed
+    cell death?
+  tool: search_literature
+  args:
+    query: Do mitochondria play a role in remodelling lace plant leaves during programmed
+      cell death?
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:21645374
+- id: retrieval-002
+  category: retrieval
+  gold_provenance: independent
+  question: 'Landolt C and snellen e acuity: differences in strabismus amblyopia?'
+  tool: search_literature
+  args:
+    query: 'Landolt C and snellen e acuity: differences in strabismus amblyopia?'
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:16418930
+- id: retrieval-003
+  category: retrieval
+  gold_provenance: independent
+  question: Syncope during bathing in infants, a pediatric form of water-induced urticaria?
+  tool: search_literature
+  args:
+    query: Syncope during bathing in infants, a pediatric form of water-induced urticaria?
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:9488747
+- id: retrieval-004
+  category: retrieval
+  gold_provenance: independent
+  question: Are the long-term results of the transanal pull-through equal to those
+    of the transabdominal pull-through?
+  tool: search_literature
+  args:
+    query: Are the long-term results of the transanal pull-through equal to those
+      of the transabdominal pull-through?
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:17208539
+- id: retrieval-005
+  category: retrieval
+  gold_provenance: independent
+  question: Can tailored interventions increase mammography use among HMO women?
+  tool: search_literature
+  args:
+    query: Can tailored interventions increase mammography use among HMO women?
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:10808977
+- id: retrieval-006
+  category: retrieval
+  gold_provenance: independent
+  question: 'Double balloon enteroscopy: is it efficacious and safe in a community
+    setting?'
+  tool: search_literature
+  args:
+    query: 'Double balloon enteroscopy: is it efficacious and safe in a community
+      setting?'
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:23831910
+- id: retrieval-007
+  category: retrieval
+  gold_provenance: independent
+  question: '30-Day and 1-year mortality in emergency general surgery laparotomies:
+    an area of concern and need for improvement?'
+  tool: search_literature
+  args:
+    query: '30-Day and 1-year mortality in emergency general surgery laparotomies:
+      an area of concern and need for improvement?'
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:26037986
+- id: retrieval-008
+  category: retrieval
+  gold_provenance: independent
+  question: Is adjustment for reporting heterogeneity necessary in sleep disorders?
+  tool: search_literature
+  args:
+    query: Is adjustment for reporting heterogeneity necessary in sleep disorders?
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:26852225
+- id: retrieval-009
+  category: retrieval
+  gold_provenance: independent
+  question: Do mutations causing low HDL-C promote increased carotid intima-media
+    thickness?
+  tool: search_literature
+  args:
+    query: Do mutations causing low HDL-C promote increased carotid intima-media thickness?
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:17113061
+- id: retrieval-010
+  category: retrieval
+  gold_provenance: independent
+  question: 'A short stay or 23-hour ward in a general and academic children''s hospital:
+    are they effective?'
+  tool: search_literature
+  args:
+    query: 'A short stay or 23-hour ward in a general and academic children''s hospital:
+      are they effective?'
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:10966337
+- id: retrieval-011
+  category: retrieval
+  gold_provenance: independent
+  question: Did Chile's traffic law reform push police enforcement?
+  tool: search_literature
+  args:
+    query: Did Chile's traffic law reform push police enforcement?
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:25432938
+- id: retrieval-012
+  category: retrieval
+  gold_provenance: independent
+  question: 'Therapeutic anticoagulation in the trauma patient: is it safe?'
+  tool: search_literature
+  args:
+    query: 'Therapeutic anticoagulation in the trauma patient: is it safe?'
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:18847643
+- id: retrieval-013
+  category: retrieval
+  gold_provenance: independent
+  question: 'Differentiation of nonalcoholic from alcoholic steatohepatitis: are routine
+    laboratory markers useful?'
+  tool: search_literature
+  args:
+    query: 'Differentiation of nonalcoholic from alcoholic steatohepatitis: are routine
+      laboratory markers useful?'
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:18239988
+- id: retrieval-014
+  category: retrieval
+  gold_provenance: independent
+  question: 'Prompting Primary Care Providers about Increased Patient Risk As a Result
+    of Family History: Does It Work?'
+  tool: search_literature
+  args:
+    query: 'Prompting Primary Care Providers about Increased Patient Risk As a Result
+      of Family History: Does It Work?'
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:25957366
+- id: retrieval-015
+  category: retrieval
+  gold_provenance: independent
+  question: Do emergency ultrasound fellowship programs impact emergency medicine
+    residents' ultrasound education?
+  tool: search_literature
+  args:
+    query: Do emergency ultrasound fellowship programs impact emergency medicine residents'
+      ultrasound education?
+    limit: 25
+    synonym_expansion: false
+  gold:
+    article_ids:
+    - MED:24866606

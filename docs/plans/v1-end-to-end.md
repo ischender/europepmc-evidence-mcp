@@ -746,3 +746,38 @@ network.
 - **2026-09-18 / `get_annotations` filtering is forwarded, never reapplied locally / ** a test
   initially asserted client-side filtering of a mocked unfiltered body. Filtering twice would
   be a second way to do one job; the test now asserts the parameters are forwarded.
+
+### M5 — benchmark (2026-09-18)
+
+- **2026-09-18 / gold sets are INDEPENDENT after all; the "pretend at start" plan was not
+  needed / ** the user asked whether we could start with provisional gold sets and label them
+  honestly. Searching for outside sources found three usable ones, so no case is provisional:
+  **PubMedQA (MIT, keyed by real PMIDs)** for retrieval and grounding, and the **Retraction
+  Watch database via Crossref (CC0, has `OriginalPaperPubMedID`)** for negative controls. The
+  provisional machinery is still built and tested — `gold_provenance` is required on every
+  case and `provisional_self_derived` cases are excluded from the headline — so a future
+  hand-written case cannot silently inflate a score.
+- **2026-09-18 / Retraction Watch vs Europe PMC disagree on taxonomy, not fact / ** a 12-record
+  sample agreed 11/12. The exception, MED:14973990, is a Cochrane review that RW classes as a
+  `Retraction` ("Retract and Replace; Withdrawn as Out of Date") while Europe PMC records
+  `"Update in"` pointing at a 2016 revision — superseded editorially, not retracted for
+  misconduct. The builder now excludes those reasons. **This is the payoff of independent gold
+  sets: a self-derived set could not have surfaced it.**
+- **2026-09-18 / R20-R22 delivered: 35 cases, all three categories, 100% / ** contract suite
+  replays cassettes offline and is wired into CI. Retrieval is honest rather than trivial —
+  gold PMID at rank 1 in 12/15, median rank 1, against result sets up to 5,906 hits — but
+  PubMedQA questions are title-derived, so this is friendlier than a real clinical query, and
+  `evals/README.md` says so.
+- **2026-09-18 / harness self-tests: the suite must be able to fail / ** a benchmark that
+  cannot go red proves nothing, so `tests/test_evals_harness.py` corrupts a gold answer and
+  asserts FAIL, asserts an unrecorded request raises `CassetteMiss` rather than silently going
+  live, and asserts no case is self-derived.
+- **2026-09-18 / `EuropePMCClient(client=...)` replaced by `transport=...` / ** injecting a
+  whole `httpx.AsyncClient` silently dropped `base_url` and the User-Agent, which surfaced as
+  `UnsupportedProtocol` the first time the evals used it. The transport seam keeps base URL,
+  UA and timeouts configured in exactly one place. Only `evals/run.py` used the old seam.
+- **2026-09-18 / cassettes must strip `content-encoding` / ** bodies are stored decoded, so
+  passing the upstream gzip header along made httpx decompress twice ("incorrect header
+  check"). Stripped, with a regression test.
+- **2026-09-18 / mypy extended to `evals/`, CI now runs mypy and the contract suite / **
+  strict passes on 31 files.
