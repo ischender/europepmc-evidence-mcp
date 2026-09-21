@@ -8,6 +8,9 @@ The three modes exist for three different jobs:
 - `record_on_miss` — the agent layer, where the agent picks its own queries so cassettes
   cannot be pre-recorded. One shared cache per sweep freezes upstream, so run-to-run variance
   is the agent's and not Europe PMC's.
+
+Cacheability uses `europepmc_mcp.client.is_upstream_stub` — the same predicate the live
+client retries — so a version-only 200 cannot freeze into a cassette.
 """
 
 from __future__ import annotations
@@ -19,11 +22,23 @@ from typing import Literal
 
 import httpx
 
+from europepmc_mcp.client import is_upstream_stub
+
 Mode = Literal["replay", "record", "record_on_miss"]
 
 # Only successful bodies are worth freezing. Caching a 503 would turn one transient upstream
-# failure into a systematic result for every run in the sweep.
+# failure into a systematic result for every run in the sweep. Version-only stubs (HTTP 200
+# with {"version":"…"} alone) are likewise not cacheable — see is_upstream_stub.
 CACHEABLE_STATUSES = frozenset({200, 404})
+
+
+def _cacheable(response: httpx.Response) -> bool:
+    """Whether this response is safe to freeze. One predicate for sync and async paths."""
+    if response.status_code not in CACHEABLE_STATUSES:
+        return False
+    # 404 from fullTextXML is a licence signal and is worth freezing; stubs are not.
+    return not is_upstream_stub(response.content)
+
 
 # Bodies are stored decoded, so transfer-encoding headers must not travel with them: httpx
 # would try to decompress an already-decompressed body.
@@ -89,7 +104,7 @@ class CassetteTransport(httpx.BaseTransport):
         response = self._inner.handle_request(request)
         response.read()
 
-        if response.status_code in CACHEABLE_STATUSES:
+        if _cacheable(response):
             self.directory.mkdir(parents=True, exist_ok=True)
             path.write_text(
                 json.dumps(
@@ -158,7 +173,7 @@ class AsyncCassetteTransport(httpx.AsyncBaseTransport):
         response = await self._inner.handle_async_request(request)
         await response.aread()
 
-        if response.status_code in CACHEABLE_STATUSES:
+        if _cacheable(response):
             self.directory.mkdir(parents=True, exist_ok=True)
             path.write_text(
                 json.dumps(

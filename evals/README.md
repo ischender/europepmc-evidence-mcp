@@ -7,7 +7,7 @@ Two layers, because they measure different things.
 ```bash
 uv run python -m evals.run          # replay recorded cassettes: deterministic, offline, in CI
 uv run python -m evals.run --record # refresh cassettes from the live API
-uv run python -m evals.run --live   # call the live API and record anything new
+uv run python -m evals.run --live   # use cassettes when present; live + record on miss
 uv run python -m evals.report       # per-category breakdown
 uv run python -m evals.report --all # movement across runs
 ```
@@ -16,6 +16,12 @@ uv run python -m evals.report --all # movement across runs
 is deterministic and needs no network. A request that was never recorded raises `CassetteMiss`
 rather than quietly becoming a live call — a cassette layer that falls through to the network
 is not deterministic.
+
+`--record` / `--live` hit Europe PMC. Free-text search sometimes returns a version-only stub
+(`{"version":"6.9"}`, HTTP 200); the client retries those, and the cassette layer refuses to
+cache them — otherwise a bad capture zeros retrieval while grounding/refusal (ID lookups)
+still pass. If a refresh still looks wrong, restore with `git checkout -- evals/cassettes`
+and retry rather than committing stubs.
 
 **This is a contract suite, not a retrieval score.** A fixed query replayed from a cassette
 measures the query the case author wrote, not the tool's ability to choose one. Scored

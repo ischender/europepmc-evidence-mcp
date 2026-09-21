@@ -91,6 +91,7 @@ Licence refusals are successful `restricted` responses, not errors.
 5. Normalise ID namespaces on input (`MED:`, `PMC:`, `PPR:`…); preserve on output.
 6. Descriptive User-Agent + contact; polite backoff.
 7. Europe PMC attribution in server instructions and README.
+8. Free-text `/search` may answer HTTP 200 with `{"version":"…"}` only — retry, never cassette.
 
 **VERIFY BEFORE CODING:** Confirm paths, params, and response shapes against
 live docs (`https://europepmc.org/RestfulWebService`) before trusting secondary

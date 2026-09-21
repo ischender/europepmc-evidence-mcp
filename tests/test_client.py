@@ -58,7 +58,7 @@ async def test_R02_honours_retry_after(client: EuropePMCClient) -> None:
     respx.get(SEARCH).mock(
         side_effect=[
             httpx.Response(429, headers={"Retry-After": "0"}),
-            httpx.Response(200, json={}),
+            httpx.Response(200, json={"hitCount": 0}),
         ]
     )
     assert (await client.get("/search")).status_code == 200
@@ -92,9 +92,46 @@ def test_R03_user_agent_is_derived_from_version_not_hardcoded() -> None:
 
 @respx.mock
 async def test_R02_accept_header_defaults_to_json(client: EuropePMCClient) -> None:
-    route = respx.get(SEARCH).mock(return_value=httpx.Response(200, json={}))
+    route = respx.get(SEARCH).mock(return_value=httpx.Response(200, json={"hitCount": 0}))
     await client.get("/search")
     assert route.calls[0].request.headers["accept"] == "application/json"
+    await client.aclose()
+
+
+@respx.mock
+async def test_R02_retries_version_only_stub_and_succeeds(client: EuropePMCClient) -> None:
+    """Europe PMC free-text search sometimes answers 200 with {"version":"6.9"} and nothing else.
+
+    Observed live under load (and when Accept is wrong). Treating the stub as success empties
+    search results and freezes bad cassettes on --record.
+    """
+    from europepmc_mcp.client import is_upstream_stub
+
+    assert is_upstream_stub(b'{"version":"6.9"}')
+    assert not is_upstream_stub(b'{"version":"6.9","hitCount":1}')
+
+    route = respx.get(SEARCH).mock(
+        side_effect=[
+            httpx.Response(200, json={"version": "6.9"}),
+            httpx.Response(200, json={"version": "6.9"}),
+            httpx.Response(
+                200, json={"version": "6.9", "hitCount": 1, "resultList": {"result": []}}
+            ),
+        ]
+    )
+    response = await client.get("/search", params={"query": "x"})
+    assert response.status_code == 200
+    assert response.json()["hitCount"] == 1
+    assert route.call_count == 3
+    await client.aclose()
+
+
+@respx.mock
+async def test_R02_stub_exhaustion_raises_retryable_upstream_error(client: EuropePMCClient) -> None:
+    respx.get(SEARCH).mock(return_value=httpx.Response(200, json={"version": "6.9"}))
+    with pytest.raises(UpstreamError) as exc:
+        await client.get("/search")
+    assert exc.value.retryable
     await client.aclose()
 
 
@@ -115,7 +152,7 @@ async def test_R03_injected_transport_keeps_base_url_and_user_agent() -> None:
 
     def capture(request: httpx.Request) -> httpx.Response:
         seen["request"] = request
-        return httpx.Response(200, json={})
+        return httpx.Response(200, json={"hitCount": 0})
 
     client = EuropePMCClient(transport=httpx.MockTransport(capture))
     await client.get("/search", params={"query": "x"})

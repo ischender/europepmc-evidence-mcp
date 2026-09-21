@@ -31,11 +31,21 @@ is shaped around the failure modes that make literature agents untrustworthy:
 
 Requires **Python 3.14+** and [uv](https://docs.astral.sh/uv/).
 
+**One MCP entry.** [`.cursor/mcp.json`](./.cursor/mcp.json) names the server
+`europepmc-evidence`. Cursor loads it as-is (`${workspaceFolder}` expands). For the
+Inspector, use the repo script so the same file is used without renaming the session `uv`:
+
 ```bash
+# Cursor — Settings → MCP; reload if the server is missing.
+
+# MCP Inspector (canonical — do not pass a bare `uv run …` ad-hoc target)
+./scripts/inspect-mcp.sh
+
+# Claude Code
 claude mcp add europepmc-evidence -- uv run --directory /path/to/europepmc-evidence-mcp europepmc-mcp
 ```
 
-Run it directly to check it starts:
+Smoke-start without a client:
 
 ```bash
 uv run europepmc-mcp --transport stdio
@@ -121,6 +131,10 @@ notes, so they are documented here with what was actually observed.
    annotations for** — so absence is derived by diffing requested against returned.
 8. **Relation-typed annotations carry no polarity** and can span several sentences. They are
    the strongest match type available and still not an assertion of support.
+9. **Free-text `/search` sometimes answers HTTP 200 with `{"version":"6.9"}` and nothing else**
+   — under load, and consistently when `Accept` is `*/*` or omitted (ID lookups still work).
+   The client treats that stub as a retryable failure; the cassette layer never freezes it.
+   Always send `Accept: application/json` (the client does).
 
 ## What this is not
 

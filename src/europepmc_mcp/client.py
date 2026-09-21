@@ -7,6 +7,7 @@ constructs an httpx client or decides what to retry.
 from __future__ import annotations
 
 import asyncio
+import json
 import random
 import time
 from dataclasses import dataclass, field
@@ -44,6 +45,22 @@ XML_ACCEPT = "application/xml"
 def default_user_agent() -> str:
     """Descriptive UA with a contact path, as EBI expects. Version comes from the package."""
     return f"europepmc-evidence-mcp/{__version__} (+{CONTACT_URL}; {CONTACT_EMAIL})"
+
+
+def is_upstream_stub(content: bytes) -> bool:
+    """True when Europe PMC answered HTTP 200 with a body that carries no payload.
+
+    Free-text `/search` intermittently returns `{"version":"6.9"}` under load, and the same
+    shape appears when `Accept` is wrong (`*/*` or omitted). Real search/citation/datalinks
+    JSON always includes keys beyond `version`. Treating the stub as success empties tool
+    results and freezes empty cassettes on `--record` — so the client retries it, and the
+    cassette layer refuses to cache it.
+    """
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError, UnicodeDecodeError:
+        return False
+    return isinstance(data, dict) and set(data.keys()) <= {"version"}
 
 
 @dataclass(slots=True)
@@ -147,11 +164,19 @@ class EuropePMCClient:
             except (httpx.TransportError, httpx.TimeoutException) as exc:
                 last_detail = f"{type(exc).__name__}: {exc}"
             else:
-                if response.status_code not in RETRYABLE_STATUSES:
-                    return response
-                last_detail = f"HTTP {response.status_code}"
-                await self._pause(attempt, budget, retry_after=response.headers.get("Retry-After"))
-                continue
+                if response.status_code in RETRYABLE_STATUSES:
+                    last_detail = f"HTTP {response.status_code}"
+                    await self._pause(
+                        attempt, budget, retry_after=response.headers.get("Retry-After")
+                    )
+                    continue
+                # Read once so stub detection and callers share the same buffered body.
+                await response.aread()
+                if is_upstream_stub(response.content):
+                    last_detail = "HTTP 200 with version-only stub body"
+                    await self._pause(attempt, budget)
+                    continue
+                return response
 
             await self._pause(attempt, budget)
 

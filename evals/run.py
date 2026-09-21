@@ -5,7 +5,7 @@ checks that the tools honour their contracts against gold answers we did not aut
 
     uv run python -m evals.run              # replay (CI)
     uv run python -m evals.run --record     # refresh cassettes from the live API
-    uv run python -m evals.run --live       # hit the API and report drift vs cassettes
+    uv run python -m evals.run --live       # cassettes when present; live + record on miss
 
 This is a *contract and regression suite*, not a retrieval score: a fixed query replayed from
 a cassette measures the case author's query, not the tool's ability to choose one. Scored
@@ -114,7 +114,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Europe PMC Evidence MCP contract suite")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--record", action="store_true", help="refresh cassettes from live API")
-    group.add_argument("--live", action="store_true", help="call the live API, ignoring cassettes")
+    group.add_argument(
+        "--live",
+        action="store_true",
+        help="use cassettes when present; call live API and record on miss",
+    )
     args = parser.parse_args()
 
     mode: Mode = "record" if args.record else ("record_on_miss" if args.live else "replay")

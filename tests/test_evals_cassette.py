@@ -81,6 +81,24 @@ def test_R20_failures_are_never_cached(tmp_path: Path) -> None:
     assert transport.handle_request(request).status_code == 200, "the 503 must not be replayed"
 
 
+def test_R20_version_only_stubs_are_never_cached(tmp_path: Path) -> None:
+    """A 200 stub must not freeze into a cassette the way a real search body would."""
+    bodies = iter([{"version": "6.9"}, {"version": "6.9", "hitCount": 3}])
+
+    def upstream(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json=next(bodies))
+
+    transport = CassetteTransport(tmp_path, mode="record", inner=httpx.MockTransport(upstream))
+    request = httpx.Request("GET", "https://example.org/search?query=x")
+    stub = transport.handle_request(request)
+    assert stub.json() == {"version": "6.9"}
+    assert list(tmp_path.glob("*.json")) == [], "stub bodies must not be written"
+
+    good = transport.handle_request(request)
+    assert good.json()["hitCount"] == 3
+    assert len(list(tmp_path.glob("*.json"))) == 1
+
+
 def test_R20_cassettes_are_human_readable_for_review(tmp_path: Path) -> None:
     def upstream(request: httpx.Request) -> httpx.Response:
         return httpx.Response(200, json={"hitCount": 7})
