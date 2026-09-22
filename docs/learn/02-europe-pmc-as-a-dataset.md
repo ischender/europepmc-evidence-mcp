@@ -127,3 +127,11 @@ contradicts several published descriptions, including this repo's own early note
 
 Two and a half times the results. If a benchmark doesn't pin this, its numbers are noise. Our
 tool defaults it off, sends it explicitly on every request, and records it in provenance.
+
+### The version-only stub
+
+Free-text `/search` sometimes answers **HTTP 200** with nothing but `{"version":"6.9"}` —
+under load, and consistently if `Accept` is wrong (`*/*` or omitted). ID lookups like
+`(SRC:MED AND EXT_ID:…)` usually still return a real body. The client retries the stub; the
+eval cassette layer refuses to freeze it. Without that, `--record` can empty every retrieval
+case while grounding stays green.

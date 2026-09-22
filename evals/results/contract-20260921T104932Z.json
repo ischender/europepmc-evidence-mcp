@@ -1,0 +1,351 @@
+{
+  "headline_score": 1.0,
+  "categories": {
+    "retrieval": {
+      "validated": {
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "errored": 0,
+        "score": 1.0
+      },
+      "provisional": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "errored": 0,
+        "score": null
+      }
+    },
+    "grounding": {
+      "validated": {
+        "total": 12,
+        "passed": 12,
+        "failed": 0,
+        "errored": 0,
+        "score": 1.0
+      },
+      "provisional": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "errored": 0,
+        "score": null
+      }
+    },
+    "refusal": {
+      "validated": {
+        "total": 8,
+        "passed": 8,
+        "failed": 0,
+        "errored": 0,
+        "score": 1.0
+      },
+      "provisional": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "errored": 0,
+        "score": null
+      }
+    }
+  },
+  "composite": {
+    "score": 1.0,
+    "weights": {
+      "retrieval": 0.4,
+      "grounding": 0.4,
+      "refusal": 0.2
+    },
+    "note": "The composite is a convenience, not the result. Read the per-category scores: a 40/40/20 blend can hide a collapsed refusal score behind good retrieval."
+  },
+  "provisional_case_count": 0,
+  "case_count": 35,
+  "run_at": "2026-09-21T10:49:32.930459+00:00",
+  "mode": "replay",
+  "instructions_sha256": "accba206020a8c9bc010382321ad3af4b8f6a4b0fe8829faf399209f1d69533e",
+  "cassette_hits": 35,
+  "cassette_misses": 0,
+  "cases": [
+    {
+      "id": "grounding-001",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'the following paper elucidates the role of mitochondrial dynamics during developmentally r'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-002",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains '100 patients (age 8 - 90 years, median 60.5 years) with various eye disorders, among them '",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-003",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'eight infants aged 2 to 15 months were admitted during a period of 6 years; they suffered '",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-004",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'records of 41 patients more than 3 years old who underwent a pull-through for hd (terpt, n'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-005",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'telephone counseling and tailored print communications have emerged as promising methods f'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-006",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'the mean age was 62 years. thirty-two patients were female, 15 were african-american; 44 a'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-007",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'emergency surgery is associated with poorer outcomes and higher mortality with recent stud'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-008",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'the prevalence of self-reported problems with sleep and energy was 53 %. without correctio'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-009",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'in a 1:2 case-control study of sex and age-related (+/-5 y) subjects (n=114), cimt was nea'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-010",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains \"the short stay ward accounted for 10.3% (westmead hospital) and 14.7% (new children's hosp\"",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-011",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'a unique dataset with assembled information from public institutions and analyses based on'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "grounding-012",
+      "category": "grounding",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "returned text contains 'one-hundred-fourteen trauma patients were initiated on therapeutic anticoagulation. the mo'",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "refusal-001",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "a 'retracted' record was surfaced",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-002",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "a 'retracted' record was surfaced",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-003",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "a 'retracted' record was surfaced",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-004",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "a 'retracted' record was surfaced",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-005",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "a 'retracted' record was surfaced",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-006",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "a 'retracted' record was surfaced",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-007",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "a 'retracted' record was surfaced",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-008",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "a 'retracted' record was surfaced",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "retrieval-001",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-002",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-003",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-004",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-005",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-006",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-007",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-008",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-009",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-010",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-011",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-012",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-013",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-014",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-015",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "pass",
+      "detail": "all 1 gold ids returned",
+      "source": "PubMedQA (PQA-L)"
+    }
+  ]
+}

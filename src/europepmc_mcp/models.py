@@ -197,10 +197,15 @@ class LicenceInfo(BaseModel):
 
 
 class RestrictedPayload(BaseModel):
-    """Successful licence refusal — agent should reason and continue."""
+    """Successful licence refusal — agent should reason and continue.
+
+    Carries the same ``record`` spine as ok/outline (R28) so metadata and the full abstract
+    remain available when full text is refused.
+    """
 
     status: str = "restricted"
     access_tier: AccessTier
     licence: str | None = None
     reason: str
     available: list[str] = Field(default_factory=list)
+    record: CompactRecord | None = None

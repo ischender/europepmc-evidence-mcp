@@ -46,6 +46,24 @@ async def test_R09_free_to_read_full_text_request_is_refused_not_truncated(
     assert result["data"]["access_tier"] == "FREE_TO_READ"
     assert "abstract" in result["data"]["available"]
     assert "full_text" not in result["data"]
+    assert result["data"]["record"]["id"] == "MED:24073682"
+
+
+@respx.mock
+async def test_R28_restricted_record_carries_full_abstract_not_triage_truncation(
+    client: EuropePMCClient,
+) -> None:
+    """R6 triage is ~300 chars; restricted fetch_article must keep the full abstract."""
+    import json
+
+    body = json.loads(FREE)
+    long_abstract = ("word " * 80).strip()  # well over 300 characters
+    assert len(long_abstract) > 300
+    body["resultList"]["result"][0]["abstractText"] = long_abstract
+    respx.get(SEARCH).mock(return_value=httpx.Response(200, content=json.dumps(body).encode()))
+    result = await fetch_article("MED:24073682", include_full_text=True, client=client)
+    assert result["status"] == "restricted"
+    assert result["data"]["record"]["abstract"] == long_abstract
 
 
 @respx.mock

@@ -21,21 +21,26 @@ from europepmc_mcp.tools._envelope import (
 DESCRIPTION = """\
 Assemble a grounded evidence table for a claim across up to 20 articles.
 
-You MUST pass structured terms, e.g. terms={"subject": "metformin", "object": "diabetes"}. \
+You MUST pass structured terms, e.g. terms={"subject": "metformin", "object": "diabetes"} \
+or lists of alternatives terms={"subject": ["Ultomiris", "ravulizumab"], "object": "PNH"}. \
 This server runs no LLM, so it cannot parse a free-text claim; `claim` is carried through as a \
-label only. A row is produced when BOTH terms appear in the same annotation snippet.
+label only. A row is produced when BOTH roles appear in the same annotation snippet (or, as a \
+weaker fallback, co-occur in the title+abstract).
 
 Rows are CANDIDATES, not support. A match means the terms co-occur — a snippet can name both \
-while denying any link between them. Each row declares how it matched: "relation" (a \
-relation-typed annotation, strongest, but still carries no polarity), "entity" (both terms \
-matched ontology tags), or "substring" (weakest). Read the snippets.
+while denying any link between them. Each row declares how it matched: "relation", "entity", \
+"substring", or "abstract_cooccurrence" (weakest; title+abstract window). Surface text is \
+authoritative — ontology tags only upgrade the match type and cannot invent a hit. Short \
+all-caps abbreviations (≤4 letters) match case-sensitively. Pass brand and INN as list \
+alternatives when either form may appear. Read the snippets.
 
 Every article you pass appears in exactly one of two places. Articles with no matching \
 snippet go in `no_candidates` with a reason: no_match, not_annotated, restricted, or \
 upstream_error. Absence of evidence is as legible as presence.
 
-Rows carry access_tier, licence and retraction_status. Retracted sources are LABELLED, not \
-removed — a dropped row would be indistinguishable from evidence that never existed.\
+Rows carry matched_terms, access_tier, licence and retraction_status. Retracted sources are \
+LABELLED, not removed — a dropped row would be indistinguishable from evidence that never \
+existed.\
 """
 
 
@@ -43,7 +48,7 @@ async def build_evidence_table(
     claim: str,
     ids: list[str],
     *,
-    terms: dict[str, str] | None = None,
+    terms: dict[str, Any] | None = None,
     entity_filter: list[str] | None = None,
     client: EuropePMCClient | None = None,
     deadline: Deadline | None = None,
@@ -57,7 +62,7 @@ async def build_evidence_table(
             f"At most {evidence_service.MAX_IDS} IDs per table; got {len(article_ids)}."
         )
 
-    wanted = evidence_service.terms_from(terms)
+    wanted = evidence_service.term_groups_from(terms)
     if not wanted:
         raise InvalidArgumentError(
             "terms must supply at least a subject or object, e.g. "
@@ -110,15 +115,28 @@ async def build_evidence_table(
                     match_type = evidence_service.classify_match(annotation, wanted)
                     if match_type is None:
                         continue
-                    rows.append(_row(article_id, annotation, match_type, record))
+                    rows.append(_row(article_id, annotation, match_type, record, terms))
                     reasons.pop(article_id, None)
+
+        # R30: abstract co-occurrence fallback for eligible absences.
+        for article_id, reason in list(reasons.items()):
+            if reason not in evidence_service.ABSTRACT_FALLBACK_REASONS:
+                continue
+            record = records.get(article_id)
+            if record is None:
+                continue
+            fallback_rows = evidence_service.abstract_cooccurrence_rows(article_id, record, terms)
+            if not fallback_rows:
+                continue
+            rows.extend(fallback_rows)
+            reasons.pop(article_id, None)
 
     if metadata_failed:
         for article_id in reasons:
             if reasons[article_id] == "no_match":
                 reasons[article_id] = "upstream_error"
 
-    rows.sort(key=lambda r: evidence_service.MATCH_RANK[r["match_type"]])
+    rows = evidence_service.dedupe_candidate_rows(rows)
     data = {
         "claim": claim,
         "terms": terms,
@@ -134,9 +152,11 @@ def _row(
     annotation: dict[str, Any],
     match_type: str,
     record: CompactRecord | None,
+    terms: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """One candidate row, carrying everything needed to judge its reliability."""
     snippet = annotations_service.to_snippet(annotation)
+    surface = f"{snippet.prefix or ''}{snippet.exact or ''}{snippet.postfix or ''}"
     return {
         "id": article_id,
         "match_type": match_type,
@@ -148,6 +168,7 @@ def _row(
         "type": annotation.get("type"),
         "tags": annotation.get("tags") or [],
         "snippet_sha256": snippet.snippet_sha256,
+        "matched_terms": evidence_service.matched_terms_for(surface, terms),
         "title": record.title if record else None,
         "access_tier": record.access_tier.value if record and record.access_tier else None,
         "licence": record.licence if record else None,
@@ -173,7 +194,7 @@ async def _metadata(
             client,
             query=" OR ".join(i.query_term() for i in article_ids),
             limit=max(len(article_ids), 1),
-            abstract="none",
+            abstract="full",
             deadline=deadline,
         )
     except EuropePMCError:
@@ -188,7 +209,7 @@ async def _metadata(
 async def entrypoint(
     claim: str,
     ids: list[str],
-    terms: dict[str, str] | None = None,
+    terms: dict[str, Any] | None = None,
     entity_filter: list[str] | None = None,
 ) -> dict[str, Any]:
     """Agent-facing signature: infrastructure arguments stay out of the generated schema."""

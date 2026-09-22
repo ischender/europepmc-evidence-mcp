@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from europepmc_mcp.models import AccessTier, LicenceInfo, RestrictedPayload
+from europepmc_mcp.models import AccessTier, CompactRecord, LicenceInfo, RestrictedPayload
 
 # "OA" appears on MED-sourced records; PMC-sourced open-access records use "F" (Free) for the
 # same thing. Verified 2026-09-18 — requiring the literal "OA" misclassifies the PMC half.
@@ -69,6 +69,7 @@ def refuse_full_text(
     *,
     licence: str | None = None,
     available: list[str] | None = None,
+    record: CompactRecord | None = None,
 ) -> RestrictedPayload:
     """Typed refusal for non-OA full-text requests (successful `restricted` response)."""
     return RestrictedPayload(
@@ -79,4 +80,5 @@ def refuse_full_text(
             f"This record is {tier.value}."
         ),
         available=available or ["metadata", "abstract", "annotations"],
+        record=record,
     )

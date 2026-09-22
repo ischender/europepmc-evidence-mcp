@@ -61,13 +61,15 @@ The most important line in the licence gate is that a refusal is **not an error*
   "data": {
     "access_tier": "FREE_TO_READ",
     "reason": "Full text is only returned for OPEN_ACCESS records whose licence permits it. ...",
-    "available": ["metadata", "abstract", "annotations"]
+    "available": ["metadata", "abstract", "annotations"],
+    "record": { "id": "MED:…", "abstract": "…full abstract…", "title": "…" }
   }
 }
 ```
 
 If this were an exception or a protocol error, the agent's most likely next move is to retry
-it, then give up on the article entirely. As a successful response carrying `available`, the
+it, then give up on the article entirely. As a successful response carrying `record` (with the
+**full** abstract, not a triage truncation) and `available`, the
 obvious next move is to fall back to the abstract or the annotations — which is exactly what
 you want. **Never** return partial full text as a compromise; a truncated blob is
 indistinguishable from a complete one once it's in the context window.

@@ -34,9 +34,14 @@ claim to be unsupported either.
 
 | `match_type` | What it means | How much to trust it |
 |---|---|---|
-| `relation` | A relation-typed annotation (`Gene Drug Relationship`) that explicitly links two entities | Strongest available — **still not an assertion** |
-| `entity` | At least one term matched an ontology tag, so a text-mining pipeline recognised a real entity there | Middling |
-| `substring` | Both terms appear in the text and nothing more is known | Weakest — the "anxiety" row above |
+| `relation` | A relation-typed annotation (`Gene Drug`, `Gene Disease`, or `Disease Drug Relationship`) that explicitly links two entities | Strongest available — **still not an assertion** |
+| `entity` | Surface text matches, and at least one term also matched an ontology tag | Middling |
+| `substring` | Both terms appear in one annotation span and nothing more is known | Weak |
+| `abstract_cooccurrence` | Terms co-occur only in a title+abstract window (annotation pass found nothing) | Weakest — still co-mention, not support |
+
+Surface text is authoritative: a wrong ontology tag (e.g. Ravulizumab tagged as tocilizumab)
+cannot invent a hit. Short all-caps abbreviations match case-sensitively — pass expansions as
+term-list alternatives.
 
 That ranking does real work. On the live query above, the three ontology-grounded rows sort
 above the coincidence, which sinks to the bottom as `substring`.

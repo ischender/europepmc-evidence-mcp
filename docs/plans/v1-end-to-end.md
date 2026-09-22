@@ -4,19 +4,15 @@
 
 This repo is a showcase: a working MCP server over Europe PMC that returns **grounded
 evidence** (snippet + section + licence + provenance), not bare search hits, shipped with a
-scored benchmark including negative controls. It exists to turn "familiar with MCP" into a
-link — so the README, the examples, and the eval report are part of the deliverable, not
-garnish.
+scored **contract** benchmark (negative controls included). It exists to turn "familiar with
+MCP" into a link — so the README, the examples, and the eval report are part of the
+deliverable, not garnish.
 
-Today the repo is a **scaffold**: `client.py`, `licence.py`, `provenance.py`, `models.py`
-are real; all six tools and all six services are `raise NotImplementedError`; `server.py`
-registers nothing; `evals/run.py` and `evals/report.py` are stubs; 3 tests pass.
-
-**On delivery:** this plan lives at `docs/plans/v1-end-to-end.md`. AGENTS.md requires the
-plan *settled* before code — written and agreed, not git-committed. The file is untracked and
-stays that way unless you decide otherwise; it can move under the gitignored `/design/`
-directory if it should never be publishable. It is canonical and revised in place — `## Settled` amend-only, every revision
-appends to `## Decision Log`, R-IDs never renumbered.
+**Current state (2026-09-21):** M0–M5 delivered — six tools registered, contract suite 35/35
+green, teaching pages and examples present. The agent-layer benchmark (R25) is **not built**.
+Next work is the agent-grounding hardening pass (R28–R33) driven by live Syfovre/Ultomiris
+probes. This plan is the living record — `## Settled` amend-only, every revision appends to
+`## Decision Log`, R-IDs never renumbered.
 
 ---
 
@@ -93,9 +89,9 @@ These are the zero-variance mandate made concrete. Every one gets a test.
 | HTTP | `EuropePMCClient.get()` only. No module constructs `httpx` itself. |
 | Response envelope | `provenance.wrap(data, build_provenance(...))`. No tool builds a dict by hand. |
 | Hashing | `hash_content(raw_body_bytes)` on the **upstream body before any parsing**. |
-| Multi-call provenance | The envelope carries `sources: [{resolved_url, content_sha256, hash_scope, retrieved_at}]` — **a list, always, even for one call**. A tool that makes several upstream calls (R15 `enrich`, `build_evidence_table`'s ten) must account for each. *Added 2026-09-18 — see Decision Log.* |
+| Multi-call provenance | The envelope carries `sources: [{resolved_url, content_sha256, hash_scope, retrieved_at}]` — **a list, always, even for one call**. A tool that makes several upstream calls (R15 `enrich`, `build_evidence_table`'s batching at the annotations cap of **8**) must account for each. *Added 2026-09-18; batch size corrected 2026-09-21 — see Decision Log.* |
 | Access tier | `licence.classify_access_tier(record)` — one function, one `AccessTier` enum. Never a boolean. |
-| Refusal | `licence.refuse_full_text()` → `RestrictedPayload`, returned as a **successful** response with `status="restricted"`. Never an exception, never partial text. |
+| Refusal | `licence.refuse_full_text()` → `RestrictedPayload` with **`record` retained** (same spine as `ok`/`outline`), returned as a **successful** response with `status="restricted"`. Never an exception, never silent omission of metadata/abstract, never partial full text. *Amended 2026-09-21 (R28) — see Decision Log.* |
 | IDs | `ids.normalise(raw) -> ArticleId(source, id)`. Every tool normalises on entry, emits `"MED:12345"` on exit. |
 | Pagination | `pagination.encode/decode`. Tools never see `cursorMark` or `offSet`. |
 | Compact record | `models.CompactRecord.from_search_result()` / `.from_citation()`. Search, citations and references all return the same shape. |
@@ -113,27 +109,28 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
 - **R1** — `ids.normalise` accepts `MED:123`, `123`, `PMID:123`, `PMC123`, `PMCID:PMC123`,
   `PPR:PPR456`, and a bare DOI; rejects junk with `InvalidArgumentError`. Output preserves
   the namespace.
-- **R2** — the client retries 429/502/503/504 **and** transport errors with jittered
+- **R2** — the client retries 429/502/503/504 **and** transport errors **and** Europe PMC's
+  version-only HTTP 200 stub (`{"version":"…"}` with no other keys) with jittered
   exponential backoff, honours `Retry-After`, and then raises a retryable `UpstreamError`.
   (Fixes the live bug.) The budget is a **per-invocation deadline (~20s) threaded down from
-  the tool call**, not a per-request cap: `build_evidence_table` and `get_annotations` make
-  up to ten calls, so a per-call cap bounds nothing. **Time spent waiting on the concurrency
+  the tool call**, not a per-request cap: `build_evidence_table` fans out annotation batches
+  at the cap of **8** (R13), so a per-call cap bounds nothing. **`get_annotations` is a single
+  upstream call** — R14 set the batch cap to 8 and R13 enforces it; the earlier conditional
+  about fanning out is closed (2026-09-21). **Time spent waiting on the concurrency
   semaphore counts against the deadline.** The deadline is threaded down **one way only: an
   explicit `deadline` parameter** on service and client calls — not a contextvar — matching
   the explicit-`client` style the services already use and keeping it visible in tests.
   On expiry, behaviour depends on the tool: **`build_evidence_table`**, the only tool with
   per-ID reason codes, returns a partial result with `upstream_error` codes (R18). **Every
   other tool, `get_annotations` included, yields an `isError` result** (R27) — reason codes
-  exist only in the evidence table, so pointing annotations at R18 was wrong. `get_annotations`
-  is expected to be single-call once R14 confirms the batch cap; if R14 instead shows it must
-  fan out across several requests, it needs a **per-ID status field** of its own rather than
-  borrowing R18's, and that choice goes in the Decision Log.
+  exist only in the evidence table.
 - **R3** — the client sends a descriptive `User-Agent` derived from `__version__`, not a
   hardcoded string, and caps concurrency with a shared semaphore.
 - **R4** — `build_provenance` hashes each raw upstream body **before** parsing and appends it
   to the envelope's `sources` list, one entry per upstream call, each with its own
   `resolved_url`, `content_sha256` and `hash_scope`. **A single-body envelope is not
-  sufficient**: R15 with `enrich` makes two calls and `build_evidence_table` up to ten, and an
+  sufficient**: R15 with `enrich` makes two calls and `build_evidence_table` fans out at the
+  annotations batch cap of **8**, and an
   envelope that hashes only one of them silently drops the provenance for the rest — which
   would hollow out the project's central claim. `resolved_url` is reconstructable. The hash is
   **only** a reproducibility claim for stable
@@ -147,7 +144,11 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
   `prefix`/`postfix` at all**, so the `Snippet` model must make those two optional.
   Including the annotation `id` is what makes it useful — annotations are **re-mined**, so
   snippet text alone is not durable, and the hash should *detect* re-mining rather than paper
-  over it. Per-snippet stability is a claim to **verify in R14**, not an assumption.
+  over it. **Per-snippet durability across re-mines remains OPEN (2026-09-21):** R14 was
+  marked complete on six questions, but the Decision Log never recorded a re-mine finding.
+  Within one R25 sweep the shared cache freezes annotation bodies, so scores are unaffected;
+  **cross-sweep comparisons** of `evidence[].snippet_hash` are not a durability claim until
+  this is verified. Do not treat "R14 done" as closing it.
 - **R5** — `pagination.encode/decode` round-trips both a `cursorMark` token and an `offset`
   token. The token embeds a **token-format version** and a **hash of the originating query
   params**; a cursor replayed with different arguments, or a malformed one, raises
@@ -175,9 +176,13 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
   into every evidence row — `cc by-nc` and `cc by-nd` are both OA and not interchangeable, so
   the tier alone is not enough for a reuse decision.
 - **R9** — `fetch_article(include_full_text=True)` on a non-`OPEN_ACCESS` record returns a
-  **successful** `RestrictedPayload` naming tier, licence, reason, and what *is* available.
+  **successful** `RestrictedPayload` naming tier, licence, reason, and what *is* available,
+  **and retains `record`** (metadata + abstract) on the same data spine as `ok` / `outline`.
+  `available` is a capability hint for follow-on tools, not a substitute for embedding the
+  abstract on `record`. *(Amended 2026-09-21 — R28; see Decision Log.)*
 - **R10** — a 404 from `fullTextXML` on a record classified `OPEN_ACCESS` degrades to a
-  restricted payload, not a crash. (Upstream and metadata can disagree.)
+  restricted payload **that still carries `record`**, not a crash. (Upstream and metadata can
+  disagree.)
 - **R11** — full text over the size threshold returns a **section outline** (section names +
   char counts) instead of a truncated blob; `sections=[...]` then returns only those sections.
 - **R12** — a **withdrawn or retracted** record surfaces a single `retraction_status` field on
@@ -203,7 +208,7 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
   returns HTTP 400. The API also **silently drops IDs it has no annotations for** (8 requested,
   7 returned), so the service diffs requested against returned and emits `not_annotated`
   rather than letting the omission pass unnoticed. **Size-controlled like R11**: ~1000 annotations per
-  full-text article × 10 IDs would blow the context window, so an over-threshold request
+  full-text article × **8** IDs would blow the context window, so an over-threshold request
   returns a **counts outline** (by type, section, provider) and the agent re-requests with
   those as filters.
 - **R14** — verification task (**moved to M0**): confirm the `databaseLinks` and `references`
@@ -213,8 +218,10 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
   **polarity** or are sentence-level co-occurrence (feeds R17 and doc 05), and whether
   per-snippet hashes survive **re-mining** (feeds R4). Also confirms the **annotations
   `articleIds` batch cap** — R13 assumed 10; **verified as 8**.
-  **R14 ran on 2026-09-18 and is complete.** All six questions are answered; four overturned
-  something the plan asserted. See the Decision Log entries dated 2026-09-18 (R14 results).
+  **R14 ran on 2026-09-18.** The Decision Log answered datalinks, batch cap 8,
+  polarity/multi-sentence, prefix/postfix absence, references/`match`, and
+  retraction/withdrawal. **Per-snippet hash durability under re-mining was not answered** and
+  remains open under R4 (amended 2026-09-21). Do not count durability among the answered items.
 - **R15** — `get_citation_network(direction=...)` returns the same `CompactRecord` shape as
   search, behind the opaque cursor. **The verified citation shape carries no `pubTypeList`,
   no licence and no OA fields**, so R12's tier, licence and `retraction_status` cannot be
@@ -229,8 +236,11 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
   **`match: "Y"` flags whether the reference resolved to a Europe PMC record at all** —
   unmatched references can lack `source`/`id` entirely, so they map to a `CompactRecord` with
   `unknown` identity rather than being dropped or given a fabricated ID.
-- **R16** — `get_database_links` returns accessions grouped by database plus an explicit
-  `handoff` hint naming UniProt/ChEMBL servers.
+- **R16** — `get_database_links` reads Europe PMC **`datalinks`** (R14: the old
+  `databaseLinks` endpoint is dead), returns accessions grouped by database (filtering
+  `Altmetric` as attention data, not a cross-reference), each with an identifiers.org URL,
+  plus an explicit `handoff` hint naming UniProt/ChEMBL servers. An article with no
+  cross-references returns an empty map, not an error.
 
 ### Evidence (M4)
 
@@ -239,16 +249,21 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
   establishes **co-mention, not support**, and will happily "ground" *X inhibits Y* with a
   snippet reading *X did not inhibit Y*. Every row carries an explicit `match_type` —
   `relation` (from the relation-typed annotations observed live: `Gene Drug Relationship`,
-  `Gene Disease Relationship`), `entity`, or `substring` — ranked in that order of strength.
-  Naming and labelling are the requirement; silent co-mention-as-support is the failure.
+  `Gene Disease Relationship`, **`Disease Drug Relationship`**), `entity`, `substring`, or
+  **`abstract_cooccurrence`** (R30) — ranked in that order of strength. **Surface text is
+  authoritative (R32):** every term must appear in the snippet's `prefix+exact+postfix` under
+  R32's normalisation, short-all-caps, and alphanumeric-neighbour boundary rules; ontology
+  tags only *upgrade* `match_type` and must never invent a hit when the surface form is absent. Naming and labelling are the
+  requirement; silent co-mention-as-support is the failure.
   **Input contract:** with no LLM in the server, a free-text `claim` cannot be parsed, so the
   tool requires structured `terms: {subject, object}` from the agent and treats `claim` as an
   unparsed label echoed into the output. The scaffold signature is
   `build_evidence_table(claim, ids, *, entity_filter=None)` — adding `terms` is an additive
   keyword argument, so the fixed signature accommodates it. **`terms` and `entity_filter` do
   not overlap**, which the one-way rule requires stating: `terms` is *what to match*
-  (the subject/object strings), `entity_filter` is *which annotation types are eligible to be
-  matched against* (e.g. `["Chemicals", "Gene_Proteins"]`). Neither can substitute for the
+  (the subject/object strings; values may be `str | list[str]` per R29), `entity_filter` is
+  *which annotation types are eligible to be matched against*
+  (e.g. `["Chemicals", "Gene_Proteins"]`). Neither can substitute for the
   other, and there is exactly one route for each job.
   **R14 verified this (2026-09-18), and it is worse than assumed.** Relation-typed annotations
   are indeed **polarity-free** — `relation` is the strongest match type available and still not
@@ -256,6 +271,7 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
   whole sentence or several, and a real example reads *"proteins that **may be** directly
   relevant to cancer … worth further investigation"* — hedged, tagged `HSP90B1` + `cancer`, and
   indistinguishable from an assertion by any deterministic matcher. Doc 05 must say this.
+  *(Amended 2026-09-21 — R29/R30/R32; see Decision Log.)*
 - **R18** — every input ID with no candidate row appears in **`no_candidates`** — renamed from
   `unsupported`, because if matches are only candidates (R17) then their complement cannot be
   "unsupported" — **with a reason code**: `no_match`, `not_annotated`, `restricted`
@@ -263,6 +279,11 @@ Every R-ID maps to ≥1 test whose name carries the ID (e.g. `test_R05_refuses_f
   and absence of evidence is not actually legible. **Boundary with R27:** a run where some IDs
   fail is a **successful** result carrying `upstream_error` codes; only total failure (no ID
   resolvable, or the deadline expiring before any call returns) is an `isError` result.
+  **Boundary with R30 (abstract fallback):** an ID may be rescued into
+  `abstract_cooccurrence` when its prior reason is `no_match`, `not_annotated`, or
+  `restricted` (the abstract is still available from metadata). An ID with
+  `upstream_error` is **never** rescued — absence of reliable metadata must stay legible.
+  *(Amended 2026-09-21 — see Decision Log.)*
 - **R19** — a snippet from a withdrawn, retracted or non-OA record is labelled as such **in
   the row**, carrying the tier and the raw licence string from R8.
 
@@ -279,8 +300,9 @@ reported as such, and **retrieval scoring lives at the agent layer only**.
 
 - **R20** — *contract & regression suite.* `evals/run.py` replays committed cassettes,
   deterministic and offline, asserting fixed tool calls produce the expected shapes, tiers,
-  refusals and reason codes; `--live` re-hits the API and reports drift vs cassettes. It
-  reports **pass/fail on contracts, not a retrieval score.**
+  refusals and reason codes; `--live` / `--record` re-hit the API. Cassettes cache only
+  meaningful 200/404 bodies — never 5xx and never version-only stubs (R2). It reports
+  **pass/fail on contracts, not a retrieval score.**
 - **R21** — `evals/report.py` reports **per-category scores as the headline**. The 40/40/20
   composite is arbitrary and prints as a secondary line, not as *the* score. Contract results
   print as pass/fail; agent results print per-case pass rate (k/N) with flaky cases flagged.
@@ -304,6 +326,10 @@ reported as such, and **retrieval scoring lives at the agent layer only**.
     - `evidence[].snippet_hash` reuses R4's per-snippet hash and is what makes **grounding**
       mechanically gradable — `cited_ids` alone has nowhere to check a snippet, and agents
       paraphrase, so string-matching the prose would grade paraphrase quality.
+    - **`abstract_cooccurrence` citations (R30):** a per-case **pass** requires span-backed
+      grounding (`relation` | `entity` | `substring`) unless the case gold explicitly allows
+      `abstract_cooccurrence`. Partial citations are **counted and reported separately** — not
+      folded into k for the k/N pass rate (k/N needs a binary pass).
     - `outcome` is an **enum**, not a boolean: `answered | refused_licence | flagged_retracted
       | no_evidence`. A single `refused: bool` conflates three different negatives that the
       refusal category needs to tell apart.
@@ -319,10 +345,15 @@ reported as such, and **retrieval scoring lives at the agent layer only**.
 ### MCP surface & polish (M6)
 
 - **R23** — the server ships `instructions` covering tool chains, the synonym trap, the
-  three-tier model, the withdrawal/retraction caveat, and Europe PMC attribution.
+  three-tier model, the withdrawal/retraction caveat, Europe PMC attribution, **and (from
+  2026-09-21) the R32 surface-text rule**: tag-only abbreviation/expansion hits are gone
+  unless the agent supplies term variants (R29) — state this plainly, not only via a
+  brand/INN example. Restricted responses retain `record` (R28).
   **Lands before the R25 sweep, not in M6:** instructions materially change agent behaviour,
   so benchmarking an agent against a server with no instructions measures a different product.
-  Each sweep records the `instructions_sha256` it ran against.
+  Each sweep records the `instructions_sha256` it ran against; **instruction edits invalidate
+  comparability with earlier sweeps** — the report must say so.
+  *(Amended 2026-09-21 — see Decision Log.)*
 - **R24** — a smoke test initialises over **stdio** and lists exactly six tools. Streamable
   HTTP is a deferred M6 extra (see Settled amendment); if it ships, the same smoke test runs
   against it, with bind-address and origin checks.
@@ -332,10 +363,90 @@ reported as such, and **retrieval scoring lives at the agent layer only**.
   discriminated on `status: "ok" | "restricted" | "outline"`** — without the discriminator the
   `RestrictedPayload` that R9 returns as a *success* would fail validation against its own
   tool's output schema, and `outline` is needed because the R11 section outline and the R13
-  counts outline are a **third shape**, neither a normal result nor a refusal.
+  counts outline are a **third shape**, neither a normal result nor a refusal. The
+  **`restricted` variant requires `record`** (R28) — a schema-level statement of the Refusal
+  invariant. A unit test validates a restricted payload against the published output schema.
+  *(Amended 2026-09-21 — see Decision Log.)*
 - **R27** — tool failures return `isError` results the model can read and act on, never
   protocol-level errors. The shared decorator from the invariants table is the single place
   this happens.
+
+### Agent-grounding hardening (post-M5 live probes, 2026-09-21)
+
+Triggered by Syfovre/Ultomiris MCP probes that the saturated contract suite (35/35) did not
+catch. Amends R9/R17/R18/R26 above; adds:
+
+- **R28** — Restricted `fetch_article` / R10 responses include `CompactRecord` on
+  `RestrictedPayload` alongside `reason` / `available` / `access_tier` / `licence`. Same data
+  spine as `ok` and `outline`. Updates the Refusal invariant. The `record.abstract` on this
+  path is the **full** abstract from the article metadata lookup — **not** R6's ~300-character
+  search triage truncation — otherwise "restricted ≠ empty" understates what the agent has.
+- **R29** — `terms.subject` / `terms.object` accept `str | list[str]`. A role matches if **any**
+  alternative appears under R32's surface-text rule. Validate: no empty strings, dedupe
+  alternatives, small cap (≤8 per role). Each candidate row carries
+  `matched_terms: {subject, object}` naming which variant hit. Existing `tags` remain on the
+  row (a visible wrong NER tag is informative). Server `instructions` must state plainly that
+  R32 drops tag-only abbreviation/expansion hits unless the agent supplies variants — not only
+  give a brand/INN example. No curated drug alias table (that would be a second synonym system
+  beside MeSH `synonym_expansion`).
+- **R30** — After the annotation pass, IDs eligible under R18's R30 boundary are re-scored by
+  matching terms against the **full** title+abstract from metadata (not the truncated triage
+  abstract). Hits use `match_type: abstract_cooccurrence`, ranked **last** — weaker than span
+  `substring`, because co-occurrence across ~250 words is not the same as co-occurrence in one
+  annotation span (a distinct tier, not a parallel `scope` field).
+  **Window algorithm (deterministic; feeds the hash):**
+  1. Enumerate **all** hits for each role (any alternative under R29/R32 rules) in
+     `title + "\n" + abstract`, using R32's normalised search string + index map.
+  2. Among spans that cover **at least one hit for every role**, take the **minimal-length**
+     covering span; break ties by leftmost start. (Leftmost-per-role alone is wrong:
+     `A … B … A-B`.)
+  3. Expand that span to **sentence boundaries**. A sentence terminator is `.`, `?`, or `!`
+     **followed by whitespace, then an uppercase letter or digit** (or end of text). This
+     avoids splitting inside `p < 0.05`, `vs.`, `e.g.`, `et al.` — naive "split on `.`" is
+     forbidden because the window feeds the hash.
+  4. If the expanded span length is ≤ **`WINDOW_MAX_CHARS` (400)**, emit one row whose
+     `exact` is that window, with character `start`/`end` offsets into the **original NFC**
+     title+abstract string.
+  5. If the expanded span exceeds the cap, emit **two** `abstract_cooccurrence` rows — one
+     window centred on **each role's hit from that minimal span** (sentence-expanded, each
+     capped at `WINDOW_MAX_CHARS`) — rather than a silently truncated single span. Same
+     article may therefore contribute two rows; R31 still applies within each.
+  Synthetic snippet identity for hashing: annotation-id slot = `abstract:{article_id}` (or
+  `abstract:{article_id}:subject` / `:object` when split), plus the canonical window text via
+  `snippet_hash`; `hash_scope: VOLATILE` (mutable search body) so R25's
+  `evidence[].snippet_hash` has a defined referent.
+- **R31** — Deduplicate `candidate_evidence` on
+  `(article_id, section, canonical prefix+exact+postfix)` — **not** on `snippet_sha256` alone.
+  R4's hash includes `annotation_id`, so two relation/entity annotations on the same span get
+  different hashes and would never collapse. Keep the strongest `match_type` and **that
+  survivor's** `snippet_sha256` (the hash the grader will see cited).
+  **Follow-up (not this pass):** relation spans that *contain* entity spans without being
+  identical still pile up; collapsing contained spans can land later.
+- **R32** — `classify_match` requires every term in surface text under these rules:
+  - **Normalisation for matching:** NFC on the original; then derive a **normalised search
+    string** (casefold by default; whitespace collapsed). Because casefold and whitespace
+    collapse **change string length** (`ß`→`ss`, `İ` lengthens, collapsed spaces shorten),
+    maintain an **index map from normalised offsets back to the original NFC text**. Boundary
+    checks and emitted `start`/`end` use the original; matching runs on the normalised string.
+    Test: a length-changing character adjacent to a term.
+  - **Short all-caps exception:** if a term alternative is entirely uppercase ASCII letters
+    and length ≤ 4 (e.g. `AD`, `PNH`; `CD4` is not — contains a digit), match **case-sensitively**
+    against the NFC surface (whitespace still collapsed via the index map) so `AD` does not hit
+    *ad libitum* and `PNH` does not hit a lowercased URL fragment.
+  - **Token boundary:** a match at original index `i` of length `n` is valid only when the
+    character immediately before (if any) and immediately after (if any) in the **original NFC
+    text** are **not Unicode alphanumeric** (`str.isalnum()`). Do **not** use regex `\b` — it
+    fails on biomedical shapes such as `CD4+`, `HER2/neu`, `5-FU`, `IL-6`, `TNF-α`. Tests must
+    cover those forms.
+  Tags only *upgrade* to `entity` / `relation` after surface text already matches. Adds
+  `Disease Drug Relationship` to `RELATION_TYPES`. Corrects the fabrication path opened when
+  the mid-implementation entity-tier fix allowed a wrong ontology tag (e.g.
+  Ravulizumab→tocilizumab) to stand in for surface text (Decision Log).
+- **R33** — Optional on-demand `--live` smoke (5–6 calls covering search, restricted fetch,
+  annotations, evidence table, datalinks) run before release. Not in CI. Catches the class of
+  bugs found only by live calls (406, version-only stubs, `OA`/`F` codes, enum dump warnings).
+  Named test: `test_R33_live_smoke_manifest_lists_the_intended_tools` — asserts the smoke
+  manifest covers those tools/paths (the live run itself stays opt-in, not CI).
 
 ---
 
@@ -379,6 +490,21 @@ M2 skeleton. → R17–R19.
 then **server `instructions` (R23) — which must exist before `agent.py` runs**, since
 instructions change agent behaviour and a sweep against an instruction-less server measures a
 different product. Then `agent.py`. → R20–R23, R25.
+*(Agent layer not yet built as of 2026-09-21; contract suite is.)*
+
+**M5b — agent-grounding hardening (2026-09-21).** Strict order — each step is red/green:
+
+1. **R32** first — removes the fabrication path; everything else builds on `classify_match`.
+2. **R31** — span-keyed dedupe.
+3. **R29** — list-valued terms + `matched_terms`.
+4. **R30** — `abstract_cooccurrence` window algorithm.
+5. **R28** together with the **R26** restricted-schema test.
+6. **R23** instruction edits (changes `instructions_sha256`).
+7. **Regenerate `examples/`** — the drug–target transcript's match types change under R32.
+8. **R33** — live-smoke manifest test + opt-in runner.
+
+Also: wrong-tag contract case; fixture-backed Syfovre/Ultomiris slices where possible.
+Update `docs/learn/03` (restricted retains full abstract on `record`) and `05`.
 
 **M6 — surface.** README as partner docs, `docs/learn/`, `examples/` transcripts, instructions
 *polish* (the substance landed in M5). Streamable HTTP **only if time allows — this is the
@@ -386,7 +512,7 @@ first thing to cut**, and it carries origin, bind-address and auth concerns stdi
 
 ### Minimum shippable point, and the cut order
 
-27 requirements, a benchmark harness and five teaching pages have no timebox attached, so the
+33 requirements, a benchmark harness and five teaching pages have no timebox attached, so the
 order things get dropped in should be decided now rather than under pressure. Not a worry —
 just written down.
 
@@ -402,29 +528,33 @@ R14 — they are the differentiators, and a showcase without them is another Eur
 
 ### Requirement coverage
 
-| IDs | Status |
-|---|---|
-| R1, R3, R7, R9, R10, R11 | **present** — unchanged; **R1–R11 implemented and green** |
-| R2 | **modified** ×3 — retry semantics; per-invocation deadline incl. semaphore wait; then explicit `deadline` parameter as the single threading mechanism, and single-call tools yield `isError` (reason codes exist only in the evidence table) |
-| R4 | **modified** ×4 — `hash_scope`; per-snippet canonicalisation + annotation `id`; **`sources` as a list**; then R14: relation annotations have no `prefix`/`postfix`, so those become optional |
-| R5 | **modified** — token now carries a version and a query-param hash |
-| R6 | **modified** — added opt-in truncated abstract to avoid an N+1 triage pattern |
-| R8 | **modified** ×3 — raw licence string travels with the tier; field-level rule for `FREE_TO_READ`; then rephrased as *not OPEN_ACCESS* to close the `isOpenAccess="N"` + `OA`-code fall-through |
-| R12 | **modified** ×4 — widened to retraction; explicit `unknown`, `is_withdrawn` **deleted**; four-state enum; then R14: retraction well supported, **withdrawal has no field** and is heuristic |
-| R13 | **modified** ×4 — size control; split across M2/M3; cap demoted to an assumption; then R14 **set the cap to 8** and added silent-drop → `not_annotated` diffing |
-| R14 | **modified** ×3, then **DONE 2026-09-18** — ran first and serially; all six questions answered, four overturned plan assertions (see Decision Log § R14 results) |
-| R15 | **modified** ×3 — batched `enrich` + explicit `unknown`; `SRC:`-paired IDs and `pageSize` ≥ batch size; then R14's `references` shape and the `match` flag for unresolved refs |
-| R16 | **modified** — R14 found `databaseLinks` dead; substrate moves to `datalinks`, filtering `Altmetric` |
-| R17 | **modified** ×4 — candidate evidence + `match_type`; structured `terms` contract; `terms` vs `entity_filter` roles pinned; then R14 confirmed polarity-free **and** multi-sentence |
-| R18 | **modified** ×2 — reason codes; then renamed `unsupported` → `no_candidates` and the partial-vs-total failure boundary with R27 |
-| R19 | **modified** — now also carries tier + licence string |
-| R20, R21, R22 | **modified** ×2 — two-layer split; then tool layer renamed a **contract & regression suite**, with retrieval scoring moved to R25 |
-| R23 | **modified** ×2 — retraction caveat added (was listed unchanged in error); then **moved M6 → M5**, before the agent sweep, with an `instructions_sha256` per sweep |
-| R24 | **modified** — stdio is the requirement; Streamable HTTP deferred to M6 (approved by user, 2026-09-18) |
-| R25 | **new, then modified** ×2 — agent layer with default temperature, k/N, shared cache, budget, not in CI; then `evidence[].snippet_hash` + `outcome` enum in the answer shape, successes-only caching, instructions hash, all ~30–38 cases |
-| R26 | **new, then modified** ×2 — MCP annotations + output schemas; `status` discriminator; then `outline` added as a third member |
-| R27 | **new** — `isError` results the model can read |
-| — | **dropped:** none |
+| IDs | Plan status | Build |
+|---|---|---|
+| R1, R3, R7 | **present** — unchanged | **done** (M0–M5 green) |
+| R2 | **modified** ×5 — retry semantics; per-invocation deadline; explicit `deadline`; single-call → `isError`; batch wording ten→8; then **get_annotations is single-call** (fan-out conditional closed, 2026-09-21) | **done** |
+| R4 | **modified** ×5 — `hash_scope`; per-snippet hash + annotation `id`; `sources` list; R14 optional prefix/postfix; then 2026-09-21: **re-mine durability marked OPEN** | **done** (durability open) |
+| R5 | **modified** — token now carries a version and a query-param hash | **done** |
+| R6 | **modified** — added opt-in truncated abstract to avoid an N+1 triage pattern | **done** |
+| R8 | **modified** ×4 — raw licence string; FREE_TO_READ field-level rule; *not OPEN_ACCESS* rephrase; then mid-impl `OA`/`F` availability codes | **done** |
+| R9, R10 | **modified** (2026-09-21) — restricted payload **retains `record`** with **full** abstract (R28); was present/unchanged through M5 | **done** |
+| R11 | **present** — unchanged | **done** |
+| R12 | **modified** ×4 — widened to retraction; explicit `unknown`, `is_withdrawn` **deleted**; four-state enum; then R14: retraction well supported, **withdrawal has no field** and is heuristic | **done** |
+| R13 | **modified** ×5 — size control; split across M2/M3; cap demoted to an assumption; R14 set cap to **8** + `not_annotated` diffing; then body wording ×10→×8 (2026-09-21) | **done** |
+| R14 | **modified** ×3, then **DONE 2026-09-18** on five of six planned questions — re-mine durability left open under R4 (2026-09-21) | **done** (one open residual) |
+| R15 | **modified** ×3 — batched `enrich` + explicit `unknown`; `SRC:`-paired IDs and `pageSize` ≥ batch size; then R14's `references` shape and the `match` flag for unresolved refs | **done** |
+| R16 | **modified** ×2 — R14 found `databaseLinks` dead; substrate → `datalinks` + Altmetric filter; then **body text** aligned with coverage (2026-09-21) | **done** |
+| R17 | **modified** ×5 — candidate evidence + `match_type`; structured `terms`; `terms` vs `entity_filter`; R14 polarity-free multi-sentence; then 2026-09-21: Disease Drug, surface-text (R32), list terms (R29), `abstract_cooccurrence` (R30) | **done** |
+| R18 | **modified** ×3 — reason codes; `unsupported`→`no_candidates` + R27 boundary; then R30 rescue precedence (2026-09-21) | **done** |
+| R19 | **modified** — now also carries tier + licence string | **done** |
+| R20, R21, R22 | **modified** ×2 — two-layer split; then tool layer renamed a **contract & regression suite**, with retrieval scoring moved to R25 | **done** (contract 35/35); agent cases pending |
+| R23 | **modified** ×3 — retraction caveat; moved M6→M5 + `instructions_sha256`; then R29/R32 instruction content (2026-09-21) — **breaks prior sweep comparability** | **done** |
+| R24 | **modified** — stdio is the requirement; Streamable HTTP deferred to M6 (approved by user, 2026-09-18) | **done** (stdio) |
+| R25 | **new, then modified** ×3 — agent layer …; then 2026-09-21: `abstract_cooccurrence` citations score **partial** grounding unless gold allows | **not built** — M5 delivered contract suite only |
+| R26 | **modified** ×3 — MCP annotations + output schemas; `status` discriminator; `outline` third member; then **`restricted` requires `record`** (R28, 2026-09-21) | **done** |
+| R27 | **new** — `isError` results the model can read | **done** |
+| R28–R32 | **new** (2026-09-21) — restricted-record spine (full abstract); list terms + `matched_terms`; abstract_cooccurrence window algo; span-keyed dedupe; surface-text + alnum-neighbour boundary + short-all-caps | **done** (M5b code) |
+| R33 | **new** (2026-09-21) — on-demand `--live` smoke; `test_R33_live_smoke_manifest_lists_the_intended_tools` | **done** (manifest test; live runner opt-in) |
+| — | **dropped:** none | — |
 
 ---
 
@@ -472,19 +602,20 @@ Written for you, as the build proceeds — each page lands with the milestone th
   full-text article) and why prefix/exact/postfix is snippets, not offsets.
 - `03-why-licence-and-provenance.md` — the three tiers with a real record of each, and why
   `cc by-nc` vs `cc by-nd` matters beyond the tier; why a refusal is a successful response;
-  and an honest section on **what `content_sha256` does not buy you** — search bodies mutate,
-  so the hash is a cassette-integrity and full-text claim, not a universal reproducibility
-  one (R4).
+  **and (R28) that a restricted payload still carries `record` with the full abstract** — not
+  an empty refusal; and an honest section on **what `content_sha256` does not buy you** —
+  search bodies mutate, so the hash is a cassette-integrity and full-text claim, not a
+  universal reproducibility one (R4).
 - `04-evals-for-agents.md` — the **two-layer split**: why tool-level replay is deterministic
   and therefore has zero variance by construction, why variance only appears once an agent is
   choosing its own queries, and why per-category scores beat a composite. Also why negative
   controls earn their 20%, and why a gold set built with your own search tool is circular.
 - `05-grounding-is-not-support.md` — the R17 problem in plain terms: a substring match finds
   *co-mention*, and "X did not inhibit Y" co-mentions X and Y perfectly. What relation-typed
-  annotations give you — and what they don't. Written **after R14 reports**, whose finding on
-  whether those annotations carry polarity or are sentence-level co-occurrence this page
-  states; the plan's current expectation (no polarity) is an expectation, not yet a fact.
-  Where the honest limit of a no-LLM server sits.
+  annotations give you — and what they don't. **R14 answered this (2026-09-18):** no polarity;
+  multi-sentence spans; hedges look like assertions to a deterministic matcher. Doc 05 states
+  that as fact. Also covers R30's weaker `abstract_cooccurrence` tier and R32's surface-text
+  rule. Where the honest limit of a no-LLM server sits.
 
 `examples/` — three transcripts with real upstream bodies:
 - **Drug–target evidence**: search → annotations → `build_evidence_table` on a claim, ending
@@ -526,7 +657,7 @@ uv run ruff check . && uv run ruff format --check .
 uv run mypy src/                       # strict, once M0 adds the config
 uv run python -m evals.run             # contract suite, cassette replay: deterministic, in CI
 uv run python -m evals.run --live      # contract suite, drift vs cassettes
-uv run python -m evals.agent --runs 5  # agent layer: the scored benchmark. NOT in CI
+# uv run python -m evals.agent --runs 5  # R25 agent layer — PENDING (not built as of 2026-09-21)
 uv run python -m evals.report          # per-category headline; composite secondary
 ```
 
@@ -781,3 +912,82 @@ network.
   check"). Stripped, with a regression test.
 - **2026-09-18 / mypy extended to `evals/`, CI now runs mypy and the contract suite / **
   strict passes on 31 files.
+- **2026-09-21 / version-only HTTP 200 stubs are retryable and never cassette-cached / **
+  `--record` zeroed all 15 retrieval cases while grounding/refusal stayed green: free-text
+  `/search` intermittently returns `{"version":"6.9"}` (HTTP 200, no `hitCount`/`resultList`),
+  and the same shape appears when `Accept` is `*/*` or omitted (ID lookups still succeed).
+  `is_upstream_stub` lives in `client.py` (R2 retries); cassettes import that same predicate
+  (R20) so there is one definition. Documented as trap 9 in the README. MCP Inspector must
+  use `--config .cursor/mcp.json` so the server is named `europepmc-evidence`, not `uv`.
+
+### Agent-grounding hardening (2026-09-21)
+
+- **2026-09-21 / live Syfovre + Ultomiris MCP probes / ** contract suite saturated at 35/35
+  yet three integrity breaks escaped: (1) restricted `fetch_article` dropped `record` despite
+  DESCRIPTION claiming metadata/abstract always returned; (2) pivotal papers with both terms
+  in the abstract landed `no_match` because matching is annotations-only; (3) wrong NER tags
+  (Ravulizumab→tocilizumab) could fabricate hits under the mid-impl entity predicate. Confirms
+  the two-layer thesis; probes become fixture-backed contract cases where possible and agent
+  cases otherwise — also more realistic clinical queries than PubMedQA's title-derived set.
+- **2026-09-21 / R28–R33 added; Settled R9/R10/R17/R18/R26 and Refusal invariant amended /
+  coverage table gains Build column / ** user review of the hardening plan. Trigger: plan
+  iteration before code.
+- **2026-09-21 / R31 dedupe key is span-canonical, not `snippet_sha256` / ** review found R4's
+  hash includes `annotation_id`, so multi-type same-span rows never collapse on hash alone.
+  Dedupe on `(article_id, section, canonical prefix+exact+postfix)`; keep strongest
+  `match_type` and the survivor's hash.
+- **2026-09-21 / R30 matches full abstract, returns a window, distinct `abstract_cooccurrence`
+  tier / ** review: truncated (~300 char) triage abstracts often cut the second term; whole-
+  abstract co-occurrence is weaker than span `substring`, so a new last-ranked `match_type`
+  (not a parallel `scope` field). Synthetic hash id = `abstract:{article_id}`,
+  `hash_scope: VOLATILE`. R18 precedence: rescue `no_match` / `not_annotated` / `restricted`;
+  never `upstream_error`.
+- **2026-09-21 / R32 is the correction of the mid-impl entity-tier fix / ** Decision Log
+  2026-09-18 allowed "at least one term ontology-grounded" to break 100%-`substring` output;
+  that opened a fabrication path when tags disagree with surface form. R32 requires
+  token-boundary surface text; tags only upgrade. Contract case: wrong-tag span → no row.
+- **2026-09-21 / R29 list-valued terms + `matched_terms` / ** brand/INN/abbrev without a
+  server drug DB; validate lists; instructions must state the R32 cost (tag-only abbreviation
+  hits are gone unless variants are supplied). Changes `instructions_sha256` — prior agent
+  sweeps (when R25 lands) are not comparable; report must say so.
+- **2026-09-21 / R25 still absent from the build log / ** M5 recorded the contract suite only.
+  The scored agent benchmark (centrepiece) is not built; live probes were ad hoc versions of
+  it. Coverage Build column marks R25 **not built**.
+- **2026-09-21 / R33 on-demand `--live` smoke / ** four bugs were found only by live calls
+  (406, version-only stubs, `OA`/`F`, enum dump warnings). A small smoke set deserves the same
+  standing as fixtures and the contract suite, run before release, not in CI.
+- **2026-09-21 / stale plan text corrected / ** R16 body still described `databaseLinks` while
+  coverage said `datalinks`; R2/R4/R13/invariants still said "ten" after R14 set the batch cap
+  to 8; doc 05 blurb still said polarity was "expectation, not yet a fact" after R14 answered;
+  R8 coverage count ×3→×4 (`OA`/`F`); R1–R11 "implemented" line replaced by Build column.
+  Trigger: user review. Historical Decision Log entries left as written.
+- **2026-09-21 / pre-coding review: R32 boundary + short-all-caps; R30 window; M5b order;
+  R2/R4/Context / ** user review before implementation.
+  - Token boundary = not preceded/followed by Unicode alphanumeric (`str.isalnum()`), not
+    regex `\b` (fails on `CD4+`, `HER2/neu`, `5-FU`, `IL-6`, `TNF-α`).
+  - Short all-caps (≤4 ASCII letters) match case-sensitively so `AD`/`PNH` do not hit
+    *ad libitum* / lowercased URL fragments.
+  - R30 window: shortest span covering all roles → sentence expand → cap 400; if over cap,
+    emit two windows (subject-centred and object-centred), not a silent truncate.
+  - R25: `abstract_cooccurrence` citations score **partial** grounding unless gold allows.
+  - R28: full abstract on restricted `record`, not R6 triage truncation.
+  - R33: named test `test_R33_live_smoke_manifest_lists_the_intended_tools`.
+  - R31 contained-span collapse deferred as follow-up.
+  - R2: `get_annotations` is single-call; fan-out conditional closed.
+  - R4/R14: re-mine durability **still open** (five of six R14 questions answered).
+  - Context rewritten from scaffold to M0–M5 + pending M5b.
+  - Build order gains **M5b**: R32→R31→R29→R30→R28/R26→R23→examples→R33.
+  - Doc 03 list gains restricted-retains-`record`.
+- **2026-09-21 / R32/R30 gap-fill before M5b code / ** user review ("Go"):
+  - Match on normalised string with **index map** back to original NFC (casefold/whitespace
+    change lengths); offsets and boundaries on original.
+  - R30: enumerate all hits, **minimal covering span** (not leftmost-per-role); sentence
+    boundary = terminator + whitespace + uppercase/digit; two-window case uses hits from
+    that minimal span.
+  - R25 k/N: pass requires span-backed grounding unless gold allows `abstract_cooccurrence`;
+    partial citations reported separately, not folded into k.
+  - R28 test: full abstract >300 chars on restricted record.
+  - Trivial: R14 wording; "27 requirements"→33; `evals.agent` marked pending.
+- **2026-09-21 / M5b implemented (R28–R33) / ** red/green in order R32→R31→R29→R30→R28/R26→R23
+  →examples note→R33. 178 tests green; ruff/mypy clean. Live `--live` smoke runner remains
+  opt-in (manifest test only in CI). R25 agent layer still not built.

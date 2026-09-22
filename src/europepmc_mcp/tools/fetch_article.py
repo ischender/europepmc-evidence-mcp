@@ -20,10 +20,12 @@ from europepmc_mcp.tools._envelope import (
 DESCRIPTION = """\
 Fetch one Europe PMC article by ID (MED:12345, a bare PMID, PMC123456, PPR123456 or a DOI).
 
-Metadata and abstract are always returned. Full text is returned only when the record is \
+Metadata and abstract are always returned — including on a restricted full-text refusal \
+(the record travels with the refusal). Full text is returned only when the record is \
 OPEN_ACCESS and include_full_text is true; for anything else you get a successful response \
-with status "restricted" naming the tier, the licence and what is available instead — read it \
-and continue with the abstract or get_annotations rather than treating it as a failure.
+with status "restricted" naming the tier, the licence, the record, and what is available \
+instead — read it and continue with the abstract or get_annotations rather than treating it \
+as a failure.
 
 Long articles come back as status "outline": a list of section names and sizes. Re-request \
 with sections=["methods"] to read specific parts. Nothing is ever silently truncated.\
@@ -66,7 +68,7 @@ async def fetch_article(
 
         if not full_text_allowed(info.access_tier):
             return restricted(
-                refuse_full_text(info.access_tier, licence=info.licence),
+                refuse_full_text(info.access_tier, licence=info.licence, record=record),
                 sources=sources,
                 query_params=query_params,
             )
@@ -80,7 +82,7 @@ async def fetch_article(
 
     if xml is None:
         # Metadata said open access; upstream serves no XML. Say so rather than crash (R10).
-        refusal = refuse_full_text(info.access_tier, licence=info.licence)
+        refusal = refuse_full_text(info.access_tier, licence=info.licence, record=record)
         refusal.reason = (
             f"This record is {info.access_tier.value}, but Europe PMC has no full text "
             "available for it. Metadata and upstream availability can disagree."

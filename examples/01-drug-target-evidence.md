@@ -3,7 +3,8 @@
 **Retrieved 2026-09-18.** Claim under test: *"Metformin is used to treat type 2 diabetes."*
 
 The chain is `search_literature` → `build_evidence_table`. The interesting part is the last
-row.
+row. (Transcript captured 2026-09-18; under R32 surface text is required for every hit —
+ontology tags only upgrade `match_type`.)
 
 ## Step 1 — find openly licensed papers
 

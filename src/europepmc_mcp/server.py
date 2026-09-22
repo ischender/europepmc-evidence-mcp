@@ -28,8 +28,8 @@ Traps worth knowing:
   expansion. Leave it off unless the user asks, and keep it off for reproducible benchmarks.
 - Access is three tiers, not a boolean: ABSTRACT_ONLY | FREE_TO_READ | OPEN_ACCESS. Full text
   is returned only for OPEN_ACCESS. Anything else comes back as a successful response with
-  status "restricted" — read it and continue with the abstract and annotations rather than
-  treating it as a failure.
+  status "restricted" that still includes the article `record` (metadata + full abstract) —
+  read it and continue with the abstract and annotations rather than treating it as a failure.
 - The licence string travels with the tier because the tier is not enough: cc by, cc by-nc and
   cc by-nd are all OPEN_ACCESS and permit very different reuse.
 - retraction_status is none | withdrawn | retracted | unknown. "unknown" means this shape
@@ -38,6 +38,13 @@ Traps worth knowing:
   is heuristic: Europe PMC publishes no withdrawal field, only the word in the title.
 - Annotation matches show co-mention, not support. A snippet can name a drug and a disease
   while denying any link between them. Read the snippet before relying on it.
+- build_evidence_table matching requires surface text (prefix/exact/postfix). Ontology tags
+  only upgrade match_type; a wrong tag cannot invent a hit. Short all-caps abbreviations
+  (≤4 letters, e.g. PNH, AD) match case-sensitively — pass expansions as term list
+  alternatives, e.g. subject=["Ultomiris","ravulizumab"], object=["PNH","paroxysmal nocturnal
+  hemoglobinuria"]. Tag-only abbreviation hits are gone unless you supply those variants.
+- match_type ranks: relation > entity > substring > abstract_cooccurrence (title+abstract
+  window fallback when annotations do not co-mention both roles).
 - Paging uses one opaque cursor. Pass next_cursor straight back; it is only valid for the
   same arguments.
 

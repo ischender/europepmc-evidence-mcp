@@ -64,10 +64,14 @@ async def search(
     sort: Literal["relevance", "date", "citations"] = "relevance",
     limit: int = DEFAULT_LIMIT,
     cursor: str | None = None,
-    abstract: Literal["none", "truncated"] = "truncated",
+    abstract: Literal["none", "truncated", "full"] = "truncated",
     deadline: Deadline | None = None,
 ) -> tuple[dict[str, Any], UpstreamSource]:
-    """Run one page of a search and return (payload, upstream source record)."""
+    """Run one page of a search and return (payload, upstream source record).
+
+    ``abstract="full"`` is for internal callers (evidence fallback) that need the complete
+    abstract; the search_literature tool only exposes ``none`` | ``truncated``.
+    """
     if not 1 <= limit <= MAX_LIMIT:
         raise InvalidArgumentError(f"limit must be between 1 and {MAX_LIMIT}; got {limit}.")
     if sort not in _SORT_EXPRESSIONS:
@@ -110,12 +114,17 @@ async def search(
     raw_body = response.content
     body = response.json()
     results = (body.get("resultList") or {}).get("result") or []
+
+    def _abstract_for(raw: dict[str, Any]) -> str | None:
+        text = raw.get("abstractText")
+        if abstract == "truncated":
+            return _truncate(text)
+        if abstract == "full":
+            return text
+        return None
+
     records = [
-        CompactRecord.from_search_result(
-            raw,
-            abstract=_truncate(raw.get("abstractText")) if abstract == "truncated" else None,
-        )
-        for raw in results
+        CompactRecord.from_search_result(raw, abstract=_abstract_for(raw)) for raw in results
     ]
 
     next_mark = body.get("nextCursorMark")
