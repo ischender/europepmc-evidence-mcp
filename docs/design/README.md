@@ -1,6 +1,6 @@
 # Design
 
-Product and architecture notes for **Europe PMC Evidence MCP**. This is the canonical design doc for the public repo. The project is still a **scaffold** — tools are not wired to Europe PMC yet.
+Product and architecture notes for **Europe PMC Evidence MCP**. This is the canonical design doc for the public repo. **Status (2026-09-21):** six tools are live against Europe PMC; the contract suite (35 cases) runs. The agent-layer benchmark is not built yet — see [the plan](../plans/v1-end-to-end.md).
 
 | Doc | Audience |
 |-----|----------|
@@ -27,7 +27,7 @@ Life-sciences MCP space already covers PubMed, ChEMBL, ClinicalTrials.gov, bioRx
 1. **Licence-awareness as a hard gate** — full text only for openly licensed records; explicit refusal otherwise (never silent truncation).
 2. **Snippet-level grounding by default** — surrounding text, not just an ID.
 3. **In-repo scored benchmark**, including negative controls.
-4. **Composability** — `databaseLinks` hands off to UniProt/ChEMBL servers; this server does not model molecular data.
+4. **Composability** — `get_database_links` (upstream `datalinks`) hands off to UniProt/ChEMBL servers; this server does not model molecular data.
 
 **Anti-pattern:** a large flat tool list. Ship few tools shaped around real workflows.
 
@@ -52,7 +52,7 @@ Every successful tool response is wrapped in a provenance envelope. Access is mo
 - Docs: `https://europepmc.org/RestfulWebService`
 - Annotations: `https://europepmc.org/AnnotationsApi`
 
-In scope: `search`, `fullTextXML`, `citations`, `references`, `databaseLinks`, `annotationsByArticleIds`.
+In scope: `search`, `fullTextXML`, `citations`, `references`, `datalinks` (the old `databaseLinks` endpoint is dead), `annotationsByArticleIds`.
 
 ## Tool surface (v1)
 
@@ -63,13 +63,13 @@ In scope: `search`, `fullTextXML`, `citations`, `references`, `databaseLinks`, `
 | `get_annotations` | Text-mined entities + prefix/exact/postfix snippets |
 | `get_citation_network` | Citations or references (`direction`) |
 | `get_database_links` | Cross-refs to EBI DBs — hand-off point |
-| `build_evidence_table` | Claim + IDs → grounded rows + `unsupported` list |
+| `build_evidence_table` | Claim + IDs → `candidate_evidence` rows + `no_candidates` list |
 
 ## Known traps
 
 1. MeSH synonym expansion defaults **OFF** upstream (verified 2026-09-18 against the live `search` endpoint: `request.synonym` echoes `false` when the param is omitted). Earlier notes here said ON; that was wrong. Still expose as a parameter, default **OFF**, record in provenance.
 2. Three access tiers — full text only for `OPEN_ACCESS`.
-3. Surface withdrawn preprint flags; never treat withdrawn preprints as normal evidence.
+3. Surface `retraction_status` (`none | withdrawn | retracted | unknown`); never treat retracted/withdrawn work as ordinary evidence. Withdrawal is heuristic (title contains "Withdrawn") — Europe PMC has no clean withdrawal field.
 4. Cursor pagination; never silent truncate.
 5. Namespaced IDs (`MED:`, `PMC:`, `PPR:`, …) — normalise on input, preserve on output.
 6. Descriptive User-Agent + contact; polite backoff.
@@ -79,28 +79,29 @@ In scope: `search`, `fullTextXML`, `citations`, `references`, `databaseLinks`, `
 
 Three categories: **retrieval**, **grounding**, and **refusal / negative control**. Report variance across runs, not a single score. Cases pin `synonym_expansion: false` and record the Europe PMC retrieval date.
 
-Harness lives under `evals/` (scaffold today).
+Harness lives under `evals/`: **contract suite** (cassette replay by default; `--live` / `--record` for drift) is shipped. The **agent layer** (scored retrieval with variance) is not built yet.
 
 ## Roadmap (milestones)
 
-| Milestone | Focus |
-|-----------|--------|
-| M1 | HTTP client, provenance, `search_literature`, tests |
-| M2 | `fetch_article` + licence gate + access-tier enum |
-| M3 | Annotations, citation network, database links |
-| M4 | `build_evidence_table` |
-| M5 | Benchmark harness + cases across all three categories |
-| M6 | README transcript, polish, tagged release |
+| Milestone | Focus | Status |
+|-----------|--------|--------|
+| M1 | HTTP client, provenance, `search_literature`, tests | done |
+| M2 | `fetch_article` + licence gate + access-tier enum | done |
+| M3 | Annotations, citation network, database links | done |
+| M4 | `build_evidence_table` | done |
+| M5 | Contract suite + cases across all three categories | done (35 cases); agent layer pending |
+| M6 | Polish, tagged release; Streamable HTTP only if time allows | open |
 
-M1–M2 and M5–M6 are the minimum useful public slice; the benchmark is part of the product, not an afterthought.
+## Settled decisions
 
-## Open decisions
+Formerly open; closed in the [plan](../plans/v1-end-to-end.md) and reflected in code:
 
-- Display name (signal evidence/grounding, not “another wrapper”).
-- Deterministic annotation matching for `build_evidence_table` in v1 (recommended) vs looser heuristics.
-- Default for `include_preprints` (true vs conservative false).
-- stdio only vs stdio + Streamable HTTP.
-- Always-live vs hashed local cache for reproducible evals.
+| Decision | Settled as |
+|---|---|
+| Matching for `build_evidence_table` | **Deterministic** annotation / surface-text matching (no LLM). Rows are `candidate_evidence`; absence is `no_candidates` with reason codes (R17–R18, R29–R32). |
+| `include_preprints` default | **`true`**. Pass `false` to exclude `SRC:PPR`. |
+| Transport | **stdio** is the v1 requirement (R24). CLI also accepts `--transport streamable-http`; that path is deferred polish, not the contract. |
+| Eval data | **Recorded cassettes by default**; `--live` / `--record` for drift. Never cache version-only stubs or 5xx (R20). |
 
 ## Attribution
 

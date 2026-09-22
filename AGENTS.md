@@ -2,7 +2,7 @@
 
 Guidance for AI coding agents (Cursor, Claude Code, etc.) working in this repo — an MCP server over Europe PMC that returns *grounded evidence* (snippets, licence, provenance), not bare search hits, plus a scored benchmark with negative controls.
 
-**Status:** scaffold — layout and spine helpers exist; tools are not wired yet.
+**Status:** six tools live against Europe PMC; contract suite (35 cases) green. Agent-layer benchmark not built — see `docs/plans/v1-end-to-end.md`.
 
 **Agent mirror:** `CLAUDE.md` is a **symlink** to `AGENTS.md` — one file, two names. Edit `AGENTS.md`; there is nothing to keep in sync.
 
@@ -15,7 +15,7 @@ Guidance for AI coding agents (Cursor, Claude Code, etc.) working in this repo �
 1. **Licence-awareness as a hard gate** — full text only for openly licensed (OA) records; typed refusal otherwise (never silent truncation).
 2. **Snippet-level grounding by default** — surrounding text, section, licence, provenance on claim-bearing answers.
 3. **Scored benchmark in-repo** — retrieval, grounding, and refusal / negative controls (withdrawn preprints, licence-restricted, unsupported claims).
-4. **Composability** — `databaseLinks` hands off to UniProt/ChEMBL servers; this server does not model molecular data.
+4. **Composability** — `get_database_links` (upstream `datalinks`) hands off to UniProt/ChEMBL servers; this server does not model molecular data.
 
 **Non-goals:** no local corpus / embeddings, no bulk download, no write ops, no LLM calls inside the server. Few tools shaped around workflows — avoid the "32 tools" trap.
 
@@ -59,7 +59,7 @@ europepmc-evidence-mcp/
 | `get_annotations` | Text-mined entities + prefix/exact/postfix snippets |
 | `get_citation_network` | Citations or references (one tool, `direction`) |
 | `get_database_links` | Cross-refs to EBI DBs — hand-off, not modelling |
-| `build_evidence_table` | Claim + IDs → grounded rows + explicit `unsupported` list |
+| `build_evidence_table` | Claim + IDs → `candidate_evidence` rows + explicit `no_candidates` list |
 
 Every successful response wraps payload in a **provenance envelope** (`source`, `resolved_url`, `retrieved_at`, `content_sha256` of upstream body, `query_params`, `server_version`).
 
