@@ -1,8 +1,6 @@
 # Learning track
 
-Notes written while building this server, for someone who knows software but is new to MCP
-and to Europe PMC. Each page lands with the milestone that makes it true, so nothing here is
-aspirational — if it says the code does something, the code does it.
+Notes written while building this server, for someone who knows software but is new to MCP and to Europe PMC. Each page lands with the milestone that makes it true, so nothing here is aspirational — if it says the code does something, the code does it.
 
 | Page | What it covers |
 |------|----------------|

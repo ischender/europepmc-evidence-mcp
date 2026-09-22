@@ -1,8 +1,6 @@
 # Worked examples
 
-Transcripts of real tool calls against the live Europe PMC API. Every response shown here was
-produced by running the code in this repository; nothing is illustrative-only. Retrieval dates
-are given because the corpus drifts.
+Transcripts of real tool calls against the live Europe PMC API. Every response shown here was produced by running the code in this repository; nothing is illustrative-only. Retrieval dates are given because the corpus drifts.
 
 | Example | What it shows |
 |---|---|
