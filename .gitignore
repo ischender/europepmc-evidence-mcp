@@ -30,3 +30,6 @@ htmlcov/
 
 # Local pre-build / scratch (do not ship)
 /design/
+
+# Downloaded gold-set source data — attribution and derived cases are committed, not the data
+evals/.cache/

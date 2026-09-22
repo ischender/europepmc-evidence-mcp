@@ -1,0 +1,120 @@
+meta:
+  source: Retraction Watch Database (via Crossref)
+  source_url: https://gitlab.com/crossref/retraction-watch-data
+  source_licence: CC0 (Crossref distribution)
+  note: Independent retraction truth. Valuable precisely because this server derives
+    retraction status from Europe PMC's own pubTypeList — so this checks one source
+    against another rather than against itself.
+  retrieval_date: '2026-09-18'
+cases:
+- id: refusal-001
+  category: refusal
+  gold_provenance: independent
+  question: 'Is ''Thioredoxin Glutathione Reductase as a Novel Drug Target: Evidence
+    from Schistos'' retracted?'
+  tool: search_literature
+  args:
+    query: EXT_ID:22384025 AND SRC:MED
+    limit: 1
+    synonym_expansion: false
+  gold:
+    retraction_status: retracted
+  source_note: 'Retraction Watch reason: Duplication of Data;Duplication of Text;Duplication
+    of/in Image;Euphemisms for Duplication;Removed;'
+- id: refusal-002
+  category: refusal
+  gold_provenance: independent
+  question: 'Is ''Perennial plants and traditional medicine: Assessing the socio-demographic
+    impac'' retracted?'
+  tool: search_literature
+  args:
+    query: EXT_ID:40779446 AND SRC:MED
+    limit: 1
+    synonym_expansion: false
+  gold:
+    retraction_status: retracted
+  source_note: 'Retraction Watch reason: Concerns/Issues about Article;Concerns/Issues
+    about Data;Concerns/Issues about Results and/or Conclusions;Error in Analy'
+- id: refusal-003
+  category: refusal
+  gold_provenance: independent
+  question: 'Is ''Caffeine Positively Modulates Ferritin Heavy Chain Expression in
+    H460 Cells: Eff'' retracted?'
+  tool: search_literature
+  args:
+    query: EXT_ID:27657916 AND SRC:MED
+    limit: 1
+    synonym_expansion: false
+  gold:
+    retraction_status: retracted
+  source_note: 'Retraction Watch reason: Concerns/Issues about Image;Concerns/Issues
+    about Results and/or Conclusions;Duplication of/in Image;Euphemisms for Dupl'
+- id: refusal-004
+  category: refusal
+  gold_provenance: independent
+  question: Is 'An inherently interpretable deep learning model for local explanations
+    using vis' retracted?
+  tool: search_literature
+  args:
+    query: EXT_ID:39466770 AND SRC:MED
+    limit: 1
+    synonym_expansion: false
+  gold:
+    retraction_status: retracted
+  source_note: 'Retraction Watch reason: Concerns/Issues about Article;Concerns/Issues
+    about Results and/or Conclusions;Objections by Author(s);'
+- id: refusal-005
+  category: refusal
+  gold_provenance: independent
+  question: Is 'An eel-like robot based on a dielectric elastomer' retracted?
+  tool: search_literature
+  args:
+    query: EXT_ID:40632709 AND SRC:MED
+    limit: 1
+    synonym_expansion: false
+  gold:
+    retraction_status: retracted
+  source_note: 'Retraction Watch reason: Concerns/Issues about Results and/or Conclusions;Error
+    in Analyses;Error in Methods;Investigation by Journal/Publisher;O'
+- id: refusal-006
+  category: refusal
+  gold_provenance: independent
+  question: Is 'Synergic effect of polyester fiber and nano silica on chemical resistance
+    of geo' retracted?
+  tool: search_literature
+  args:
+    query: EXT_ID:37751445 AND SRC:MED
+    limit: 1
+    synonym_expansion: false
+  gold:
+    retraction_status: retracted
+  source_note: 'Retraction Watch reason: Concerns/Issues about Article;Concerns/Issues
+    about Results and/or Conclusions;'
+- id: refusal-007
+  category: refusal
+  gold_provenance: independent
+  question: Is 'Study on the deterioration characteristics of aeolian sand concrete
+    under the co' retracted?
+  tool: search_literature
+  args:
+    query: EXT_ID:38032923 AND SRC:MED
+    limit: 1
+    synonym_expansion: false
+  gold:
+    retraction_status: retracted
+  source_note: 'Retraction Watch reason: Concerns/Issues about Article;Concerns/Issues
+    about Peer Review;Objections by Author(s);'
+- id: refusal-008
+  category: refusal
+  gold_provenance: independent
+  question: Is 'Investigation of the effectiveness of CFRP strengthening of concrete
+    made with r' retracted?
+  tool: search_literature
+  args:
+    query: EXT_ID:35830388 AND SRC:MED
+    limit: 1
+    synonym_expansion: false
+  gold:
+    retraction_status: retracted
+  source_note: 'Retraction Watch reason: Concerns/Issues about Article;Concerns/Issues
+    about Results and/or Conclusions;'

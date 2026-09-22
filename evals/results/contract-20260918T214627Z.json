@@ -1,0 +1,255 @@
+{
+  "headline_score": 0.0,
+  "categories": {
+    "retrieval": {
+      "validated": {
+        "total": 15,
+        "passed": 0,
+        "failed": 0,
+        "errored": 15,
+        "score": 0.0
+      },
+      "provisional": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "errored": 0,
+        "score": null
+      }
+    },
+    "grounding": {
+      "validated": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "errored": 0,
+        "score": null
+      },
+      "provisional": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "errored": 0,
+        "score": null
+      }
+    },
+    "refusal": {
+      "validated": {
+        "total": 8,
+        "passed": 0,
+        "failed": 0,
+        "errored": 8,
+        "score": 0.0
+      },
+      "provisional": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "errored": 0,
+        "score": null
+      }
+    }
+  },
+  "composite": {
+    "score": 0.0,
+    "weights": {
+      "retrieval": 0.4,
+      "grounding": 0.4,
+      "refusal": 0.2
+    },
+    "note": "The composite is a convenience, not the result. Read the per-category scores: a 40/40/20 blend can hide a collapsed refusal score behind good retrieval."
+  },
+  "provisional_case_count": 0,
+  "case_count": 23,
+  "run_at": "2026-09-18T21:46:27.409054+00:00",
+  "mode": "record",
+  "instructions_sha256": "accba206020a8c9bc010382321ad3af4b8f6a4b0fe8829faf399209f1d69533e",
+  "cassette_hits": 0,
+  "cassette_misses": 23,
+  "cases": [
+    {
+      "id": "refusal-001",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-002",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-003",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-004",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-005",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-006",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-007",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "refusal-008",
+      "category": "refusal",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "Retraction Watch Database (via Crossref)"
+    },
+    {
+      "id": "retrieval-001",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-002",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-003",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-004",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-005",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-006",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-007",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-008",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-009",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-010",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-011",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-012",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-013",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-014",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    },
+    {
+      "id": "retrieval-015",
+      "category": "retrieval",
+      "gold_provenance": "independent",
+      "outcome": "error",
+      "detail": "Error -3 while decompressing data: incorrect header check",
+      "source": "PubMedQA (PQA-L)"
+    }
+  ]
+}

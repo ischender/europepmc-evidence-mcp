@@ -1,0 +1,134 @@
+meta:
+  source: PubMedQA (PQA-L)
+  source_url: https://github.com/pubmedqa/pubmedqa
+  source_licence: MIT
+  note: Expert-annotated biomedical questions keyed by real PMIDs. Independent of
+    this server.
+  retrieval_date: '2026-09-18'
+cases:
+- id: grounding-001
+  category: grounding
+  gold_provenance: independent
+  question: Do mitochondria play a role in remodelling lace plant leaves during programmed
+    cell death?
+  tool: fetch_article
+  args:
+    id: MED:21645374
+  gold:
+    snippet_contains: The following paper elucidates the role of mitochondrial dynamics
+      during developmentally r
+- id: grounding-002
+  category: grounding
+  gold_provenance: independent
+  question: 'Landolt C and snellen e acuity: differences in strabismus amblyopia?'
+  tool: fetch_article
+  args:
+    id: MED:16418930
+  gold:
+    snippet_contains: '100 patients (age 8 - 90 years, median 60.5 years) with various
+      eye disorders, among them '
+- id: grounding-003
+  category: grounding
+  gold_provenance: independent
+  question: Syncope during bathing in infants, a pediatric form of water-induced urticaria?
+  tool: fetch_article
+  args:
+    id: MED:9488747
+  gold:
+    snippet_contains: 'Eight infants aged 2 to 15 months were admitted during a period
+      of 6 years; they suffered '
+- id: grounding-004
+  category: grounding
+  gold_provenance: independent
+  question: Are the long-term results of the transanal pull-through equal to those
+    of the transabdominal pull-through?
+  tool: fetch_article
+  args:
+    id: MED:17208539
+  gold:
+    snippet_contains: Records of 41 patients more than 3 years old who underwent a
+      pull-through for HD (TERPT, n
+- id: grounding-005
+  category: grounding
+  gold_provenance: independent
+  question: Can tailored interventions increase mammography use among HMO women?
+  tool: fetch_article
+  args:
+    id: MED:10808977
+  gold:
+    snippet_contains: Telephone counseling and tailored print communications have
+      emerged as promising methods f
+- id: grounding-006
+  category: grounding
+  gold_provenance: independent
+  question: 'Double balloon enteroscopy: is it efficacious and safe in a community
+    setting?'
+  tool: fetch_article
+  args:
+    id: MED:23831910
+  gold:
+    snippet_contains: The mean age was 62 years. Thirty-two patients were female,
+      15 were African-American; 44 a
+- id: grounding-007
+  category: grounding
+  gold_provenance: independent
+  question: '30-Day and 1-year mortality in emergency general surgery laparotomies:
+    an area of concern and need for improvement?'
+  tool: fetch_article
+  args:
+    id: MED:26037986
+  gold:
+    snippet_contains: Emergency surgery is associated with poorer outcomes and higher
+      mortality with recent stud
+- id: grounding-008
+  category: grounding
+  gold_provenance: independent
+  question: Is adjustment for reporting heterogeneity necessary in sleep disorders?
+  tool: fetch_article
+  args:
+    id: MED:26852225
+  gold:
+    snippet_contains: The prevalence of self-reported problems with sleep and energy
+      was 53 %. Without correctio
+- id: grounding-009
+  category: grounding
+  gold_provenance: independent
+  question: Do mutations causing low HDL-C promote increased carotid intima-media
+    thickness?
+  tool: fetch_article
+  args:
+    id: MED:17113061
+  gold:
+    snippet_contains: In a 1:2 case-control study of sex and age-related (+/-5 y)
+      subjects (n=114), cIMT was nea
+- id: grounding-010
+  category: grounding
+  gold_provenance: independent
+  question: 'A short stay or 23-hour ward in a general and academic children''s hospital:
+    are they effective?'
+  tool: fetch_article
+  args:
+    id: MED:10966337
+  gold:
+    snippet_contains: The short stay ward accounted for 10.3% (Westmead Hospital)
+      and 14.7% (New Children's Hosp
+- id: grounding-011
+  category: grounding
+  gold_provenance: independent
+  question: Did Chile's traffic law reform push police enforcement?
+  tool: fetch_article
+  args:
+    id: MED:25432938
+  gold:
+    snippet_contains: A unique dataset with assembled information from public institutions
+      and analyses based on
+- id: grounding-012
+  category: grounding
+  gold_provenance: independent
+  question: 'Therapeutic anticoagulation in the trauma patient: is it safe?'
+  tool: fetch_article
+  args:
+    id: MED:18847643
+  gold:
+    snippet_contains: One-hundred-fourteen trauma patients were initiated on therapeutic
+      anticoagulation. The mo

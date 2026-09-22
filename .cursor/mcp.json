@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "europepmc-evidence": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${workspaceFolder}",
+        "europepmc-mcp"
+      ]
+    }
+  }
+}

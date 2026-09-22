@@ -25,6 +25,8 @@ dev = [
     "pytest-asyncio==1.4.0",
     "respx==0.23.1",
     "ruff==0.16.8",
+    "mypy==1.18.2",
+    "types-PyYAML==6.0.12.20250915",
     "pyyaml==6.0.3",
 ]
 
@@ -41,7 +43,17 @@ packages = ["src/europepmc_mcp"]
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
+
+[tool.mypy]
+python_version = "3.14"
+files = ["src", "evals"]
+strict = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "mcp.*"
+ignore_missing_imports = true
 
 [tool.ruff]
 target-version = "py314"
