@@ -22,14 +22,14 @@ The same repository will ship a scored benchmark for retrieval accuracy, groundi
 
 Life-sciences MCP space already covers PubMed, ChEMBL, ClinicalTrials.gov, bioRxiv/medRxiv, Open Targets, and several UniProt/ChEMBL wrappers. Europe PMC is a richer substrate than PubMed alone (full text, text-mined annotations, preprint status, database cross-links) and is a natural fit for evidence-shaped tools.
 
-**Differentiators this project protects:**
+**Differentiators:**
 
 1. **Licence-awareness as a hard gate** — full text only for openly licensed records; explicit refusal otherwise (never silent truncation).
 2. **Snippet-level grounding by default** — surrounding text, not just an ID.
 3. **In-repo scored benchmark**, including negative controls.
 4. **Composability** — `get_database_links` (upstream `datalinks`) hands off to UniProt/ChEMBL servers; this server does not model molecular data.
 
-**Anti-pattern:** a large flat tool list. Ship few tools shaped around real workflows.
+**Anti-pattern:** We do not want a large flat tool list, only a few tools shaped around real workflows.
 
 ## Non-goals (v1)
 
